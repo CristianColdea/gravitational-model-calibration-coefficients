@@ -4,7 +4,7 @@ gravitational model, transport demand.
 """
 
 # number of travels as a matrix with produced travels on lines
-# and atracted travels on columns
+# and attracted travels on columns
 
 travs = [[40, 110, 150],
          [50, 20, 30],
@@ -13,8 +13,8 @@ travs = [[40, 110, 150],
 # the matching friction factors, same arrangment
 
 ffs = [[0.753, 1,597, 0.753],
-         [0.987, 0.753, 0.765],
-         [1.597, 0.765, 0.753]]
+       [0.987, 0.753, 0.765],
+       [1.597, 0.765, 0.753]]
 
 def gravmod(travs,ffs):
     """
@@ -29,6 +29,13 @@ def gravmod(travs,ffs):
         print("The matrices doesn't match. Please fix it.")
         exit()
     
+    # define empty sums
+    s1, s2, s3 = 0
+
+    for i in range(len(travs)):
+        for j in range(len(travs[i])):
+            s1 = s
+
     print(travs[0])
     # print(len(travs))
 
