@@ -23,7 +23,8 @@ def gravmod(travs,ffs):
     Takes as input the travels and friction factors matrices.
     Returns a matrix with computed values.
     """
-
+    
+    # check if the matrices have the same shape
     if(len(travs) != len(ffs)):
         print("The matrices doesn't match. Please fix it.")
         exit()
