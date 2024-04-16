@@ -34,8 +34,8 @@ def gravmod(travs,ffs):
     ffs_tt = list(zip(*ffs))
     travs_t = [list(sublist) for sublist in travs_tt]
     ffs_t = [list(sublist) for sublist in ffs_tt]
-    print(travs_t)
-    print(ffs_t)
+    # print(travs_t)
+    # print(ffs_t)
     
     # allocate variables name
     ts = []
@@ -47,6 +47,7 @@ def gravmod(travs,ffs):
     for i in range(len(travs_t)):
         t = list(zip(travs_t[i], ffs_t[i]))
         print(t)
+        
 
     # print(ts)
             
