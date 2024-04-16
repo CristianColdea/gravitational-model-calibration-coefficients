@@ -12,7 +12,7 @@ travs = [[40, 110, 150],
 
 # the matching friction factors, same arrangment
 
-ffs = [[0.753, 1,597, 0.753],
+ffs = [[0.753, 1.597, 0.753],
        [0.987, 0.753, 0.765],
        [1.597, 0.765, 0.753]]
 
@@ -33,15 +33,25 @@ def gravmod(travs,ffs):
     travs_tt = list(zip(*travs))
     ffs_tt = list(zip(*ffs))
     travs_t = [list(sublist) for sublist in travs_tt]
-    ffs_t = [list(sublit) for sublist in ffs_tt]
+    ffs_t = [list(sublist) for sublist in ffs_tt]
     print(travs_t)
     print(ffs_t)
+    
+    # allocate variables name
+    ts = []
+    for i in range(len(travs_t)):
+        t = 't'+str(i+1)
+        ts.append(t)
+    
+    # zip transposed lines as separate variables
+    for i in range(len(travs_t)):
+        t = list(zip(travs_t[i], ffs_t[i]))
+        print(t)
 
-    for i in range(len(travs)):
-        for j in range(len(travs[i])):
-            s1 = s
+    # print(ts)
+            
 
-    print(travs[0])
+    # print(travs[0])
     # print(len(travs))
 
 
