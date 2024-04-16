@@ -29,8 +29,13 @@ def gravmod(travs,ffs):
         print("The matrices doesn't match. Please fix it.")
         exit()
     
-    # define empty sums
-    s1, s2, s3 = 0
+    # transpose de matrices
+    travs_tt = list(zip(*travs))
+    ffs_tt = list(zip(*ffs))
+    travs_t = [list(sublist) for sublist in travs_tt]
+    ffs_t = [list(sublit) for sublist in ffs_tt]
+    print(travs_t)
+    print(ffs_t)
 
     for i in range(len(travs)):
         for j in range(len(travs[i])):
