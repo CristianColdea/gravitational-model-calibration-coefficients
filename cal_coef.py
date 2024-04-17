@@ -10,7 +10,7 @@ travs = [[40, 110, 150],
          [50, 20, 30],
          [110, 30, 10]]
 
-# the matching friction factors, same arrangment
+# the matching friction factors, same arrangement
 
 ffs = [[0.753, 1.597, 0.753],
        [0.987, 0.753, 0.765],
