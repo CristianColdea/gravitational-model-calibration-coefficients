@@ -38,16 +38,31 @@ def gravmod(travs,ffs):
     # print(ffs_t)
     
     # allocate variables name
-    ts = []
-    for i in range(len(travs_t)):
-        t = 't'+str(i+1)
-        ts.append(t)
+    # ts = []
+    # for i in range(len(travs_t)):
+    #    t = 't'+str(i+1)
+    #    ts.append(t)
     
+    # list to store values
+    cmb = []
     # zip transposed lines as separate variables
     for i in range(len(travs_t)):
         t = list(zip(travs_t[i], ffs_t[i]))
-        print(t)
-        
+        cmb.append(t)
+    
+    print(cmb)
+    
+    cmb2 = []
+    for item in cmb:
+        sm = 0
+        for item in item:
+            print(item[0], item[1])
+            pd = item[0] * item[1]
+            print(sm)
+            sm = sm + pd
+        cmb2.append(sm)
+
+    print(cmb2)
 
     # print(ts)
             
