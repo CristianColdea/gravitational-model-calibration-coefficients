@@ -37,6 +37,17 @@ def gravmod(travs,ffs):
     # print(travs_t)
     # print(ffs_t)
     
+    # get attracted travels sums (cycling on transposes)
+    s_Aj = []   # store the attracted sums
+
+    for item in travs_tt:
+        s_Aj.append(sum(item))
+
+    # get produced travels sums
+    s_Pi = []
+    for item in travs:
+        s_Pi.append(sum(item))
+
     # allocate variables name
     # ts = []
     # for i in range(len(travs_t)):
