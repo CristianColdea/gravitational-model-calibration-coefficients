@@ -52,15 +52,20 @@ def gravmod(travs,ffs):
     gvals = []    # store values
     for i in range(len(travs)):
         pdsum = 0
-        for j1, j2 in zip(travs[i], ffs[i]):
+        for j1, j2 in zip(s_Aj, ffs[i]):
             pdsum = pdsum + j1 * j2
+            print(pdsum)
+            print(ffs[i])
+        for k1 in range(len(ffs[i])):
+            gvals.append((s_Pi[i] * ffs[k1] * s_Aj[k1] / pdsum))
+            print(gvals)
     # list to store values
     cmb = []
     # zip transposed lines as separate variables
     for i in range(len(travs_t)):
         t = list(zip(travs_t[i], ffs_t[i]))
         # cmb.append(t)
-        print(t)
+        # print(t)
         s = 0
         for item in t:
             pd = item[0] * item[1]
@@ -68,7 +73,7 @@ def gravmod(travs,ffs):
 
         cmb.append(s)
     
-    print(cmb)
+    # print(cmb)
     """
     cmb2 = []
     for item in cmb:
