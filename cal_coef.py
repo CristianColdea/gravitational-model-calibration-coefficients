@@ -60,5 +60,19 @@ def gravmod(travs,ffs):
             gvals.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] / pdsum))
 
     print(gvals)
-   
+    # round the number of travels
+    gvalsr = []
+    for item in gvals:
+        gvalsr.append(round(item))
+    print(gvalsr)
+
+    # compute calibration coefficients
+    ccoeffs = []
+    unpck_travs = [value for row in travs for value in row]
+    print(unpck_travs)
+    for c_obs, c_comp in zip(unpck_travs, gvalsr):
+        ccoeffs.append(c_obs / c_comp)
+
+    print(ccoeffs)
+
 gravmod(travs, ffs)
