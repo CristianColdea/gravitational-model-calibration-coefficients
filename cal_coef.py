@@ -60,37 +60,5 @@ def gravmod(travs,ffs):
             gvals.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] / pdsum))
 
     print(gvals)
-    # list to store values
-    cmb = []
-    # zip transposed lines as separate variables
-    for i in range(len(travs_t)):
-        t = list(zip(travs_t[i], ffs_t[i]))
-        # cmb.append(t)
-        # print(t)
-        s = 0
-        for item in t:
-            pd = item[0] * item[1]
-            s = s + pd
-
-        cmb.append(s)
-    
-    # print(cmb)
-    """
-    cmb2 = []
-    for item in cmb:
-        sm = 0
-        for item in item:
-            #print(item[0], item[1])
-            pd = item[0] * item[1]
-            # print(sm)
-            # sm = sm + pd
-        # cmb2.append(sm)
-    """
-
-                
-
-    # print(travs[0])
-    # print(len(travs))
-
-
+   
 gravmod(travs, ffs)
