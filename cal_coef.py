@@ -49,16 +49,17 @@ def gravmod(travs,ffs):
         s_Pi.append(sum(item))
     
     # compute travels with gravitational model
-    gvals = []    # store values
+    gvals = []    # to store computed values
     for i in range(len(travs)):
         pdsum = 0
         for j1, j2 in zip(s_Aj, ffs[i]):
             pdsum = pdsum + j1 * j2
-            print(pdsum)
-            print(ffs[i])
+            # print(pdsum)
+            # print(ffs[i])
         for k1 in range(len(ffs[i])):
-            gvals.append((s_Pi[i] * ffs[k1] * s_Aj[k1] / pdsum))
-            print(gvals)
+            gvals.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] / pdsum))
+
+    print(gvals)
     # list to store values
     cmb = []
     # zip transposed lines as separate variables
