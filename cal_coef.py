@@ -64,7 +64,26 @@ def gravmod(travs,ffs):
     gvalsr = []
     for item in gvals:
         gvalsr.append(round(item))
+    
     print(gvalsr)
+
+    # group flatten as a matrix
+    gvals_m = list(zip(*[iter(gvalsr)]*3))
+    print(gvals_m)
+
+    # check produced travels sum
+    for p1, p2 in zip(travs, gvals_m):
+        print(sum(p1) == sum(p2))
+
+    # check attracted travels sum
+    # transpose the matrix first
+    gvals_m_tt = list(zip(*gvals_m))
+    print(gvals_m_tt, travs_tt)
+    for a1, a2 in zip(gvals_m_tt, travs_tt):
+        print(sum(a1) == sum(a2))
+        print(sum(a1))
+        print(sum(a2))
+
 
     # compute calibration coefficients
     ccoeffs = []
