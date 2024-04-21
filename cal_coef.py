@@ -100,7 +100,7 @@ def gravmod(travs,ffs):
     on columns 1 and 2 and a lack of on column 3. Remove as much as possible
     from the exceeding columns and maintain the sums on lines, i.e. move 7 from
     column 1 to 3 on the line with the highest value (line 3), move 30 from
-    column 2 to 3, on line 1, and move 7 from column 2 to 3, on line 2.
+    column 2 to 3, on line 1 (highest value), and move 7 from column 2 to 3, on line 2.
     The final travels matrix will be:
     [[82, 110, 108],
      [43, 19, 38],
