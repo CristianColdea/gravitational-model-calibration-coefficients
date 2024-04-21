@@ -84,14 +84,40 @@ def gravmod(travs,ffs):
         print(sum(a1))
         print(sum(a2))
 
+    """
+    After rounding the values obtained with gravitational model, when
+    ckecking the produced and attracted travels (lines 74-83),
+    the travels sums on lines (i.e., produced travels) are equal to
+    the historical data, but not on columns (i.e., attracted travels).
+    Suggested approach: maintain the sums on lines and move from the exceeding
+    sums on columns to the column with less travels.
+    After rounding:
+    [[82, 140, 78],
+     [43, 26, 31],
+     [82, 197, 146]].
+    Sums on lines are okay, [300, 100, 150], but on columns are
+    [207, 197, 146] instead of [200, 160, 190]. There is clearly and excedent
+    on columns 1 and 2 and a lack of on column 3. Remove as much as possible
+    from the exceeding columns and maintain the sums on lines, i.e. move 7 from
+    column 1 to 3 on the line with the highest value (line 3), move 30 from
+    column 2 to 3, on line 1, and move 7 from column 2 to 3, on line 2.
+    The final travels matrix will be:
+    [[82, 110, 108],
+     [43, 19, 38],
+     [75, 31, 44]].
+    """
 
+    # introduce flatten computed travels after rounding and adjustment
+    gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
     # compute calibration coefficients
     ccoeffs = []
     unpck_travs = [value for row in travs for value in row]
     print(unpck_travs)
-    for c_obs, c_comp in zip(unpck_travs, gvalsr):
+    for c_obs, c_comp in zip(unpck_travs, gvalsradj):
         ccoeffs.append(c_obs / c_comp)
 
     print(ccoeffs)
+
+    return ccoeffs
 
 gravmod(travs, ffs)
