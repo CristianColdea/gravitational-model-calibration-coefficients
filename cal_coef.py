@@ -127,4 +127,5 @@ def gravmod(travs,ffs):
 
     return ccoeffs
 
-gravmod(travs, ffs)
+ccoeffs = gravmod(travs, ffs)
+print(ccoeffs)
