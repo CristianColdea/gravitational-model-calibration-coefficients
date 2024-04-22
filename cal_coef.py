@@ -21,7 +21,7 @@ def gravmod(travs,ffs):
     Function to compute gravitational model values in order to determine the
     calibration factors.
     Takes as input the travels and friction factors matrices.
-    Returns a matrix with computed values.
+    Returns a matrix with calibration factors.
     """
     
     # check if the matrices have the same shape
@@ -60,6 +60,13 @@ def gravmod(travs,ffs):
             gvals.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] / pdsum))
 
     print(gvals)
+
+    # check raw produced travels
+    gvals_m0 = list(zip(*[iter(gvals)]*3))
+    for p1, p2 in zip(travs, gvals_m0):
+        print(sum(p1) == sum(p2))
+        print(sum(p2))
+
     # round the number of travels
     gvalsr = []
     for item in gvals:
