@@ -16,6 +16,27 @@ ffs = [[0.753, 1.597, 0.753],
        [0.987, 0.753, 0.765],
        [1.597, 0.765, 0.753]]
 
+# auto travels cost
+
+tca = [[0.5, 1, 1.4],
+       [1.2, 0.8, 1.2],
+       [1.7, 1.5, 0.7]]
+
+# transit travels cost
+tct = [[1, 1.5, 2],
+       [1.8, 1.2, 1.9],
+       [1.7, 1.5, 0.7]]
+
+# auto travels duration
+tda = [[3, 12, 7],
+       [13, 3, 19],
+       [9, 16, 4]]
+
+# transit travels duration
+tdt = [[15, 5, 12],
+       [15, 6, 26],
+       [20, 21, 8]]
+
 def gravmod(travs,ffs):
     """
     Function to compute gravitational model values in order to determine the
