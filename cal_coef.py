@@ -81,41 +81,41 @@ def gravmod(travs,ffs):
         for k1 in range(len(ffs[i])):
             gvals.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] / pdsum))
 
-    print(gvals)
+    # print("Travel obtained with gravitational model, ", gvals)
 
     # check raw produced travels
     gvals_m0 = list(zip(*[iter(gvals)]*3))
-    for p1, p2 in zip(travs, gvals_m0):
-        print(round(sum(p1)) == round(sum(p2)))
-        print(sum(p2))
+    # for p1, p2 in zip(travs, gvals_m0):
+        # print(round(sum(p1)) == round(sum(p2)))
+        # print(sum(p2))
 
     # round the number of travels
     gvalsr = []
     for item in gvals:
         gvalsr.append(round(item))
     
-    print(gvalsr)
+    # print("Rounded number of travels, ", gvalsr)
 
-    # group flatten as a matrix
+    # group flatten list 'gvalsr' as a matrix
     gvals_m = list(zip(*[iter(gvalsr)]*3))
-    print(gvals_m)
+    # print("Matrix of rounded numbers, ", gvals_m)
 
     # check produced travels sum
-    for p1, p2 in zip(travs, gvals_m):
-        print(sum(p1) == sum(p2))
+    # for p1, p2 in zip(travs, gvals_m):
+        # print(sum(p1) == sum(p2))
 
     # check attracted travels sum
     # transpose the matrix first
     gvals_m_tt = list(zip(*gvals_m))
-    print(gvals_m_tt, travs_tt)
-    for a1, a2 in zip(gvals_m_tt, travs_tt):
-        print(sum(a1) == sum(a2))
-        print(sum(a1))
+    # print(gvals_m_tt, travs_tt)
+    # for a1, a2 in zip(gvals_m_tt, travs_tt):
+        # print(sum(a1) == sum(a2))
+        # print(sum(a1))
         # print(sum(a2))
 
     """
     After rounding the values obtained with gravitational model, when
-    ckecking the produced and attracted travels (lines 111-114),
+    ckecking the produced and attracted travels (lines 104-114),
     the travels sums on lines (i.e., produced travels) are equal to
     the historical data, but not on columns (i.e., attracted travels).
     Suggested approach: maintain the sums on lines and move from the exceeding
@@ -140,12 +140,13 @@ def gravmod(travs,ffs):
     gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
     # compute calibration coefficients
     ccoeffs = []
+    # flatten the travels matrix
     unpck_travs = [value for row in travs for value in row]
-    print(unpck_travs)
+    # print(unpck_travs)
     for c_obs, c_comp in zip(unpck_travs, gvalsradj):
         ccoeffs.append(c_obs / c_comp)
 
-    print(ccoeffs)
+    # print(ccoeffs)
 
     return ccoeffs
 
@@ -168,8 +169,8 @@ def modopt(tca, tct, tda, tdt):
         for ct, dt in zip(tct[i], tdt[i]):
             u_t.append(-0.4 * ct - 0.012 * dt)
 
-    print(u_a)
-    print(u_t)
+    # print("Auto utilities, ", u_a)
+    # print("Transit utilities, ", u_t)
 
     return (u_a, u_t)
 
@@ -182,23 +183,24 @@ def logit(u_a, u_t):
     """
     # import to get Euler number
     from math import e
-    print("e, ", e)
+    # print("e, ", e)
 
     w_a = []    # store auto weights
     w_t = []    # store transit weights
     for u_a, u_t in zip(u_a, u_t):
         w_i = e**u_a / (e**u_a + e**u_t)
-        print(w_i)
+        # print(w_i)
         w_i = round(w_i, 2)
-        print(w_i)
-        w_a.append(w_i)
+        # print(w_i)
+        # w_a.append(w_i)
         w_t.append(round(1-w_i, 2))
 
-    print(w_a)
-    print(w_t)
+    # print("Auto travels weights, ", w_a)
+    # print("Trasit travels weights, ", w_t)
 
     return (w_a, w_t)
 ccoeffs = gravmod(travs, ffs)
-# print(ccoeffs)
+
 u_a, u_t = modopt(tca, tct, tda, tdt)
+
 w_a, w_t = logit(u_a, u_t)
