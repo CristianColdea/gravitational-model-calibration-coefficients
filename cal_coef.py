@@ -1,6 +1,7 @@
 """
 Script to compute in a systematic manner the calibration coefficients for
 gravitational model, transport demand.
+Also, the travels weights using LOGIT model are computed.
 """
 
 # number of travels as a matrix with produced travels on lines
@@ -85,7 +86,7 @@ def gravmod(travs,ffs):
     # check raw produced travels
     gvals_m0 = list(zip(*[iter(gvals)]*3))
     for p1, p2 in zip(travs, gvals_m0):
-        print(sum(p1) == sum(p2))
+        print(round(sum(p1)) == round(sum(p2)))
         print(sum(p2))
 
     # round the number of travels
@@ -114,7 +115,7 @@ def gravmod(travs,ffs):
 
     """
     After rounding the values obtained with gravitational model, when
-    ckecking the produced and attracted travels (lines 74-83),
+    ckecking the produced and attracted travels (lines 111-114),
     the travels sums on lines (i.e., produced travels) are equal to
     the historical data, but not on columns (i.e., attracted travels).
     Suggested approach: maintain the sums on lines and move from the exceeding
@@ -167,7 +168,8 @@ def modopt(tca, tct, tda, tdt):
         for ct, dt in zip(tct[i], tdt[i]):
             u_t.append(-0.4 * ct - 0.012 * dt)
 
-    print(u_a, '\n', u_t)
+    print(u_a)
+    print(u_t)
 
     return (u_a, u_t)
 
@@ -192,7 +194,8 @@ def logit(u_a, u_t):
         w_a.append(w_i)
         w_t.append(round(1-w_i, 2))
 
-    print(w_a, '\n', w_t)
+    print(w_a)
+    print(w_t)
 
     return (w_a, w_t)
 ccoeffs = gravmod(travs, ffs)
