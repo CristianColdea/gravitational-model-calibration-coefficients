@@ -110,7 +110,7 @@ def gravmod(travs,ffs):
     for a1, a2 in zip(gvals_m_tt, travs_tt):
         print(sum(a1) == sum(a2))
         print(sum(a1))
-        print(sum(a2))
+        # print(sum(a2))
 
     """
     After rounding the values obtained with gravitational model, when
@@ -148,5 +148,28 @@ def gravmod(travs,ffs):
 
     return ccoeffs
 
+# function for modal option
+def modopt(tca, tct, tda, tdt):
+    """
+    Function to compute modal option, i.e. auto and transit.
+    Takes as inputs the matrices of travels cost, auto and transit, and
+    duration, respectively.
+    Returns the weights of auto and transit travels from zone to zone.
+    """
+    # compute utilities for auto and transit modes
+    u_a = []    # store auto utility results
+    u_t = []    # store transit utility results
+
+    for i in range(len(tca)):
+        for ca, da in zip(tca[i], tda[i]):
+            u_a.append(2.5 - 0.5 * ca -0.01 * da)
+        for ct, dt in zip(tct[i], tdt[i]):
+            u_t.append(-0.4 * ct - 0.012 * dt)
+
+    print(u_a, '\n', u_t)
+
+    return (u_a, u_t)
+
 ccoeffs = gravmod(travs, ffs)
-print(ccoeffs)
+# print(ccoeffs)
+u_a, u_t = modopt(tca, tct, tda, tdt)
