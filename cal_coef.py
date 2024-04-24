@@ -144,7 +144,7 @@ def gravmod(travs,ffs):
     unpck_travs = [value for row in travs for value in row]
     # print(unpck_travs)
     for c_obs, c_comp in zip(unpck_travs, gvalsradj):
-        ccoeffs.append(c_obs / c_comp)
+        ccoeffs.append(round(c_obs / c_comp, 2))
 
     # print(ccoeffs)
 
@@ -200,6 +200,8 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 ccoeffs = gravmod(travs, ffs)
+
+# print(ccoeffs)
 
 u_a, u_t = modopt(tca, tct, tda, tdt)
 
