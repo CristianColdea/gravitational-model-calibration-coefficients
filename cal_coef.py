@@ -17,6 +17,11 @@ ffs = [[0.753, 1.597, 0.753],
        [0.987, 0.753, 0.765],
        [1.597, 0.765, 0.753]]
 
+# neutral calibration coefficients
+k_ij0 = [[1, 1, 1],
+         [1, 1, 1],
+         [1, 1, 1]]
+
 # auto travels cost
 
 tca = [[0.5, 1, 1.4],
@@ -38,16 +43,16 @@ tdt = [[15, 5, 12],
        [15, 6, 26],
        [20, 21, 8]]
 
-def gravmod(travs,ffs):
+def gravmod(travs,ffs, k_ij):
     """
     Function to compute gravitational model values in order to determine the
     calibration factors.
-    Takes as input the travels and friction factors matrices.
+    Takes as input the travels, calibration coefficients and friction factors matrices.
     Returns a matrix with calibration factors.
     """
     
     # check if the matrices have the same shape
-    if(len(travs) != len(ffs)):
+    if(len(travs) != len(ffs) or (len(travs) != len(k_ij))):
         print("The matrices doesn't match. Please fix it.")
         exit()
     
@@ -79,12 +84,14 @@ def gravmod(travs,ffs):
             # print(pdsum)
             # print(ffs[i])
         for k1 in range(len(ffs[i])):
-            gvals.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] / pdsum))
+            gvals.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ij[i][k1] / pdsum))
 
     # print("Travel obtained with gravitational model, ", gvals)
 
     # check raw produced travels
-    gvals_m0 = list(zip(*[iter(gvals)]*3))
+    gvals_m0 = [gvals[i:i + 3] for i in range(0, len(gvals), 3)]
+    # print(gvals_m0)
+
     # for p1, p2 in zip(travs, gvals_m0):
         # print(round(sum(p1)) == round(sum(p2)))
         # print(sum(p2))
@@ -97,7 +104,8 @@ def gravmod(travs,ffs):
     # print("Rounded number of travels, ", gvalsr)
 
     # group flatten list 'gvalsr' as a matrix
-    gvals_m = list(zip(*[iter(gvalsr)]*3))
+    gvals_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+    # print(gvals_m)
     # print("Matrix of rounded numbers, ", gvals_m)
 
     # check produced travels sum
@@ -199,9 +207,14 @@ def logit(u_a, u_t):
     # print("Trasit travels weights, ", w_t)
 
     return (w_a, w_t)
-ccoeffs = gravmod(travs, ffs)
+ccoeffs = gravmod(travs, ffs, k_ij0)
 
 # print(ccoeffs)
+
+ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
+
+
+# print(ccoeffs_m)
 
 u_a, u_t = modopt(tca, tct, tda, tdt)
 
