@@ -43,6 +43,11 @@ tdt = [[15, 5, 12],
        [15, 6, 26],
        [20, 21, 8]]
 
+# the future friction factors
+ffs_f = [[0.753, 0.987, 1.597],
+         [0.987, 0.753, 0.765],
+         [1.597, 0.765, 0.753]]
+
 def gravmod(travs,ffs, k_ij):
     """
     Function to compute gravitational model values in order to determine the
