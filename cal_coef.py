@@ -152,8 +152,8 @@ def gravmod(travs,ffs, k_ij):
 
     return gvalsr
 
-    # introduce flatten computed travels after rounding and adjustment
-    gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
+# introduce flatten computed travels after rounding and adjustment
+gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
 
 def ccoeffs(gvalsradj, travs):
     # compute calibration coefficients
@@ -217,9 +217,15 @@ def logit(u_a, u_t):
     # print("Trasit travels weights, ", w_t)
 
     return (w_a, w_t)
-ccoeffs = gravmod(travs, ffs, k_ij0)
 
-print(ccoeffs)
+gvalsr = gravmod(travs, ffs, k_ij0)
+
+# print(gvalsr)
+
+# print(gvalsradj)
+ccoeffs = ccoeffs(gvalsradj, travs)
+
+# print(ccoeffs)
 
 ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
