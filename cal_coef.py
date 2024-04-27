@@ -150,8 +150,12 @@ def gravmod(travs,ffs, k_ij):
      [75, 31, 44]].
     """
 
+    return gvalsr
+
     # introduce flatten computed travels after rounding and adjustment
     gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
+
+def ccoeffs(gvalsradj, travs):
     # compute calibration coefficients
     ccoeffs = []
     # flatten the travels matrix
