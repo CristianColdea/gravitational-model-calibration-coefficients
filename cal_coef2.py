@@ -160,8 +160,6 @@ class Gravitmod:
 
         return gvalsr
 
-    # introduce flatten computed travels after rounding and adjustment
-    gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
 
     def ccoeffs(gvalsradj, travs):
         # compute calibration coefficients
@@ -176,6 +174,8 @@ class Gravitmod:
 
         return ccoeffs
 
+# introduce flatten computed travels after rounding and adjustment
+gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
 
 
 # function for modal option
