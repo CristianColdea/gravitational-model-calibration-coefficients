@@ -71,7 +71,7 @@ class Gravitmod:
         """
     
         # check if the matrices have the same shape
-        if(len(travs) != len(ffs) or (len(travs) != len(k_ij))):
+        if(len(travs) != len(ffs) or (len(travs) != len(k_ijs))):
             print("The matrices doesn't match. Please fix it.")
             exit()
     
@@ -103,7 +103,7 @@ class Gravitmod:
                 # print(pdsum)
                 # print(ffs[i])
             for k1 in range(len(ffs[i])):
-                gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ij[i][k1] / pdsum))
+                gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ijs[i][k1] / pdsum))
 
         print("Travel obtained with gravitational model, ", gvals_init)
 
@@ -179,7 +179,8 @@ class Gravitmod:
         """
         
         # check if the matrices have the same shape
-        if(len(travs) != len(ffs) or (len(travs) != len(k_ij))):
+        if(len(k_ijs) != len(ffs) or (len(k_ijs) != len(P_is)) or \
+           (len(k_ijs) != len(A_js))):
             print("The matrices doesn't match. Please fix it.")
             exit()
     
@@ -235,7 +236,7 @@ class Gravitmod:
         gvals_init__m = [gvals_init_r[i:i + 3] for i in range(0,
                          len(gvals_init_r), 3)]
         # print(gvals_init_m)
-        # print("Matrix of rounded numbers, ", gvals_init__m)
+        # print("Matrix of rounded numbers, ", gvals_init_m)
 
         # check produced travels sum
         for p1, p2 in zip(travs, gvals_init_m):
