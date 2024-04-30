@@ -51,7 +51,7 @@ ffs_f = [[0.753, 0.987, 1.597],
 # the future produced travels
 P_is = [750, 580, 480]
 
-# the future attracted traves
+# the future attracted travels
 A_js = [722, 786, 302]
 
 class Gravitmod:
