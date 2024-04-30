@@ -62,7 +62,7 @@ class Gravitmod:
         self.P_is = P_is
         self.A_js = A_js
 
-    def gravmod_init(travs,ffs, k_ij):
+    def gravmod_init(travs,ffs, k_ijs):
         """
         Method to compute gravitational model values in order to determine the
         calibration factors.
@@ -105,42 +105,42 @@ class Gravitmod:
             for k1 in range(len(ffs[i])):
                 gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ijs[i][k1] / pdsum))
 
-        print("Travel obtained with gravitational model, ", gvals_init)
+        print("Initial travels obtained with gravitational model, ", gvals_init)
 
         # check raw produced travels
         gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
         # print(gvals_init_m0)
 
     
-        for p1, p2 in zip(travs, gvals_init_m0):
-            print(round(sum(p1)) == round(sum(p2)))
-            print(sum(p2))
+        # for p1, p2 in zip(travs, gvals_init_m0):
+            #print(round(sum(p1)) == round(sum(p2)))
+            #print(sum(p2))
 
         # round the number of travels
         gvals_init_r = []
         for item in gvals_init:
             gvals_init_r.append(round(item))
     
-        print("Rounded number of travels, ", gvals_init_r)
+        print("Rounded number of initial travels, ", gvals_init_r)
 
         # group flatten list 'gvals_init_r' as a matrix
-        gvals_init__m = [gvals_init_r[i:i + 3] for i in range(0,
+        gvals_init_m = [gvals_init_r[i:i + 3] for i in range(0,
                          len(gvals_init_r), 3)]
         # print(gvals_init_m)
         # print("Matrix of rounded numbers, ", gvals_init__m)
 
         # check produced travels sum
-        for p1, p2 in zip(travs, gvals_init_m):
-            print(sum(p1) == sum(p2))
+        # for p1, p2 in zip(travs, gvals_init_m):
+            # print(sum(p1) == sum(p2))
 
         # check attracted travels sum
         # transpose the matrix first
         gvals_init_m_tt = list(zip(*gvals_init_m))
         # print(gvals_init_m_tt, travs_tt)
-        for a1, a2 in zip(gvals_init_m_tt, travs_tt):
-            print(sum(a1) == sum(a2))
-            print(sum(a1))
-            print(sum(a2))
+        # for a1, a2 in zip(gvals_init_m_tt, travs_tt):
+            # print(sum(a1) == sum(a2))
+            # print(sum(a1))
+            # print(sum(a2))
 
         """
         After rounding the values obtained with gravitational model, when
@@ -172,8 +172,8 @@ class Gravitmod:
         """
         Method to compute future travels using gravitational model.
         Takes as inputs the future friction factors matrix, the previously
-        computed calibration coefficients matrix, the vector of produced
-        travels and the vector of attracted travels.
+        computed calibration coefficients matrix, the matrix of produced
+        travels and the matrix of attracted travels.
         Returns a matrix with future travels determined with gravitational
         model.
         """
@@ -184,75 +184,42 @@ class Gravitmod:
             print("The matrices doesn't match. Please fix it.")
             exit()
     
-        # transpose de matrices
-        travs_tt = list(zip(*travs))
-        ffs_tt = list(zip(*ffs))
-        travs_t = [list(sublist) for sublist in travs_tt]
-        ffs_t = [list(sublist) for sublist in ffs_tt]
-        # print(travs_t)
-        # print(ffs_t)
-    
-        # get attracted travels sums (cycling on transposes)
-        s_Aj = []   # store the attracted sums
-
-        for item in travs_tt:
-            s_Aj.append(sum(item))
-
-        # get produced travels sums
-        s_Pi = []
-        for item in travs:
-            s_Pi.append(sum(item))
-    
         # compute travels with gravitational model
-        gvals_init = []    # to store computed values
-        for i in range(len(travs)):
+        gvals_fin = []    # to store computed values
+        for i in range(len(k_ijs)):
             pdsum = 0
-            for j1, j2 in zip(s_Aj, ffs[i]):
+            for j1, j2 in zip(A_js, ffs[i]):
                 pdsum = pdsum + j1 * j2
-                # print(pdsum)
-                # print(ffs[i])
+                print("pdsum fin, ", pdsum)
+                print("ffs[i] fin, ", ffs[i])
+                # print("A_j, ", j1)
             for k1 in range(len(ffs[i])):
-                gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ij[i][k1] / pdsum))
+                gvals_fin.append((P_is[i] * ffs[i][k1] * A_js[k1] * k_ijs[i][k1] / pdsum))
 
-        print("Travel obtained with gravitational model, ", gvals_init)
+        print("Future travels obtained with gravitational model, ", gvals_fin)
 
         # check raw produced travels
-        gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
-        # print(gvals_init_m0)
+        gvals_fin_m0 = [gvals_fin[i:i + 3] for i in range(0, len(gvals_fin), 3)]
+        # print(gvals_fin_m0)
 
     
-        for p1, p2 in zip(travs, gvals_init_m0):
-            print(round(sum(p1)) == round(sum(p2)))
-            print(sum(p2))
-
         # round the number of travels
-        gvals_init_r = []
-        for item in gvals_init:
-            gvals_init_r.append(round(item))
+        gvals_fin_r = []
+        for item in gvals_fin:
+            gvals_fin_r.append(round(item))
     
-        print("Rounded number of travels, ", gvals_init_r)
+        print("Rounded number of furure travels, ", gvals_fin_r)
+        print("Total travels sum, ", sum(gvals_fin_r))
 
-        # group flatten list 'gvals_init_r' as a matrix
-        gvals_init__m = [gvals_init_r[i:i + 3] for i in range(0,
-                         len(gvals_init_r), 3)]
-        # print(gvals_init_m)
-        # print("Matrix of rounded numbers, ", gvals_init_m)
+        # group flatten list 'gvals_fin_r' as a matrix
+        gvals_fin_m = [gvals_fin_r[i:i + 3] for i in range(0,
+                         len(gvals_fin_r), 3)]
 
-        # check produced travels sum
-        for p1, p2 in zip(travs, gvals_init_m):
-            print(sum(p1) == sum(p2))
+        print("Matrix of future rounded numbers, ", gvals_fin_m)
 
-        # check attracted travels sum
-        # transpose the matrix first
-        gvals_init_m_tt = list(zip(*gvals_init_m))
-        # print(gvals_init_m_tt, travs_tt)
-        for a1, a2 in zip(gvals_init_m_tt, travs_tt):
-            print(sum(a1) == sum(a2))
-            print(sum(a1))
-            print(sum(a2))
+        return gvals_fin_r
 
-
-
+        
     def ccoeffs(gvalsradj, travs):
         # compute calibration coefficients
         ccoeffs = []
@@ -320,19 +287,22 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-gvalsr = gravmod(travs, ffs, k_ij0)
+gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 
 # print(gvalsr)
 
 # print(gvalsradj)
-ccoeffs = ccoeffs(gvalsradj, travs)
+ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
 
 # print(ccoeffs)
 
 ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
+print("Calibration coefficients, ", ccoeffs_m)
 
-# print(ccoeffs_m)
+gvalsr_fin = Gravitmod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+
+print("Future number of rounded travels, ", gvalsr_fin)
 
 u_a, u_t = modopt(tca, tct, tda, tdt)
 
