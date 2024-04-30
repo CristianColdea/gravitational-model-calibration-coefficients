@@ -48,6 +48,12 @@ ffs_f = [[0.753, 0.987, 1.597],
          [0.987, 0.753, 0.765],
          [1.597, 0.765, 0.753]]
 
+# the future produced travels
+P_is = [750, 580, 480]
+
+# the future attracted traves
+A_js = [722, 786, 302]
+
 class Gravitmod:
     def __init__(self, travs, ffs, k_ijs, P_is, A_js):
         self.travs = travs
