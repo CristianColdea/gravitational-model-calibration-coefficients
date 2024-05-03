@@ -152,7 +152,7 @@ class Gravitmod:
         After rounding:
         [[82, 140, 78],
          [43, 26, 31],
-         [82, 197, 146]].
+         [82, 31, 37]].
         Sums on lines are okay, [300, 100, 150], but on columns are
         [207, 197, 146] instead of [200, 160, 190]. There is clearly and excedent
         on columns 1 and 2 and a lack of on column 3. Remove as much as possible
@@ -233,9 +233,11 @@ class Gravitmod:
 
         return ccoeffs
 
-# introduce flatten computed travels after rounding and adjustment
+# introduce flatten computed travels after rounding and adjustment, own method
 gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
 
+# flatten computed travels, classical method (i.e., iterative balancing)
+gvalsradj_it = [81, 116, 103, 42, 20, 38, 77, 24, 49]
 
 # function for modal option
 def modopt(tca, tct, tda, tdt):
@@ -294,7 +296,11 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 # print(gvalsradj)
 ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
 
-# print(ccoeffs)
+print("ccoeffs, ", ccoeffs)
+
+ccoeffs_it = Gravitmod.ccoeffs(gvalsradj_it, travs)
+
+print("ccoeffs_it, ", ccoeffs_it)
 
 ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
