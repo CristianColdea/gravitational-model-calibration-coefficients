@@ -190,8 +190,8 @@ class Gravitmod:
             pdsum = 0
             for j1, j2 in zip(A_js, ffs[i]):
                 pdsum = pdsum + j1 * j2
-                print("pdsum fin, ", pdsum)
-                print("ffs[i] fin, ", ffs[i])
+                # print("pdsum fin, ", pdsum)
+                # print("ffs[i] fin, ", ffs[i])
                 # print("A_j, ", j1)
             for k1 in range(len(ffs[i])):
                 gvals_fin.append((P_is[i] * ffs[i][k1] * A_js[k1] * k_ijs[i][k1] / pdsum))
@@ -293,7 +293,8 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 
 # print(gvalsr)
 
-# print(gvalsradj)
+print("Adjusted numbers of travels, ", gvalsradj)
+
 ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
 
 print("ccoeffs, ", ccoeffs)
@@ -308,7 +309,7 @@ print("Calibration coefficients, ", ccoeffs_m)
 
 gvalsr_fin = Gravitmod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
-print("Future number of rounded travels, ", gvalsr_fin)
+# print("Future number of rounded travels, ", gvalsr_fin)
 
 u_a, u_t = modopt(tca, tct, tda, tdt)
 
