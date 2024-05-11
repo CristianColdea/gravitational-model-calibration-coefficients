@@ -184,11 +184,10 @@ class Gravitmod:
         travs_tt = list(zip(*travs))
         travsc_tt = list(zip(*travsc))
 
-        ffs_tt = list(zip(*ffs))
         travs_t = [list(sublist) for sublist in travs_tt]
-        ffs_t = [list(sublist) for sublist in ffs_tt]
-        # print(travs_t)
-        # print(ffs_t)
+        travsc_t = [list(sublist) for sublist in travsc_tt]
+        print(travs_t)
+        print(travsc_t)
     
         # get attracted travels sums (cycling on transposes)
         s_Aj = []   # store the attracted sums
