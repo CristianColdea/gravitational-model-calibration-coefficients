@@ -182,6 +182,8 @@ class Gravitmod:
     
         # transpose de matrices
         travs_tt = list(zip(*travs))
+        travsc_tt = list(zip(*travsc))
+
         ffs_tt = list(zip(*ffs))
         travs_t = [list(sublist) for sublist in travs_tt]
         ffs_t = [list(sublist) for sublist in ffs_tt]
