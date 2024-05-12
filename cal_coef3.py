@@ -214,7 +214,7 @@ class Gravitmod:
 
         # function to compare the produced, respectively attracted travels
         # within a certain tolerance
-        def comp(s_Pih, s_Pic, tlr):
+        def comp(s_ih, s_ic, tlr):
             """
             Function within method to compare two values, within tolerance.
             Takes as inputs the lists of to be compared values
@@ -225,19 +225,15 @@ class Gravitmod:
             # set a flag
             flag = True
 
-            for pih, pic in zip(s_Pih, s_Pic):
-                if(abs(pih - pic) >= tlr): 
+            for ih, ic in zip(s_ih, s_ic):
+                if(abs(ih - ic) >= tlr): 
                     flag = False
                     break
 
             return flag
 
         # compare produced travels first
-        cmpd = []
-        
-        print("cmpd is, ", cmpd)
-
-        
+        print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
         
         pass
 
