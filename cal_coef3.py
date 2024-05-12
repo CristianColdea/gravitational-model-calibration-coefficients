@@ -166,12 +166,13 @@ class Gravitmod:
         """
 
         return gvals_init_r
-    def iter_adj_in(travs, travsc):
+    def iter_adj_in(travs, travsc, tlr=0.02):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
-        Takes as input the observed (historical) travels, and the computed
-        ones, in the form of matrices.
+        Takes as input the observed (historical) travels,the computed
+        ones, in the form of matrices and the precision (tolerance) of
+        adjustment.
         Returns a matrix with adjusted travels.
         """
     
@@ -189,16 +190,31 @@ class Gravitmod:
         print(travs_t)
         print(travsc_t)
     
-        # get attracted travels sums (cycling on transposes)
-        s_Aj = []   # store the attracted sums
+        # get attracted travels sums on observed travels (cycling on transposes)
+        s_Ajh = []   # store the attracted sums
 
         for item in travs_tt:
-            s_Aj.append(sum(item))
+            s_Ajh.append(sum(item))
 
-        # get produced travels sums
-        s_Pi = []
+        # get produced travels sums on observed travels
+        s_Pih = []
         for item in travs:
-            s_Pi.append(sum(item))
+            s_Pih.append(sum(item))
+
+        # get attracted travels sums on computed travels (cycling on transposes)
+        s_Ajc = []   # store the attracted sums
+
+        for item in travsc_tt:
+            s_Ajc.append(sum(item))
+
+        # get produced travels sums on computed travels
+        s_Pic = []
+        for item in travsc:
+            s_Pic.append(sum(item))
+
+        # function to compare the produced, respectively attracted travels
+        # within a certain tolerance
+
 
 
     # method to compute gravitational model travels projected into the future
