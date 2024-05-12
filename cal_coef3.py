@@ -214,8 +214,32 @@ class Gravitmod:
 
         # function to compare the produced, respectively attracted travels
         # within a certain tolerance
+        def comp(s_Pih, s_Pic, tlr):
+            """
+            Function within method to compare two values, within tolerance.
+            Takes as inputs the lists of to be compared values
+            and the precision/tolerance.
+            Returns True of False.
+            """
+            
+            # set a flag
+            flag = True
 
+            for pih, pic in zip(s_Pih, s_Pic):
+                if(abs(pih - pic) >= tlr): 
+                    flag = False
+                    break
 
+            return flag
+
+        # compare produced travels first
+        cmpd = []
+        
+        print("cmpd is, ", cmpd)
+
+        
+        
+        pass
 
     # method to compute gravitational model travels projected into the future
     def gravmod_fin(ffs, k_ijs, P_is, A_js):
@@ -341,25 +365,28 @@ def logit(u_a, u_t):
 
 gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 
-# print(gvalsr)
+gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+
+Gravitmod.iter_adj_in(travs, gvalsr_m)
+# print(gvalsr_m)
 
 # print(gvalsradj)
-ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
+# ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
 
-print("ccoeffs, ", ccoeffs)
+# print("ccoeffs, ", ccoeffs)
 
-ccoeffs_it = Gravitmod.ccoeffs(gvalsradj_it, travs)
+# ccoeffs_it = Gravitmod.ccoeffs(gvalsradj_it, travs)
 
-print("ccoeffs_it, ", ccoeffs_it)
+# print("ccoeffs_it, ", ccoeffs_it)
 
-ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
+# ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
-print("Calibration coefficients, ", ccoeffs_m)
+# print("Calibration coefficients, ", ccoeffs_m)
 
-gvalsr_fin = Gravitmod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+# gvalsr_fin = Gravitmod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
-print("Future number of rounded travels, ", gvalsr_fin)
+# print("Future number of rounded travels, ", gvalsr_fin)
 
-u_a, u_t = modopt(tca, tct, tda, tdt)
+# u_a, u_t = modopt(tca, tct, tda, tdt)
 
-w_a, w_t = logit(u_a, u_t)
+# w_a, w_t = logit(u_a, u_t)
