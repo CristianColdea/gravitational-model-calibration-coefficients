@@ -54,7 +54,7 @@ P_is = [750, 580, 480]
 # the future attracted travels
 A_js = [722, 786, 302]
 
-class Gravitmod:
+class Gravit_mod:
     def __init__(self, travs, ffs, k_ijs, P_is, A_js):
         self.travs = travs
         self.ffs = ffs
@@ -236,6 +236,87 @@ class Gravitmod:
 # introduce flatten computed travels after rounding and adjustment, own method
 gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
 
+####
+# class to iterarively balance computed travels
+class Iter_balance:
+    def __init__(self, travs, travsc, tlr):
+        self.travs = travs
+        self.travsc = travsc
+        self.tlr = tlr
+
+    def iter_adj_in(travs, travsc, tlr=0.02):
+
+        """
+        Method to iteratively adjust travels computed with gravitational model.
+        Takes as input the observed (historical) travels,the computed
+        ones, in the form of matrices and the precision (tolerance) of
+        adjustment.
+        Returns a matrix with adjusted travels.
+        """
+    
+        # check if the matrices have the same shape
+        if(len(travs) != len(travsc)):
+            print("The matrices doesn't match. Please fix it.")
+            exit()
+    
+        # transpose de matrices
+        travs_tt = list(zip(*travs))
+        travsc_tt = list(zip(*travsc))
+
+        travs_t = [list(sublist) for sublist in travs_tt]
+        travsc_t = [list(sublist) for sublist in travsc_tt]
+        print(travs_t)
+        print(travsc_t)
+    
+        # get attracted travels sums on observed travels (cycling on transposes)
+        s_Ajh = []   # store the attracted sums
+
+        for item in travs_tt:
+            s_Ajh.append(sum(item))
+
+        # get produced travels sums on observed travels
+        s_Pih = []
+        for item in travs:
+            s_Pih.append(sum(item))
+
+        # get attracted travels sums on computed travels (cycling on transposes)
+        s_Ajc = []   # store the attracted sums
+
+        for item in travsc_tt:
+            s_Ajc.append(sum(item))
+
+        # get produced travels sums on computed travels
+        s_Pic = []
+        for item in travsc:
+            s_Pic.append(sum(item))
+
+        # function to compare the produced, respectively attracted travels
+        # within a certain tolerance
+        def comp(s_ih, s_ic, tlr):
+            """
+            Function inside the method to compare two values, within tolerance.
+            Takes as inputs the lists of to be compared values
+            and the precision/tolerance.
+            Returns True of False.
+            """
+            
+            # set a flag
+            flag = True
+
+            for ih, ic in zip(s_ih, s_ic):
+                if(abs(ih - ic) >= tlr): 
+                    flag = False
+                    break
+
+            return flag
+
+        # compare produced travels first
+        print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
+        
+        pass
+       
+
+
 # flatten computed travels, classical method (i.e., iterative balancing)
 gvalsradj_it = [81, 116, 103, 42, 20, 38, 77, 24, 49]
 
@@ -289,17 +370,17 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
+gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 # print(gvalsr)
 
 print("Adjusted numbers of travels, ", gvalsradj)
 
-ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
+ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
 print("ccoeffs, ", ccoeffs)
 
-# ccoeffs_it = Gravitmod.ccoeffs(gvalsradj_it, travs)
+# ccoeffs_it = Gravit_mod.ccoeffs(gvalsradj_it, travs)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
@@ -307,7 +388,7 @@ print("ccoeffs, ", ccoeffs)
 
 # print("Calibration coefficients matrix, ", ccoeffs_m)
 
-# gvalsr_fin = Gravitmod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+# gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
 # print("Future number of rounded travels, ", gvalsr_fin)
 
