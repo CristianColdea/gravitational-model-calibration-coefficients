@@ -244,6 +244,8 @@ class Iter_balance:
         self.travsc = travsc
         self.tlr = tlr
 
+
+
     def comp(s_ih, s_ic, tlr=0.02):
             """
             Method to compare two lists of values, within tolerance.
@@ -263,7 +265,25 @@ class Iter_balance:
             return flag
 
 
-    def iter_adj_in(travs, travsc):
+
+    def coeffs_sums(s_h, s_c):
+        """
+        Method to compute the ratio of observed and computed travels, and
+        adjust the number of travels on rows and columns accordingly.
+        Takes as inputs lists of observed and computed travels.
+        Returns a list with computed ratios.
+        """
+
+        cfs = []  # list to store the ratios
+
+        for h, c in zip(s_h, s_c):
+            cfs.append(round(h / c, 2))
+
+        return cfs
+
+
+
+    def adjt(travs, travsc, tlr=0.02):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
@@ -374,13 +394,17 @@ def logit(u_a, u_t):
 
 gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
+gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+
+gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
+
 # print(gvalsr)
 
-print("Adjusted numbers of travels, ", gvalsradj)
+# print("Adjusted numbers of travels, ", gvalsradj)
 
 ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
-print("ccoeffs, ", ccoeffs)
+# print("ccoeffs, ", ccoeffs)
 
 # ccoeffs_it = Gravit_mod.ccoeffs(gvalsradj_it, travs)
 
