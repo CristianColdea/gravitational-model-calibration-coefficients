@@ -244,7 +244,26 @@ class Iter_balance:
         self.travsc = travsc
         self.tlr = tlr
 
-    def iter_adj_in(travs, travsc, tlr=0.02):
+    def comp(s_ih, s_ic, tlr=0.02):
+            """
+            Method to compare two lists of values, within tolerance.
+            Takes as inputs the lists of to be compared values
+            and the precision/tolerance.
+            Returns True of False.
+            """
+            
+            # set a flag
+            flag = True
+
+            for ih, ic in zip(s_ih, s_ic):
+                if(abs(ih - ic) >= tlr): 
+                    flag = False
+                    break
+
+            return flag
+
+
+    def iter_adj_in(travs, travsc):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
@@ -292,24 +311,7 @@ class Iter_balance:
 
         # function to compare the produced, respectively attracted travels
         # within a certain tolerance
-        def comp(s_ih, s_ic, tlr):
-            """
-            Function inside the method to compare two values, within tolerance.
-            Takes as inputs the lists of to be compared values
-            and the precision/tolerance.
-            Returns True of False.
-            """
-            
-            # set a flag
-            flag = True
-
-            for ih, ic in zip(s_ih, s_ic):
-                if(abs(ih - ic) >= tlr): 
-                    flag = False
-                    break
-
-            return flag
-
+        
         # compare produced travels first
         print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
         
