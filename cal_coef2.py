@@ -54,6 +54,9 @@ P_is = [750, 580, 480]
 # the future attracted travels
 A_js = [722, 786, 302]
 
+
+
+####
 class Gravit_mod:
     def __init__(self, travs, ffs, k_ijs, P_is, A_js):
         self.travs = travs
@@ -329,12 +332,25 @@ class Iter_balance:
         for item in travsc:
             s_Pic.append(sum(item))
 
-        # function to compare the produced, respectively attracted travels
-        # within a certain tolerance
-        
-        # compare produced travels first
-        print("Produced travels comparison, ", Iter_balance.comp(s_Pih, s_Pic, tlr))
-        
+        # check the produced and attracted travels, respectively
+
+        bflg = False    #bool flag for 'while' loop
+        while(bflg == False):
+            rat_sto = []    #store travels ratios
+            if (Iter_balance.comp(s_Pih, s_Pic, tlr) == True):
+
+                rat_sto = [1] * len(travs)
+            else:
+                for pih, pic in zip(s_Pih, s_pic):
+                    rat_sto.append(round(pih / pic, 2))
+
+            # print("coeffs on rows, ", rat_sto)
+
+            
+            bflg = Iter_balance.comp(s_Pih, s_Pic, tlr)
+
+
+
         pass
        
 
