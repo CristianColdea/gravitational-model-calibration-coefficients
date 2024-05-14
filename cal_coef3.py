@@ -363,7 +363,7 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 
 gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-Gravitmod.iter_adj_in(travs, gvalsr_m)
+# Gravitmod.iter_adj_in(travs, gvalsr_m)
 # print(gvalsr_m)
 
 # print(gvalsradj)
