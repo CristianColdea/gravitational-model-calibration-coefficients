@@ -335,18 +335,39 @@ class Iter_balance:
         # check the produced and attracted travels, respectively
 
         bflg = False    #bool flag for 'while' loop
+        p = 1   # counting passes over travsc matrix
+
         while(bflg == False):
             rat_sto = []    #store travels ratios
-            if (Iter_balance.comp(s_Pih, s_Pic, tlr) == True):
+            rat_sto.clear()     #clear out the previous values stored
+            for pih, pic in zip(s_Pih, s_Pic):
+                rat_sto.append(round(pih / pic, 2))
 
-                rat_sto = [1] * len(travs)
-            else:
-                for pih, pic in zip(s_Pih, s_pic):
-                    rat_sto.append(round(pih / pic, 2))
-
-            # print("coeffs on rows, ", rat_sto)
-
+            if (Iter_balance.comp(s_Pih, s_Pic, tlr) == False):
+                for indx in range(len(travs)):
+                    for item in travsc[indx]:
+                        item = item * rat_sto[indx]
+                print("Adjusted rows after pass ", p, "are",  travsc)
             
+            
+            rat_sto.clear()     # clear out the previous values stored
+            for ajh, ajc in zip(s_Ajh, s_Ajc):
+                rat_sto.append(round(ajh / ajc, 2))
+                
+            print("rat_sto is, ", rat_sto)
+
+            if (Iter_balance.comp(s_Ajh, s_Ajc, tlr) == False):
+                for indx in range(len(travs)):
+                    for item in travsc_tt[indx]:
+                        print("item is, ", item)
+                        print("rat_sto is, ", rat_sto[indx])
+                        item = item * rat_sto[indx]
+                        print("item after update is, ", item)
+                        print("travsc_tt after update is, ", travsc_tt)
+                        travsc = list(zip(*travsc_tt))
+
+                print("Adjusted cols after pass ", p, "are",  travsc)
+
             bflg = Iter_balance.comp(s_Pih, s_Pic, tlr)
 
 
