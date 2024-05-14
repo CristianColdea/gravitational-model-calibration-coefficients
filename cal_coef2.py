@@ -313,7 +313,7 @@ class Iter_balance:
         # within a certain tolerance
         
         # compare produced travels first
-        print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
+        print("Produced travels comparison, ", Iter_balance.comp(s_Pih, s_Pic, tlr))
         
         pass
        
