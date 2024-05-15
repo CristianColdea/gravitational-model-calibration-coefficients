@@ -433,7 +433,7 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
+# gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
 
 # print(gvalsr)
 
@@ -441,17 +441,17 @@ gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
 
 ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
-# print("ccoeffs, ", ccoeffs)
+print("ccoeffs, ", ccoeffs)
 
 # ccoeffs_it = Gravit_mod.ccoeffs(gvalsradj_it, travs)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
-# ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
+ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
 # print("Calibration coefficients matrix, ", ccoeffs_m)
 
-# gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
 # print("Future number of rounded travels, ", gvalsr_fin)
 
