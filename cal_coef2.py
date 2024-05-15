@@ -248,7 +248,6 @@ class Iter_balance:
         self.tlr = tlr
 
 
-
     def comp(s_ih, s_ic, tlr=0.02):
             """
             Method to compare two lists of values, within tolerance.
@@ -266,7 +265,6 @@ class Iter_balance:
                     break
 
             return flag
-
 
 
     def coeffs_sums(s_h, s_c):
@@ -307,8 +305,8 @@ class Iter_balance:
 
         travs_t = [list(sublist) for sublist in travs_tt]
         travsc_t = [list(sublist) for sublist in travsc_tt]
-        print(travs_t)
-        print(travsc_t)
+        # print(travs_t)
+        # print(travsc_t)
     
         # get attracted travels sums on observed travels (cycling on transposes)
         s_Ajh = []   # store the attracted sums
@@ -340,33 +338,45 @@ class Iter_balance:
         while(bflg == False):
             rat_sto = []    #store travels ratios
             rat_sto.clear()     #clear out the previous values stored
-            for pih, pic in zip(s_Pih, s_Pic):
+            for pih, pic in zip(s_Pih, s_Pic):  #compute rows coeffs and store
                 rat_sto.append(round(pih / pic, 2))
 
             if (Iter_balance.comp(s_Pih, s_Pic, tlr) == False):
+                print("Current rows coeffs are, ", rat_sto)
                 for indx in range(len(travs)):
                     for item in travsc[indx]:
                         item = item * rat_sto[indx]
                 print("Adjusted rows after pass ", p, "are",  travsc)
+                s_Pic.clear()
+                for item in travsc:
+                    s_Pic.append(sum(item))
+                print("s_Pic after pass ", p, "is ", s_Pic)
             
             
             rat_sto.clear()     # clear out the previous values stored
-            for ajh, ajc in zip(s_Ajh, s_Ajc):
+            for ajh, ajc in zip(s_Ajh, s_Ajc):  # compute cols coeffs and store
                 rat_sto.append(round(ajh / ajc, 2))
                 
-            print("rat_sto is, ", rat_sto)
+            # print("rat_sto is, ", rat_sto)
 
             if (Iter_balance.comp(s_Ajh, s_Ajc, tlr) == False):
-                for indx in range(len(travs)):
-                    for item in travsc_tt[indx]:
-                        print("item is, ", item)
-                        print("rat_sto is, ", rat_sto[indx])
-                        item = item * rat_sto[indx]
-                        print("item after update is, ", item)
-                        print("travsc_tt after update is, ", travsc_tt)
-                        travsc = list(zip(*travsc_tt))
+                print("Current cols coeffs are, ", rat_sto)
+                for i in range(len(travs)):
+                    # print("rat_sto is, ", rat_sto[i])
+                    travsc_tt[i] = [rat_sto[i]*item for item in
+                                    travsc_tt[i]]
+                    
+                # print("travsc_tt after update is, ", travsc_tt)
+            
+                travsc = list(zip(*travsc_tt))
 
                 print("Adjusted cols after pass ", p, "are",  travsc)
+                s_Ajc.clear()
+                for item in travsc_tt:
+                    s_Ajc.append(sum(item))
+                print("s_Ajc after pass ", p, "is ", s_Ajc)
+
+            p += 1
 
             bflg = Iter_balance.comp(s_Pih, s_Pic, tlr)
 
@@ -441,7 +451,7 @@ gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
-print("ccoeffs, ", ccoeffs)
+# print("ccoeffs, ", ccoeffs)
 
 # ccoeffs_it = Gravit_mod.ccoeffs(gvalsradj_it, travs)
 
@@ -452,6 +462,8 @@ ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 # print("Calibration coefficients matrix, ", ccoeffs_m)
 
 gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+
+gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
 
 # print("Future number of rounded travels, ", gvalsr_fin)
 
