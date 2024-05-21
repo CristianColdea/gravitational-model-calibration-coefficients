@@ -467,6 +467,7 @@ gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
 
 # print("Future number of rounded travels, ", gvalsr_fin)
 
-# u_a, u_t = modopt(tca, tct, tda, tdt)
+u_a, u_t = modopt(tca, tct, tda, tdt)
+print("utilities, ", u_a, u_t)
 
-# w_a, w_t = logit(u_a, u_t)
+w_a, w_t = logit(u_a, u_t)
