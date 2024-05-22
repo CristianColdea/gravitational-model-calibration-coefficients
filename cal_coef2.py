@@ -430,6 +430,7 @@ def logit(u_a, u_t):
         w_i = e**u_a / (e**u_a + e**u_t)
         # print(w_i)
         w_i = round(w_i, 2)
+        w_a.append(w_i)
         # print(w_i)
         # w_a.append(w_i)
         w_t.append(round(1-w_i, 2))
@@ -471,3 +472,5 @@ u_a, u_t = modopt(tca, tct, tda, tdt)
 print("utilities, ", u_a, u_t)
 
 w_a, w_t = logit(u_a, u_t)
+print("Weights of auto travels, ", w_a)
+print("Weights of tranzit travels, ", w_t)
