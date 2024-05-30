@@ -66,7 +66,8 @@ class Gravitmod:
         """
         Method to compute gravitational model values in order to determine the
         calibration factors.
-        Takes as input the travels, calibration coefficients and friction factors matrices.
+        Takes as input the travels, calibration coefficients and friction factors
+        matrices.
         Returns a matrix with calibration factors.
         """
     
@@ -103,7 +104,8 @@ class Gravitmod:
                 # print(pdsum)
                 # print(ffs[i])
             for k1 in range(len(ffs[i])):
-                gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ijs[i][k1] / pdsum))
+                gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ijs[i][k1] /
+                                   pdsum))
 
         print("Initial travels obtained with gravitational model, ", gvals_init)
 
@@ -158,7 +160,8 @@ class Gravitmod:
         on columns 1 and 2 and a lack of on column 3. Remove as much as possible
         from the exceeding columns and maintain the sums on lines, i.e. move 7 from
         column 1 to 3 on the line with the highest value (line 3), move 30 from
-        column 2 to 3, on line 1 (highest value), and move 7 from column 2 to 3, on line 2.
+        column 2 to 3, on line 1 (highest value), and move 7 from column 2 to 3,
+        on line 2.
         The final travels matrix will be:
         [[82, 110, 108],
          [43, 19, 38],
