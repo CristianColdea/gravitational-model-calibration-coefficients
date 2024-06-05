@@ -17,6 +17,16 @@ ffs = [[0.753, 1.597, 0.753],
        [0.987, 0.753, 0.765],
        [1.597, 0.765, 0.753]]
 
+# travels matrix, AET exam
+travsa = [[120, 70, 90],
+          [30, 40, 50],
+          [60, 80, 20]]
+
+# friction factors matrix, AET exam
+ffsa = [[0.852, 1.387, 0.753],
+        [0.987, 0.788, 1.591],
+        [0.796, 1.587, 0.771]]
+
 # neutral calibration coefficients
 k_ij0 = [[1, 1, 1],
          [1, 1, 1],
@@ -462,6 +472,9 @@ def logit(u_a, u_t):
 
 # gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
+gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
+
+
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 # gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
@@ -471,6 +484,10 @@ def logit(u_a, u_t):
 # print("Adjusted numbers of travels, ", gvalsradj)
 
 # ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
+
+ccoeffsa = Gravit_mod.ccoeffs(gvalsra, travsa)
+print("Coeffs calibration AET exam, ", ccoeffsa)
+
 
 # print("ccoeffs, ", ccoeffs)
 
@@ -488,19 +505,19 @@ def logit(u_a, u_t):
 
 # print("Future number of rounded travels, ", gvalsr_fin)
 
-u_a, u_t = modopt(tca, tct, tda, tdt)
+# u_a, u_t = modopt(tca, tct, tda, tdt)
 # print("utilities, ", u_a, u_t)
 
 
 # utilities auto and trasit AET exam
-u_aa, u_ta = modopt(tcaa, tcta, tdaa, tdta)
-print("AET auto utilities, ", u_aa)
-print("AET transit utilities, ", u_ta, '\n')
+# u_aa, u_ta = modopt(tcaa, tcta, tdaa, tdta)
+# print("AET auto utilities, ", u_aa)
+# print("AET transit utilities, ", u_ta, '\n')
 
-w_a, w_t = logit(u_a, u_t)
+# w_a, w_t = logit(u_a, u_t)
 # print("Weights of auto travels, ", w_a)
 # print("Weights of tranzit travels, ", w_t)
 
-w_aa, w_ta = logit(u_aa, u_ta)
-print("Weights of AET auto travels, ", w_aa)
-print("Weights of AET transit travels, ", w_ta)
+# w_aa, w_ta = logit(u_aa, u_ta)
+# print("Weights of AET auto travels, ", w_aa)
+# print("Weights of AET transit travels, ", w_ta)
