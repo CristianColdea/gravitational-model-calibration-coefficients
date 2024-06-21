@@ -470,9 +470,9 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-# gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
+gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
-gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
+# gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
 
 
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
@@ -485,8 +485,8 @@ gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
 
 # ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
-ccoeffsa = Gravit_mod.ccoeffs(gvalsra, travsa)
-print("Coeffs calibration AET exam, ", ccoeffsa)
+# ccoeffsa = Gravit_mod.ccoeffs(gvalsra, travsa)
+# print("Coeffs calibration AET exam, ", ccoeffsa)
 
 
 # print("ccoeffs, ", ccoeffs)
