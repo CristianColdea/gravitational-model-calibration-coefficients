@@ -99,13 +99,14 @@ class Gravit_mod:
         """
         Method to compute gravitational model values in order to determine the
         calibration factors.
-        Takes as input the travels, calibration coefficients and friction factors matrices.
+        Takes as input the travels, calibration coefficients and friction factor
+        matrices.
         Returns a matrix with calibration factors.
         """
     
         # check if the matrices have the same shape
         if(len(travs) != len(ffs) or (len(travs) != len(k_ijs))):
-            print("The matrices doesn't match. Please fix it.")
+            print("The matrices don't match. Please fix it.")
             exit()
     
         # transpose de matrices
@@ -214,7 +215,7 @@ class Gravit_mod:
         # check if the matrices have the same shape
         if(len(k_ijs) != len(ffs) or (len(k_ijs) != len(P_is)) or \
            (len(k_ijs) != len(A_js))):
-            print("The matrices doesn't match. Please fix it.")
+            print("The matrices don't match. Please fix it.")
             exit()
     
         # compute travels with gravitational model
@@ -326,7 +327,7 @@ class Iter_balance:
     
         # check if the matrices have the same shape
         if(len(travs) != len(travsc)):
-            print("The matrices doesn't match. Please fix it.")
+            print("The matrices don't match. Please fix it.")
             exit()
     
         # transpose de matrices
@@ -363,7 +364,7 @@ class Iter_balance:
         # check the produced and attracted travels, respectively
 
         bflg = False    #bool flag for 'while' loop
-        p = 1   # counting passes over travsc matrix
+        p = 1           # counting passes over travsc matrix
 
         while(bflg == False):
             rat_sto = []    #store travels ratios
