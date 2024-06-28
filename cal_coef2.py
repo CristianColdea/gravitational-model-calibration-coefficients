@@ -112,9 +112,10 @@ class Gravit_mod:
         # transpose de matrices
         travs_tt = list(zip(*travs))
         ffs_tt = list(zip(*ffs))
+        # print("travs_tt, ", travs_tt)
         travs_t = [list(sublist) for sublist in travs_tt]
         ffs_t = [list(sublist) for sublist in ffs_tt]
-        # print(travs_t)
+        # print("travs_t", travs_t)
         # print(ffs_t)
     
         # get attracted travels sums (cycling on transposes)
@@ -137,12 +138,14 @@ class Gravit_mod:
                 # print(pdsum)
                 # print(ffs[i])
             for k1 in range(len(ffs[i])):
-                gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ijs[i][k1] / pdsum))
+                gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * \
+                                   k_ijs[i][k1] / pdsum))
 
         print("Initial travels obtained with gravitational model, ", gvals_init)
 
         # check raw produced travels
-        gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
+        gvals_init_m0 = [gvals_init[i:i + 3] 
+                         for i in range(0, len(gvals_init), 3)]
         # print(gvals_init_m0)
 
     
@@ -228,7 +231,8 @@ class Gravit_mod:
                 # print("ffs[i] fin, ", ffs[i])
                 # print("A_j, ", j1)
             for k1 in range(len(ffs[i])):
-                gvals_fin.append((P_is[i] * ffs[i][k1] * A_js[k1] * k_ijs[i][k1] / pdsum))
+                gvals_fin.append((P_is[i] * ffs[i][k1] * A_js[k1] * \
+                                  k_ijs[i][k1] / pdsum))
 
         print("Future travels obtained with gravitational model, ", gvals_fin)
 
@@ -471,7 +475,7 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
+# gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 # gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
 
@@ -484,7 +488,7 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 # print("Adjusted numbers of travels, ", gvalsradj)
 
-# ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
+ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
 # ccoeffsa = Gravit_mod.ccoeffs(gvalsra, travsa)
 # print("Coeffs calibration AET exam, ", ccoeffsa)
@@ -496,15 +500,16 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
-# ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
+ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
-# print("Calibration coefficients matrix, ", ccoeffs_m)
+print("Calibration coefficients matrix, ", ccoeffs_m)
 
-# gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
-# gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
-
+gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
 # print("Future number of rounded travels, ", gvalsr_fin)
+
+# gvalsradj_fin_it = Iter_balance.adjt(travs, gvalsr_fin_m)
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
 # print("utilities, ", u_a, u_t)
