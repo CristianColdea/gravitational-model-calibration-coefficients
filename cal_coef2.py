@@ -354,6 +354,8 @@ class Iter_balance:
         for item in travs:
             s_Pih.append(sum(item))
 
+        print("s_Pih, ", s_Pih)
+
         # get attracted travels sums on computed travels (cycling on transposes)
         s_Ajc = []   # store the attracted sums
 
@@ -364,6 +366,8 @@ class Iter_balance:
         s_Pic = []
         for item in travsc:
             s_Pic.append(sum(item))
+
+        print("s_Pic, ", s_Pic)
 
         # check the produced and attracted travels, respectively
 
@@ -414,6 +418,9 @@ class Iter_balance:
             p += 1
 
             bflg = Iter_balance.comp(s_Pih, s_Pic, tlr)
+
+            if(p > 3):
+                break
 
 
 
@@ -509,7 +516,7 @@ gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
 # print("Future number of rounded travels, ", gvalsr_fin)
 
-# gvalsradj_fin_it = Iter_balance.adjt(travs, gvalsr_fin_m)
+gvalsradj_fin_it = Iter_balance.adjt(travs, gvalsr_fin_m)
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
 # print("utilities, ", u_a, u_t)
