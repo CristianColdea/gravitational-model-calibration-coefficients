@@ -379,6 +379,9 @@ class Iter_balance:
             rat_sto.clear()     #clear out the previous values stored
             for pih, pic in zip(s_Pih, s_Pic):  #compute rows coeffs and store
                 rat_sto.append(round(pih / pic, 2))
+            
+            # print("rat_sto, ", rat_sto)
+            print("travsc before adj, ", travsc)
 
             if (Iter_balance.comp(s_Pih, s_Pic, tlr) == False):
                 print("Current rows coeffs are, ", rat_sto)
