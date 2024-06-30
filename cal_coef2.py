@@ -396,8 +396,9 @@ class Iter_balance:
                 s_Pic.clear()
                 for item in travsc:
                     s_Pic.append(sum(item))
-                print("s_Pic after pass ", p, "is ", s_Pic)
+                print("s_Pic after pass ", p, "is ", s_Pic, '\n')
             
+            # transpose the new matrix
             travsc_t = [list(sublist) for sublist in list(zip(*travsc))]
 
             # get attracted travels sums on computed travels, after rows adj
@@ -415,22 +416,18 @@ class Iter_balance:
             if (Iter_balance.comp(s_Ajh, s_Ajc, tlr) == False):
                 print("Current cols coeffs are, ", rat_sto)
                 for i in range(len(travs)):
-                    # print("rat_sto is, ", rat_sto[i])
                     travsc_t[i] = [rat_sto[i]*item for item in
                                     travsc_t[i]]
                     
                 print("travsc_t after update is, ", travsc_t)
             
-                travsc = list(zip(*travsc_t))
-                print("Adjusted cols tuple, ", travsc)
-
-                travsc = [list(sublist) for sublist in travsc]
+                travsc = [list(sublist) for sublist in list(zip(*travsc_t))]
                 print("Adjusted cols after pass ", p, "are",  travsc)
 
                 s_Ajc.clear()
-                for item in travsc_tt:
+                for item in travsc_t:
                     s_Ajc.append(sum(item))
-                print("s_Ajc after pass ", p, "is ", s_Ajc)
+                print("s_Ajc after pass ", p, "is ", s_Ajc, '\n')
 
             p += 1
 
@@ -531,7 +528,7 @@ ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
 gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
-# print("Future number of rounded travels, ", gvalsr_fin)
+# print("Future number of rounded travels, ", gvalsr_fin_m)
 
 gvalsradj_fin_it = Iter_balance.adjt(travs, gvalsr_fin_m)
 
