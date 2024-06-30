@@ -295,7 +295,7 @@ class Iter_balance:
             flag = True
 
             for ih, ic in zip(s_ih, s_ic):
-                if(abs(ih - ic) >= tlr): 
+                if(abs((ih - ic) / ih) >= tlr): 
                     flag = False
                     break
 
@@ -319,23 +319,24 @@ class Iter_balance:
 
 
 
-    def adjt(travsc, tlr=0.02, travs=0, P_is=0, A_js=0):
+    def adjt(travsc, travs=0, P_is=[], A_js=[], tlr=0.02):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
         Takes as input the computed
-        ones, in the form of matrices, the precision (tolerance) of
-        adjustment, historical travels (if this the case), future produced
-        and attracted travels, respectively (if this is the case).
+        ones, in the form of matrices, historical travels (if this the case),
+        future produced and attracted travels, respectively
+        (if this is the case), and the precision (tolerance) of the adjustment.
         Returns a matrix with adjusted travels.
         This method deals with two distinct cases of travels adjustment:
         first when gravitational model is applied on known (i.e. historical
         data), and second when only the future travels are computed (with no
         prior data collection).
         """
-    
+        # print("travs, ", travs)
+
         # check if the matrices have the same shape
-        if(len(travs) != len(travsc)):
+        if(travs != 0 and len(travs) != len(travsc)):
             print("The matrices don't match. Please fix it.")
             exit()
     
@@ -358,8 +359,7 @@ class Iter_balance:
                 P_is.append(sum(item))
 
             print("P_is, ", P_is, '\n')
-
-        
+       
         # check the produced and attracted travels, respectively
 
         bflg = False    #bool flag for 'while' loop
@@ -377,15 +377,15 @@ class Iter_balance:
 
             rat_sto = []    #store travels ratios
             rat_sto.clear()     #clear out the previous values stored
-            for pih, pic in zip(s_Pih, s_Pic):  #compute rows coeffs and store
-                rat_sto.append(round(pih / pic, 2))
+            for pih, pic in zip(P_is, P_isc):  #compute rows coeffs and store
+                rat_sto.append(round(pih / pic, 3))
             
             # print("rat_sto, ", rat_sto)
             travsc = [list(sublist) for sublist in travsc]
 
             print("travsc before adj, ", travsc)
 
-            if (Iter_balance.comp(s_Pih, s_Pic, tlr) == False):
+            if (Iter_balance.comp(P_is, P_isc, tlr) == False):
                 print("Current rows coeffs are, ", rat_sto)
                 for indx in range(len(travs)):
                     for i, val in enumerate(travsc[indx]):
@@ -394,27 +394,28 @@ class Iter_balance:
                         travsc[indx][i] = val * rat_sto[indx]
                         # print("item after is, ", item)
                 print("Adjusted rows after pass ", p, "are",  travsc)
-                s_Pic.clear()
+                P_isc.clear()
                 for item in travsc:
-                    s_Pic.append(sum(item))
-                print("s_Pic after pass ", p, "is ", s_Pic, '\n')
+                    P_isc.append(sum(item))
+                print("P_isc after pass ", p, "is ", P_isc, '\n')
             
             # transpose the new matrix
             travsc_t = [list(sublist) for sublist in list(zip(*travsc))]
 
             # get attracted travels sums on computed travels, after rows adj
-            s_Ajc = []   # store the attracted sums
+            A_jsc = []   # store the attracted sums
 
             for item in travsc_t:
-                s_Ajc.append(sum(item))
+                A_jsc.append(sum(item))
         
-            print("s_Ajc, ", s_Ajc)
+            print("A_jsc, ", A_jsc)
 
             rat_sto.clear()     # clear out the previous values stored
-            for ajh, ajc in zip(s_Ajh, s_Ajc):  # compute cols coeffs and store
-                rat_sto.append(round(ajh / ajc, 2))
+            for ajh, ajc in zip(A_js, A_jsc):  # compute cols coeffs and store
+                # print(ajh, ajc)
+                rat_sto.append(round(ajh / ajc, 3))
                 
-            if (Iter_balance.comp(s_Ajh, s_Ajc, tlr) == False):
+            if (Iter_balance.comp(A_js, A_jsc, tlr) == False):
                 print("Current cols coeffs are, ", rat_sto)
                 for i in range(len(travs)):
                     travsc_t[i] = [rat_sto[i]*item for item in
@@ -425,18 +426,20 @@ class Iter_balance:
                 travsc = [list(sublist) for sublist in list(zip(*travsc_t))]
                 print("travsc after pass ", p, "are",  travsc)
 
-                s_Ajc.clear()
+                A_jsc.clear()
                 for item in travsc_t:
-                    s_Ajc.append(sum(item))
-                print("s_Ajc after pass ", p, "is ", s_Ajc, '\n')
+                    A_jsc.append(sum(item))
+                print("A_jsc after pass ", p, "is ", A_jsc, '\n')
 
             p += 1
 
-            bflg = Iter_balance.comp(s_Pih, s_Pic, tlr)
+            bflg = Iter_balance.comp(P_is, P_isc, tlr) and \
+                   Iter_balance.comp(A_js, A_jsc, tlr)
 
             print(bflg)
-            #if(p > 2):
-            #    break
+
+            if(p > 5):
+                break
 
 
 
@@ -505,7 +508,9 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
+# print("gvalsr_m, ", gvalsr_m)
+
+gvalsradj_it = Iter_balance.adjt(gvalsr_m, travs)
 
 # print(gvalsr)
 
