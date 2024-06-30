@@ -141,7 +141,7 @@ class Gravit_mod:
                 gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * \
                                    k_ijs[i][k1] / pdsum))
 
-        print("Initial travels obtained with gravitational model, ", gvals_init)
+       #  print("Initial travels obtained with gravitational model, ", gvals_init)
 
         # check raw produced travels
         gvals_init_m0 = [gvals_init[i:i + 3] 
@@ -158,7 +158,7 @@ class Gravit_mod:
         for item in gvals_init:
             gvals_init_r.append(round(item))
     
-        print("Rounded number of initial travels, ", gvals_init_r)
+        # print("Rounded number of initial travels, ", gvals_init_r)
 
         # group flatten list 'gvals_init_r' as a matrix
         gvals_init_m = [gvals_init_r[i:i + 3] for i in range(0,
@@ -234,7 +234,7 @@ class Gravit_mod:
                 gvals_fin.append((P_is[i] * ffs[i][k1] * A_js[k1] * \
                                   k_ijs[i][k1] / pdsum))
 
-        print("Future travels obtained with gravitational model, ", gvals_fin)
+        # print("Future travels obtained with gravitational model, ", gvals_fin)
 
         # check raw produced travels
         gvals_fin_m0 = [gvals_fin[i:i + 3] for i in range(0, len(gvals_fin), 3)]
@@ -246,14 +246,14 @@ class Gravit_mod:
         for item in gvals_fin:
             gvals_fin_r.append(round(item))
     
-        print("Rounded number of furure travels, ", gvals_fin_r)
-        print("Total travels sum, ", sum(gvals_fin_r))
+        # print("Rounded number of furure travels, ", gvals_fin_r)
+        # print("Total travels sum, ", sum(gvals_fin_r))
 
         # group flatten list 'gvals_fin_r' as a matrix
         gvals_fin_m = [gvals_fin_r[i:i + 3] for i in range(0,
                          len(gvals_fin_r), 3)]
 
-        print("Matrix of future rounded numbers, ", gvals_fin_m)
+        # print("Matrix of future rounded numbers, ", gvals_fin_m)
 
         return gvals_fin_r
 
@@ -337,6 +337,7 @@ class Iter_balance:
         # transpose de matrices
         travs_tt = list(zip(*travs))
         travsc_tt = list(zip(*travsc))
+        # print("travsc_tt, ", travsc_tt)
 
         travs_t = [list(sublist) for sublist in travs_tt]
         travsc_t = [list(sublist) for sublist in travsc_tt]
@@ -348,33 +349,39 @@ class Iter_balance:
 
         for item in travs_tt:
             s_Ajh.append(sum(item))
+        
+        print("s_Ajh, ", s_Ajh)
 
         # get produced travels sums on observed travels
         s_Pih = []
         for item in travs:
             s_Pih.append(sum(item))
 
-        print("s_Pih, ", s_Pih)
+        print("s_Pih, ", s_Pih, '\n')
 
-        # get attracted travels sums on computed travels (cycling on transposes)
-        s_Ajc = []   # store the attracted sums
-
-        for item in travsc_tt:
-            s_Ajc.append(sum(item))
-
-        # get produced travels sums on computed travels
-        s_Pic = []
-        for item in travsc:
-            s_Pic.append(sum(item))
-
-        print("s_Pic, ", s_Pic)
-
+        
         # check the produced and attracted travels, respectively
 
         bflg = False    #bool flag for 'while' loop
         p = 1           # counting passes over travsc matrix
 
         while(bflg == False):
+            # get attracted travels sums on computed travels (cycling on transposes)
+            s_Ajc = []   # store the attracted sums
+
+            for item in travsc_t:
+                s_Ajc.append(sum(item))
+        
+            print("s_Ajc, ", s_Ajc)
+
+            # get produced travels sums on computed travels
+            s_Pic = []
+            for item in travsc:
+                s_Pic.append(sum(item))
+
+            print("s_Pic, ", s_Pic)
+
+
             rat_sto = []    #store travels ratios
             rat_sto.clear()     #clear out the previous values stored
             for pih, pic in zip(s_Pih, s_Pic):  #compute rows coeffs and store
@@ -410,12 +417,12 @@ class Iter_balance:
                 print("Current cols coeffs are, ", rat_sto)
                 for i in range(len(travs)):
                     # print("rat_sto is, ", rat_sto[i])
-                    travsc_tt[i] = [rat_sto[i]*item for item in
-                                    travsc_tt[i]]
+                    travsc_t[i] = [rat_sto[i]*item for item in
+                                    travsc_t[i]]
                     
-                # print("travsc_tt after update is, ", travsc_tt)
+                print("travsc_t after update is, ", travsc_t)
             
-                travsc = list(zip(*travsc_tt))
+                travsc = list(zip(*travsc_t))
                 print("Adjusted cols tuple, ", travsc)
 
                 travsc = [list(sublist) for sublist in travsc]
@@ -520,7 +527,7 @@ ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
 ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
-print("Calibration coefficients matrix, ", ccoeffs_m)
+# print("Calibration coefficients matrix, ", ccoeffs_m)
 
 gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
