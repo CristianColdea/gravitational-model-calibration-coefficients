@@ -335,19 +335,18 @@ class Iter_balance:
             exit()
     
         # transpose de matrices
-        travs_tt = list(zip(*travs))
-        travsc_tt = list(zip(*travsc))
+        # travsc_tt = list(zip(*travsc))
         # print("travsc_tt, ", travsc_tt)
 
-        travs_t = [list(sublist) for sublist in travs_tt]
-        travsc_t = [list(sublist) for sublist in travsc_tt]
+        travs_t = [list(sublist) for sublist in list(zip(*travs))]
+        # travsc_t = [list(sublist) for sublist in travsc_tt]
         # print(travs_t)
         # print(travsc_t)
         
         # get attracted travels sums on observed travels (cycling on transposes)
         s_Ajh = []   # store the attracted sums
 
-        for item in travs_tt:
+        for item in travs_t:
             s_Ajh.append(sum(item))
         
         print("s_Ajh, ", s_Ajh)
@@ -366,14 +365,7 @@ class Iter_balance:
         p = 1           # counting passes over travsc matrix
 
         while(bflg == False):
-            # get attracted travels sums on computed travels (cycling on transposes)
-            s_Ajc = []   # store the attracted sums
-
-            for item in travsc_t:
-                s_Ajc.append(sum(item))
-        
-            print("s_Ajc, ", s_Ajc)
-
+            
             # get produced travels sums on computed travels
             s_Pic = []
             for item in travsc:
@@ -406,13 +398,20 @@ class Iter_balance:
                     s_Pic.append(sum(item))
                 print("s_Pic after pass ", p, "is ", s_Pic)
             
-            
+            travsc_t = [list(sublist) for sublist in list(zip(*travsc))]
+
+            # get attracted travels sums on computed travels, after rows adj
+            s_Ajc = []   # store the attracted sums
+
+            for item in travsc_t:
+                s_Ajc.append(sum(item))
+        
+            print("s_Ajc, ", s_Ajc)
+
             rat_sto.clear()     # clear out the previous values stored
             for ajh, ajc in zip(s_Ajh, s_Ajc):  # compute cols coeffs and store
                 rat_sto.append(round(ajh / ajc, 2))
                 
-            # print("rat_sto is, ", rat_sto)
-
             if (Iter_balance.comp(s_Ajh, s_Ajc, tlr) == False):
                 print("Current cols coeffs are, ", rat_sto)
                 for i in range(len(travs)):
