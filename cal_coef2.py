@@ -319,14 +319,19 @@ class Iter_balance:
 
 
 
-    def adjt(travs, travsc, tlr=0.02):
+    def adjt(travsc, tlr=0.02, travs=0, P_is=0, A_js=0):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
-        Takes as input the observed (historical) travels,the computed
-        ones, in the form of matrices and the precision (tolerance) of
-        adjustment.
+        Takes as input the computed
+        ones, in the form of matrices, the precision (tolerance) of
+        adjustment, historical travels (if this the case), future produced
+        and attracted travels, respectively (if this is the case).
         Returns a matrix with adjusted travels.
+        This method deals with two distinct cases of travels adjustment:
+        first when gravitational model is applied on known (i.e. historical
+        data), and second when only the future travels are computed (with no
+        prior data collection).
         """
     
         # check if the matrices have the same shape
@@ -338,25 +343,24 @@ class Iter_balance:
         # travsc_tt = list(zip(*travsc))
         # print("travsc_tt, ", travsc_tt)
 
-        travs_t = [list(sublist) for sublist in list(zip(*travs))]
-        # travsc_t = [list(sublist) for sublist in travsc_tt]
-        # print(travs_t)
-        # print(travsc_t)
+        if(travs != 0): #the historical travels are provided
+            # get the transpose matrix of known ones
+            travs_t = [list(sublist) for sublist in list(zip(*travs))]
+               
+            # get attracted travels sums on observed travels (cycling on transposes)
+            s_Ajh = []   # store the attracted sums
+
+            for item in travs_t:
+                s_Ajh.append(sum(item))
         
-        # get attracted travels sums on observed travels (cycling on transposes)
-        s_Ajh = []   # store the attracted sums
+            print("s_Ajh, ", s_Ajh)
 
-        for item in travs_t:
-            s_Ajh.append(sum(item))
-        
-        print("s_Ajh, ", s_Ajh)
+            # get produced travels sums on observed travels
+            s_Pih = []
+            for item in travs:
+                s_Pih.append(sum(item))
 
-        # get produced travels sums on observed travels
-        s_Pih = []
-        for item in travs:
-            s_Pih.append(sum(item))
-
-        print("s_Pih, ", s_Pih, '\n')
+            print("s_Pih, ", s_Pih, '\n')
 
         
         # check the produced and attracted travels, respectively
@@ -422,7 +426,7 @@ class Iter_balance:
                 print("travsc_t after update is, ", travsc_t)
             
                 travsc = [list(sublist) for sublist in list(zip(*travsc_t))]
-                print("Adjusted cols after pass ", p, "are",  travsc)
+                print("travsc after pass ", p, "are",  travsc)
 
                 s_Ajc.clear()
                 for item in travsc_t:
