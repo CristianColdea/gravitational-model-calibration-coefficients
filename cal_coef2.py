@@ -319,7 +319,7 @@ class Iter_balance:
 
 
 
-    def adjt(travsc, travs=0, P_is=[], A_js=[], tlr=0.02):
+    def adjt(travsc, travs, P_is=[], A_js=[], tlr=0.02):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
@@ -336,9 +336,9 @@ class Iter_balance:
         # print("travs, ", travs)
 
         # check if the matrices have the same shape
-        if(travs != 0 and len(travs) != len(travsc)):
-            print("The matrices don't match. Please fix it.")
-            exit()
+        #if(travs != 0 and len(travs) != len(travsc)):
+        #    print("The matrices don't match. Please fix it.")
+        #    exit()
     
         # transpose de matrices
         # travsc_tt = list(zip(*travsc))
@@ -431,6 +431,11 @@ class Iter_balance:
                     A_jsc.append(sum(item))
                 print("A_jsc after pass ", p, "is ", A_jsc, '\n')
 
+            
+            P_isc.clear()
+            for item in travsc:
+                P_isc.append(sum(item))
+
             p += 1
 
             bflg = Iter_balance.comp(P_is, P_isc, tlr) and \
@@ -438,7 +443,7 @@ class Iter_balance:
 
             print(bflg)
 
-            if(p > 5):
+            if(p > 3):
                 break
 
 
@@ -506,11 +511,11 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 # gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
 
 
-gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+#gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 # print("gvalsr_m, ", gvalsr_m)
 
-gvalsradj_it = Iter_balance.adjt(gvalsr_m, travs)
+#gvalsradj_it = Iter_balance.adjt(gvalsr_m, travs)
 
 # print(gvalsr)
 
@@ -535,9 +540,9 @@ ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
 gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
-# print("Future number of rounded travels, ", gvalsr_fin_m)
+print("Future number of rounded travels, ", gvalsr_fin_m)
 
-# gvalsradj_fin_it = Iter_balance.adjt(travs, gvalsr_fin_m)
+gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [], P_is, A_js)
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
 # print("utilities, ", u_a, u_t)
