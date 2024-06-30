@@ -433,8 +433,9 @@ class Iter_balance:
 
             bflg = Iter_balance.comp(s_Pih, s_Pic, tlr)
 
-            if(p > 2):
-                break
+            print(bflg)
+            #if(p > 2):
+            #    break
 
 
 
@@ -496,14 +497,14 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-# gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
+gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 # gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
 
 
-# gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-# gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
+gvalsradj_it = Iter_balance.adjt(travs, gvalsr_m)
 
 # print(gvalsr)
 
@@ -530,7 +531,7 @@ gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
 # print("Future number of rounded travels, ", gvalsr_fin_m)
 
-gvalsradj_fin_it = Iter_balance.adjt(travs, gvalsr_fin_m)
+# gvalsradj_fin_it = Iter_balance.adjt(travs, gvalsr_fin_m)
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
 # print("utilities, ", u_a, u_t)
