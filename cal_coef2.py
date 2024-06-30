@@ -348,19 +348,16 @@ class Iter_balance:
             travs_t = [list(sublist) for sublist in list(zip(*travs))]
                
             # get attracted travels sums on observed travels (cycling on transposes)
-            s_Ajh = []   # store the attracted sums
-
             for item in travs_t:
-                s_Ajh.append(sum(item))
+                A_js.append(sum(item))
         
-            print("s_Ajh, ", s_Ajh)
+            print("A_js, ", A_js)
 
             # get produced travels sums on observed travels
-            s_Pih = []
             for item in travs:
-                s_Pih.append(sum(item))
+                P_is.append(sum(item))
 
-            print("s_Pih, ", s_Pih, '\n')
+            print("P_is, ", P_is, '\n')
 
         
         # check the produced and attracted travels, respectively
@@ -371,11 +368,11 @@ class Iter_balance:
         while(bflg == False):
             
             # get produced travels sums on computed travels
-            s_Pic = []
+            P_isc = []
             for item in travsc:
-                s_Pic.append(sum(item))
+                P_isc.append(sum(item))
 
-            print("s_Pic, ", s_Pic)
+            print("P_isc, ", P_isc)
 
 
             rat_sto = []    #store travels ratios
