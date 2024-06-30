@@ -342,7 +342,7 @@ class Iter_balance:
         travsc_t = [list(sublist) for sublist in travsc_tt]
         # print(travs_t)
         # print(travsc_t)
-    
+        
         # get attracted travels sums on observed travels (cycling on transposes)
         s_Ajh = []   # store the attracted sums
 
@@ -381,13 +381,18 @@ class Iter_balance:
                 rat_sto.append(round(pih / pic, 2))
             
             # print("rat_sto, ", rat_sto)
+            travsc = [list(sublist) for sublist in travsc]
+
             print("travsc before adj, ", travsc)
 
             if (Iter_balance.comp(s_Pih, s_Pic, tlr) == False):
                 print("Current rows coeffs are, ", rat_sto)
                 for indx in range(len(travs)):
-                    for item in travsc[indx]:
-                        item = item * rat_sto[indx]
+                    for i, val in enumerate(travsc[indx]):
+                        # print("item before is, ", item)
+                        # print("current ratio is, ", rat_sto[indx])
+                        travsc[indx][i] = val * rat_sto[indx]
+                        # print("item after is, ", item)
                 print("Adjusted rows after pass ", p, "are",  travsc)
                 s_Pic.clear()
                 for item in travsc:
@@ -411,8 +416,11 @@ class Iter_balance:
                 # print("travsc_tt after update is, ", travsc_tt)
             
                 travsc = list(zip(*travsc_tt))
+                print("Adjusted cols tuple, ", travsc)
 
+                travsc = [list(sublist) for sublist in travsc]
                 print("Adjusted cols after pass ", p, "are",  travsc)
+
                 s_Ajc.clear()
                 for item in travsc_tt:
                     s_Ajc.append(sum(item))
@@ -422,7 +430,7 @@ class Iter_balance:
 
             bflg = Iter_balance.comp(s_Pih, s_Pic, tlr)
 
-            if(p > 3):
+            if(p > 2):
                 break
 
 
