@@ -365,27 +365,27 @@ class Iter_balance:
             print("P_is, ", P_is, '\n')
        
         # check the produced and attracted travels, respectively
+        # get initial produced travels sums on computed travels
+        P_isc = []
+        for item in travsc:
+            P_isc.append(sum(item))
+
+        print("P_isc, ", P_isc)
 
         bflg = False    #bool flag for 'while' loop
         p = 1           # counting passes over travsc matrix
         # print("travsc init, ", travsc)
 
         while(bflg == False):
+            # print("P_isc, ", P_isc)
+            # print("A_js, ", A_js)
             
-            # get produced travels sums on computed travels
-            P_isc = []
-            for item in travsc:
-                P_isc.append(sum(item))
-
-            print("P_isc, ", P_isc)
-
-
             rat_sto = []    #store travels ratios
             rat_sto.clear()     #clear out the previous values stored
             for pih, pic in zip(P_is, P_isc):  #compute rows coeffs and store
                 rat_sto.append(round(pih / pic, 3))
             
-            # print("rat_sto, ", rat_sto)
+            print("rat_sto rows, ", rat_sto)
             travsc = [list(sublist) for sublist in travsc]
 
             print("travsc before adj, ", travsc)
@@ -398,7 +398,7 @@ class Iter_balance:
                         # print("current ratio is, ", rat_sto[indx])
                         travsc[indx][i] = val * rat_sto[indx]
                         # print("item after is, ", item)
-                print("Adjusted rows after pass ", p, "are",  travsc)
+                print("Adjusted matrix after pass_r ", p, "are",  travsc)
                 P_isc.clear()
                 for item in travsc:
                     P_isc.append(sum(item))
@@ -419,22 +419,33 @@ class Iter_balance:
             for ajh, ajc in zip(A_js, A_jsc):  # compute cols coeffs and store
                 # print(ajh, ajc)
                 rat_sto.append(round(ajh / ajc, 3))
+
+            print("rat_sto cols, ", rat_sto)
                 
             if (Iter_balance.comp(A_js, A_jsc, tlr) == False):
                 print("Current cols coeffs are, ", rat_sto)
-                for i in range(len(travs)):
+                for i in range(len(travsc)):
                     travsc_t[i] = [rat_sto[i]*item for item in
                                     travsc_t[i]]
                     
-                print("travsc_t after update is, ", travsc_t)
+                # print("travsc_t after update is, ", travsc_t)
             
                 travsc = [list(sublist) for sublist in list(zip(*travsc_t))]
-                print("travsc after pass ", p, "are",  travsc)
+                print("Adjusted matrix after pass_c ", p, "are",  travsc)
 
-                A_jsc.clear()
+                # print("travsc after pass ", p, "are",  travsc)
+
+                A_js.clear()
                 for item in travsc_t:
-                    A_jsc.append(sum(item))
-                print("A_jsc after pass ", p, "is ", A_jsc, '\n')
+                    A_js.append(sum(item))
+                print("A_js after pass ", p, "is ", A_jsc, '\n')
+                
+                # print("P_is before replacement, ", P_is)
+
+                P_is.clear()
+                for item in travsc:
+                    P_is.append(sum(item))
+                print("P_is after pass ", p, "is ", P_is, '\n')
        
 
             p += 1
@@ -442,11 +453,20 @@ class Iter_balance:
             bflg = Iter_balance.comp(P_is, P_isc, tlr) and \
                    Iter_balance.comp(A_js, A_jsc, tlr)
 
-            print(bflg)
+            # print(bflg)
 
-            if(p > 4):
-                break
+            #if(p > 5):
+            #    break
 
+        travsc_r = []
+
+        for item in travsc:
+            for item in item:
+                travsc_r.append(round(item))
+
+        travsc_m = [travsc_r[i:i + 3] for i in range(0, len(travsc_r), 3)]
+
+        print(travsc_m)
 
 
         pass
