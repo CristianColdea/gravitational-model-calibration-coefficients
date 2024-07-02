@@ -343,8 +343,12 @@ class Iter_balance:
         # transpose de matrices
         # travsc_tt = list(zip(*travsc))
         # print("travsc_tt, ", travsc_tt)
+        # print(travs[0] != 0)
+        # print("travs, ", travs)
+        print("P_is, ", P_is)
+        print("A_js, ", A_js)
 
-        if(travs != 0): #the historical travels are provided
+        if(travs[0] != 0): #the historical travels are provided
             # get the transpose matrix of known ones
             travs_t = [list(sublist) for sublist in list(zip(*travs))]
                
@@ -364,6 +368,7 @@ class Iter_balance:
 
         bflg = False    #bool flag for 'while' loop
         p = 1           # counting passes over travsc matrix
+        # print("travsc init, ", travsc)
 
         while(bflg == False):
             
@@ -387,7 +392,7 @@ class Iter_balance:
 
             if (Iter_balance.comp(P_is, P_isc, tlr) == False):
                 print("Current rows coeffs are, ", rat_sto)
-                for indx in range(len(travs)):
+                for indx in range(len(travsc)):
                     for i, val in enumerate(travsc[indx]):
                         # print("item before is, ", item)
                         # print("current ratio is, ", rat_sto[indx])
@@ -430,11 +435,7 @@ class Iter_balance:
                 for item in travsc_t:
                     A_jsc.append(sum(item))
                 print("A_jsc after pass ", p, "is ", A_jsc, '\n')
-
-            
-            P_isc.clear()
-            for item in travsc:
-                P_isc.append(sum(item))
+       
 
             p += 1
 
@@ -443,7 +444,7 @@ class Iter_balance:
 
             print(bflg)
 
-            if(p > 3):
+            if(p > 4):
                 break
 
 
@@ -542,7 +543,7 @@ gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
 print("Future number of rounded travels, ", gvalsr_fin_m)
 
-gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [], P_is, A_js)
+gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
 # print("utilities, ", u_a, u_t)
