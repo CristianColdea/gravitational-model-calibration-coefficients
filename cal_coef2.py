@@ -501,24 +501,30 @@ class Iter_balance:
         # print("travsc_tt, ", travsc_tt)
         # print(travs[0] != 0)
         # print("travs, ", travs)
-        print("P_is, ", P_is)
-        print("A_js, ", A_js)
+        # print("P_is, ", P_is)
+        # print("A_js, ", A_js)
 
-        if(travs[0] != 0): #the historical travels are provided
-            # get the transpose matrix of known ones
-            travs_t = [list(sublist) for sublist in list(zip(*travs))]
+        # if(travs[0] != 0): #the historical travels are provided
+        # get the transpose matrix of known ones
+        travs_t = [list(sublist) for sublist in list(zip(*travs))]
                
-            # get attracted travels sums on observed travels (cycling on transposes)
-            for item in travs_t:
-                A_js.append(sum(item))
+        # get attracted travels sums on observed travels (cycling on transposes)
+        A_jsh = []
+        for item in travs_t:
+            A_jsh.append(sum(item))
         
-            print("A_js, ", A_js)
+        print("A_jsh, ", A_jsh)
 
-            # get produced travels sums on observed travels
-            for item in travs:
-                P_is.append(sum(item))
+        # get the weights of attracted travels
+        for col in travs_t:
+            for 
 
-            print("P_is, ", P_is, '\n')
+        # get produced travels sums on observed travels
+        P_ish = []
+        for item in travs:
+            P_ish.append(sum(item))
+
+        print("P_ish, ", P_ish, '\n')
        
         # check the produced and attracted travels, respectively
         # get initial produced travels sums on computed travels
@@ -718,7 +724,10 @@ gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
 print("Future number of rounded travels, ", gvalsr_fin_m)
 
-gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
+# gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
+
+gvalsradj_fin_w = Iter_balance.adjt_w(gvalsr_fin_m, travs, ffs, ffs_f, P_is, A_js)
+
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
 # print("utilities, ", u_a, u_t)
