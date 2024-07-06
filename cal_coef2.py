@@ -471,6 +471,161 @@ class Iter_balance:
 
         pass
        
+    def adjt_w(travsc, travs, ffs, ffs_f, P_is=[], A_js=[], tlr=0.02):
+
+        """
+        Method to iteratively and weighted adjust travels computed with
+        gravitational model.
+        Takes as input the computed ones, in the form of matrices,
+        historical travels,
+        historical and future projected friction factors,
+        future produced and attracted travels, respectively
+        (if this is the case), and the precision (tolerance) of the adjustment.
+        Returns a matrix with adjusted travels.
+        This method deals with two distinct cases of travels adjustment:
+        first when gravitational model is applied on known (i.e. historical
+        data), and second when only the future travels are computed (with no
+        prior data collection). The method is based on weights of each
+        produced and attracted traveles in relation to the total produced and
+        attracted to and from each zone, respectively.
+        """
+        # print("travs, ", travs)
+
+        # check if the matrices have the same shape
+        #if(travs != 0 and len(travs) != len(travsc)):
+        #    print("The matrices don't match. Please fix it.")
+        #    exit()
+    
+        # transpose de matrices
+        # travsc_tt = list(zip(*travsc))
+        # print("travsc_tt, ", travsc_tt)
+        # print(travs[0] != 0)
+        # print("travs, ", travs)
+        print("P_is, ", P_is)
+        print("A_js, ", A_js)
+
+        if(travs[0] != 0): #the historical travels are provided
+            # get the transpose matrix of known ones
+            travs_t = [list(sublist) for sublist in list(zip(*travs))]
+               
+            # get attracted travels sums on observed travels (cycling on transposes)
+            for item in travs_t:
+                A_js.append(sum(item))
+        
+            print("A_js, ", A_js)
+
+            # get produced travels sums on observed travels
+            for item in travs:
+                P_is.append(sum(item))
+
+            print("P_is, ", P_is, '\n')
+       
+        # check the produced and attracted travels, respectively
+        # get initial produced travels sums on computed travels
+        P_isc = []
+        for item in travsc:
+            P_isc.append(sum(item))
+
+        print("P_isc, ", P_isc)
+
+        bflg = False    #bool flag for 'while' loop
+        p = 1           # counting passes over travsc matrix
+        # print("travsc init, ", travsc)
+
+        while(bflg == False):
+            # print("P_isc, ", P_isc)
+            # print("A_js, ", A_js)
+            
+            rat_sto = []    #store travels ratios
+            rat_sto.clear()     #clear out the previous values stored
+            for pih, pic in zip(P_is, P_isc):  #compute rows coeffs and store
+                rat_sto.append(round(pih / pic, 3))
+            
+            print("rat_sto rows, ", rat_sto)
+            travsc = [list(sublist) for sublist in travsc]
+
+            print("travsc before adj, ", travsc)
+
+            if (Iter_balance.comp(P_is, P_isc, tlr) == False):
+                print("Current rows coeffs are, ", rat_sto)
+                for indx in range(len(travsc)):
+                    for i, val in enumerate(travsc[indx]):
+                        # print("item before is, ", item)
+                        # print("current ratio is, ", rat_sto[indx])
+                        travsc[indx][i] = val * rat_sto[indx]
+                        # print("item after is, ", item)
+                print("Adjusted matrix after pass_r ", p, "are",  travsc)
+                P_isc.clear()
+                for item in travsc:
+                    P_isc.append(sum(item))
+                print("P_isc after pass ", p, "is ", P_isc, '\n')
+            
+            # transpose the new matrix
+            travsc_t = [list(sublist) for sublist in list(zip(*travsc))]
+
+            # get attracted travels sums on computed travels, after rows adj
+            A_jsc = []   # store the attracted sums
+
+            for item in travsc_t:
+                A_jsc.append(sum(item))
+        
+            print("A_jsc, ", A_jsc)
+
+            rat_sto.clear()     # clear out the previous values stored
+            for ajh, ajc in zip(A_js, A_jsc):  # compute cols coeffs and store
+                # print(ajh, ajc)
+                rat_sto.append(round(ajh / ajc, 3))
+
+            print("rat_sto cols, ", rat_sto)
+                
+            if (Iter_balance.comp(A_js, A_jsc, tlr) == False):
+                print("Current cols coeffs are, ", rat_sto)
+                for i in range(len(travsc)):
+                    travsc_t[i] = [rat_sto[i]*item for item in
+                                    travsc_t[i]]
+                    
+                # print("travsc_t after update is, ", travsc_t)
+            
+                travsc = [list(sublist) for sublist in list(zip(*travsc_t))]
+                print("Adjusted matrix after pass_c ", p, "are",  travsc)
+
+                # print("travsc after pass ", p, "are",  travsc)
+
+                A_js.clear()
+                for item in travsc_t:
+                    A_js.append(sum(item))
+                print("A_js after pass ", p, "is ", A_jsc, '\n')
+                
+                # print("P_is before replacement, ", P_is)
+
+                P_is.clear()
+                for item in travsc:
+                    P_is.append(sum(item))
+                print("P_is after pass ", p, "is ", P_is, '\n')
+       
+
+            p += 1
+
+            bflg = Iter_balance.comp(P_is, P_isc, tlr) and \
+                   Iter_balance.comp(A_js, A_jsc, tlr)
+
+            # print(bflg)
+
+            #if(p > 5):
+            #    break
+
+        travsc_r = []
+
+        for item in travsc:
+            for item in item:
+                travsc_r.append(round(item))
+
+        travsc_m = [travsc_r[i:i + 3] for i in range(0, len(travsc_r), 3)]
+
+        print(travsc_m)
+
+
+        pass
 
 
 # flatten computed travels, classical method (i.e., iterative balancing)
