@@ -533,6 +533,18 @@ class Iter_balance:
             P_ish.append(sum(item))
 
         print("P_ish, ", P_ish, '\n')
+
+        print("travs, ", travs)
+
+        # get the weights of produced travels
+        p_wgs = []
+        for indx in range(len(travs)):
+            for item in travs[indx]:
+                p_wgs.append(round(item / P_ish[indx], 3))
+
+        p_wgs_m = [p_wgs[i:i + 3] for i in range(0, len(p_wgs), 3)]
+
+        print("Produced weights, ", p_wgs_m)
        
         # check the produced and attracted travels, respectively
         # get initial produced travels sums on computed travels
