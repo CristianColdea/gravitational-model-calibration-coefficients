@@ -515,9 +515,17 @@ class Iter_balance:
         
         print("A_jsh, ", A_jsh)
 
+        print("travs_t, ", travs_t)
+
         # get the weights of attracted travels
-        for col in travs_t:
-            for 
+        a_wgs = []
+        for indx in range(len(travs_t)):
+            for item in travs_t[indx]:
+                a_wgs.append(round(item / A_jsh[indx], 3))
+
+        a_wgs_m = [a_wgs[i:i + 3] for i in range(0, len(a_wgs), 3)]
+
+        print("Attracted weights, ", a_wgs_m)
 
         # get produced travels sums on observed travels
         P_ish = []
