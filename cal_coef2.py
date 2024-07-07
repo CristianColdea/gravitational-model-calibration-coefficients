@@ -489,7 +489,7 @@ class Iter_balance:
         produced and attracted traveles in relation to the total produced and
         attracted to and from each zone, respectively.
         """
-        # print("travs, ", travs)
+        print("travsc, ", travsc)
 
         # check if the matrices have the same shape
         #if(travs != 0 and len(travs) != len(travsc)):
@@ -713,7 +713,7 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 # gvalsra = Gravit_mod.gravmod_init(travsa, ffsa, k_ij0)
 
 
-#gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 # print("gvalsr_m, ", gvalsr_m)
 
@@ -742,11 +742,11 @@ ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
 gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
-print("Future number of rounded travels, ", gvalsr_fin_m)
+# print("Future number of rounded travels, ", gvalsr_fin_m)
 
 # gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
 
-gvalsradj_fin_w = Iter_balance.adjt_w(gvalsr_fin_m, travs, ffs, ffs_f, P_is, A_js)
+gvalsradj_fin_w = Iter_balance.adjt_w(gvalsr_m, travs, ffs, ffs_f, P_is, A_js)
 
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
