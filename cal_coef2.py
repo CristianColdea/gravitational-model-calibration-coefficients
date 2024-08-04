@@ -563,7 +563,7 @@ class Iter_balance:
             # print("A_js, ", A_js)
             
             rat_sto = []    #store travels ratios
-            rat_sto.clear()     #clear out the previous values stored
+            rat_sto.clear()     #clear out the previous stored values
             for pih, pic in zip(P_is, P_isc):  #compute rows coeffs and store
                 rat_sto.append(round(pih / pic, 3))
             
@@ -572,8 +572,13 @@ class Iter_balance:
 
             print("travsc before adj, ", travsc)
 
-            if (Iter_balance.comp(P_is, P_isc, tlr) == False):
-                print("Current rows coeffs are, ", rat_sto)
+            if (Iter_balance.comp(P_ish, P_isc, tlr) == False):  #if rows differ
+                deltas_P = []    #store deltas per rows
+                deltas_P.clear()    #clear out the previous stored values
+                for p_ih, p_ic in zip(P_ish, P_isc):
+                    deltas_P.append(p_ih - p_ic)
+
+                print("Delta rows is, ", deltas_P)
                 for indx in range(len(travsc)):
                     for i, val in enumerate(travsc[indx]):
                         # print("item before is, ", item)
