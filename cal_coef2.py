@@ -609,7 +609,14 @@ class Iter_balance:
 
             print("rat_sto cols, ", rat_sto)
                 
-            if (Iter_balance.comp(A_js, A_jsc, tlr) == False):
+            if (Iter_balance.comp(A_jsh, A_jsc, tlr) == False):
+                deltas_A = []    #store deltas per cols
+                deltas_A.clear()    #clear out the previous stored values
+                for a_jh, a_jc in zip(A_jsh, A_jsc):
+                    deltas_A.append(a_jh - a_jc)
+
+                print("Delta cols is, ", deltas_A)
+
                 print("Current cols coeffs are, ", rat_sto)
                 for i in range(len(travsc)):
                     travsc_t[i] = [rat_sto[i]*item for item in
