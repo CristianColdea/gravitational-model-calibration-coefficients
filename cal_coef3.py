@@ -111,7 +111,7 @@ class Gravitmod:
 
         # check raw produced travels
         gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
-        # print(gvals_init_m0)
+        print("gvals_init_m0 is,", gvals_init_m0)
 
     
         # for p1, p2 in zip(travs, gvals_init_m0):
