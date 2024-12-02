@@ -36,24 +36,29 @@ tct = [[1, 1.5, 2],
        [1.7, 1.5, 0.7]]
 
 # auto travels duration
+
 tda = [[3, 12, 7],
        [13, 3, 19],
        [9, 16, 4]]
 
 # transit travels duration
+
 tdt = [[15, 5, 12],
        [15, 6, 26],
        [20, 21, 8]]
 
 # the future friction factors
+
 ffs_f = [[0.753, 0.987, 1.597],
          [0.987, 0.753, 0.765],
          [1.597, 0.765, 0.753]]
 
 # the future produced travels
+
 P_is = [750, 580, 480]
 
 # the future attracted travels
+
 A_js = [722, 786, 302]
 
 class Gravitmod:
@@ -83,7 +88,8 @@ class Gravitmod:
         ffs_tt = list(zip(*ffs))
         travs_t = [list(sublist) for sublist in travs_tt]
         ffs_t = [list(sublist) for sublist in ffs_tt]
-        # print(travs_t)
+        # print("travs_tt, ", travs_tt)
+        # print("travs_t, ", travs_t)
         # print(ffs_t)
     
         # get attracted travels sums (cycling on transposes)
