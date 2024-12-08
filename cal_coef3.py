@@ -245,6 +245,11 @@ class Gravitmod:
 
         # compare produced travels first
         print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
+
+        cmp_flg = False  # comparison flag to govern the following cycle
+        while(cmp_flg == False):
+
+            cmp_flg = comp(s_Pih, s_Pic, tlr)
         
         pass
 
