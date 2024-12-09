@@ -239,9 +239,9 @@ class Gravitmod:
             print("s_Pih, ", s_Pih)
             print("s_Pic, ", s_Pic)
             
-            cmp_flg = comp(s_Pih, s_Pic, tlr)
+            #cmp_flg = comp(s_Pih, s_Pic, tlr)
             #print(cmp_flg)
-            if (cmp_flg == False):
+            if (comp(s_Pih, s_Pic, tlr) == False):
                 ccsi = []   # list to store produced travels coefficients
                 for ph, pc in zip(s_Pih, s_Pic):
                     ccsi.append(round(ph/pc, 3))
@@ -265,8 +265,8 @@ class Gravitmod:
 
             travs_t = [list(sublist) for sublist in travs_tt]
             travsc_t = [list(sublist) for sublist in travsc_tt]
-            #print(travs_t)
-            #print(travsc_t)
+            print("travs_t, ", travs_t)
+            print("travsc_t ", travsc_t)
     
             # get attracted travels sums on observed travels (cycling on transposes)
             s_Ajh = []   # store the attracted sums
@@ -280,8 +280,6 @@ class Gravitmod:
             for item in travsc_tt:
                 s_Ajc.append(sum(item))
 
-            cmp_flg = comp(s_Ajh, s_Ajc, tlr)
-
             if (cmp_flg == False):
                 ccsj = []   # list to store attracted travels coefficients
                 for ah, ac in zip(s_Ajh, s_Ajc):
@@ -291,13 +289,22 @@ class Gravitmod:
                 print("travsc, ", travsc)
                 print("coefficients on attracted travels, ", ccsj)
 
-                for x in range(len(travsc_t)):
-                    travsc_t[x] = [ccsj[x]*item for item in travsc_t[x]]
+                for x in range(len(travsc_tt)):
+                    travsc_tt[x] = [ccsj[x]*item for item in travsc_tt[x]]
             
                 i += 1
 
-                print("travsc after pass ", i, "is ", travsc)
+                print("travsc_tt after pass ", i, "is ", travsc_tt)
 
+                travsc = list(zip(*travsc_tt))
+
+                print("travsc after pas ", i, "is ", travsc)
+
+            cmp_flg = comp(s_Ajh, s_Ajc, tlr)
+            print(cmp_flg)
+
+            if(cmp_flg == True):
+                break
 
 
         
