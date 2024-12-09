@@ -192,28 +192,7 @@ class Gravitmod:
             print("The matrices doesn't match. Please fix it.")
             exit()
     
-        # transpose de matrices
-        travs_tt = list(zip(*travs))
-        travsc_tt = list(zip(*travsc))
-
-        travs_t = [list(sublist) for sublist in travs_tt]
-        travsc_t = [list(sublist) for sublist in travsc_tt]
-        #print(travs_t)
-        #print(travsc_t)
-    
-        # get attracted travels sums on observed travels (cycling on transposes)
-        s_Ajh = []   # store the attracted sums
-
-        for item in travs_tt:
-            s_Ajh.append(sum(item))
-
         
-        # get attracted travels sums on computed travels (cycling on transposes)
-        s_Ajc = []   # store the attracted sums
-
-        for item in travsc_tt:
-            s_Ajc.append(sum(item))
-
         # get produced travels sums on computed travels
         s_Pic = []
         for item in travsc:
@@ -261,25 +240,65 @@ class Gravitmod:
             print("s_Pic, ", s_Pic)
             
             cmp_flg = comp(s_Pih, s_Pic, tlr)
-            print(cmp_flg)
-            if (cmp_flg == True):
-                break
+            #print(cmp_flg)
+            if (cmp_flg == False):
+                ccsi = []   # list to store produced travels coefficients
+                for ph, pc in zip(s_Pih, s_Pic):
+                    ccsi.append(round(ph/pc, 3))
 
+                print("travs, ", travs)
+                print("travsc, ", travsc)
+                print("coefficients on produced travels, ", ccsi)
 
-            ccsi = []   # list to store produced travels coefficients
-            for ph, pc in zip(s_Pih, s_Pic):
-                ccsi.append(round(ph/pc, 3))
-
-            print("travs, ", travs)
-            print("travsc, ", travsc)
-            print("coefficients on produced travels, ", ccsi)
-
-            for x in range(len(travsc)):
-                travsc[x] = [ccsi[x]*item for item in travsc[x]]
+                for x in range(len(travsc)):
+                    travsc[x] = [ccsi[x]*item for item in travsc[x]]
             
-            i += 1
+                i += 1
 
-            print("travsc after pass ", i, "is ", travsc)
+                print("travsc after pass ", i, "is ", travsc)
+
+            # working on attracted travels
+
+            # transpose de matrices
+            travs_tt = list(zip(*travs))
+            travsc_tt = list(zip(*travsc))
+
+            travs_t = [list(sublist) for sublist in travs_tt]
+            travsc_t = [list(sublist) for sublist in travsc_tt]
+            #print(travs_t)
+            #print(travsc_t)
+    
+            # get attracted travels sums on observed travels (cycling on transposes)
+            s_Ajh = []   # store the attracted sums
+
+            for item in travs_tt:
+                s_Ajh.append(sum(item))
+        
+            # get attracted travels sums on computed travels (cycling on transposes)
+            s_Ajc = []   # store the attracted sums
+
+            for item in travsc_tt:
+                s_Ajc.append(sum(item))
+
+            cmp_flg = comp(s_Ajh, s_Ajc, tlr)
+
+            if (cmp_flg == False):
+                ccsj = []   # list to store attracted travels coefficients
+                for ah, ac in zip(s_Ajh, s_Ajc):
+                    ccsj.append(round(ah/ac, 3))
+
+                print("travs, ", travs)
+                print("travsc, ", travsc)
+                print("coefficients on attracted travels, ", ccsj)
+
+                for x in range(len(travsc_t)):
+                    travsc_t[x] = [ccsj[x]*item for item in travsc_t[x]]
+            
+                i += 1
+
+                print("travsc after pass ", i, "is ", travsc)
+
+
 
         
         pass
