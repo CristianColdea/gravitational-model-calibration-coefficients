@@ -198,8 +198,8 @@ class Gravitmod:
 
         travs_t = [list(sublist) for sublist in travs_tt]
         travsc_t = [list(sublist) for sublist in travsc_tt]
-        print(travs_t)
-        print(travsc_t)
+        #print(travs_t)
+        #print(travsc_t)
     
         # get attracted travels sums on observed travels (cycling on transposes)
         s_Ajh = []   # store the attracted sums
@@ -240,16 +240,13 @@ class Gravitmod:
             return flag
 
         # compare produced travels first
-        print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
+        # print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
 
         cmp_flg = False  # comparison flag to govern the following cycle
         i = 0   # passes counter
 
         while(cmp_flg == False):
-            cmp_flg = comp(s_Pih, s_Pic, tlr)
-            if (cmp_flg == True):
-                break
-
+            
             # get produced travels sums on observed travels
             s_Pih = []
             for item in travs:
@@ -259,7 +256,16 @@ class Gravitmod:
             s_Pic = []
             for item in travsc:
                 s_Pic.append(sum(item))
+
+            print("s_Pih, ", s_Pih)
+            print("s_Pic, ", s_Pic)
             
+            cmp_flg = comp(s_Pih, s_Pic, tlr)
+            print(cmp_flg)
+            if (cmp_flg == True):
+                break
+
+
             ccsi = []   # list to store produced travels coefficients
             for ph, pc in zip(s_Pih, s_Pic):
                 ccsi.append(round(ph/pc, 3))
@@ -406,6 +412,9 @@ gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 Gravitmod.iter_adj_in(travs, gvalsr_m)
 print("gvalsr_m, ", gvalsr_m)
+print("travs, ", travs)
+
+print(Gravitmod.iter_adj_in(travs, gvalsr_m))
 
 # print(gvalsradj)
 # ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
