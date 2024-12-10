@@ -259,21 +259,23 @@ class Gravitmod:
         """
         
         # get produced travels sums on observed travels
-            s_Pih = []
-            for item in travs:
-                s_Pih.append(sum(item))
+        s_Pih = []
+        for item in travs:
+            s_Pih.append(sum(item))
 
         # get attracted travels sums on observed travels (cycling on transposes)
-            s_Ajh = []   # store the attracted sums
+        s_Ajh = []   # store the attracted sums
 
-            for item in travs_tt:
-                s_Ajh.append(sum(item))
+        travs_tt = list(zip(*travs))
+
+        for item in travs_tt:
+            s_Ajh.append(sum(item))
 
         cmp_flg = False  # comparison flag to govern the following cycle
         i = 0   # produced passes counter
         j = 0   # attracted passes counter
 
-        while(i < 2):
+        while(i < 1):
                        
             # get produced travels sums on compputed travels
             s_Pic = []
@@ -305,7 +307,6 @@ class Gravitmod:
             # working on attracted travels
 
             # transpose de matrices
-            travs_tt = list(zip(*travs))
             travsc_tt = list(zip(*travsc))
 
             travs_t = [list(sublist) for sublist in travs_tt]
