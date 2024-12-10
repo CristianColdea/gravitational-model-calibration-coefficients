@@ -258,16 +258,23 @@ class Gravitmod:
         print("Attracted travels comparison, ", comp(s_Ajh, s_Ajc, tlr))
         """
         
-        cmp_flg = False  # comparison flag to govern the following cycle
-        i = 0   # passes counter
-
-        while(i < 2):
-            
-            # get produced travels sums on observed travels
+        # get produced travels sums on observed travels
             s_Pih = []
             for item in travs:
                 s_Pih.append(sum(item))
 
+        # get attracted travels sums on observed travels (cycling on transposes)
+            s_Ajh = []   # store the attracted sums
+
+            for item in travs_tt:
+                s_Ajh.append(sum(item))
+
+        cmp_flg = False  # comparison flag to govern the following cycle
+        i = 0   # produced passes counter
+        j = 0   # attracted passes counter
+
+        while(i < 2):
+                       
             # get produced travels sums on compputed travels
             s_Pic = []
             for item in travsc:
@@ -306,12 +313,7 @@ class Gravitmod:
             print("travs_t, ", travs_t)
             print("travsc_t ", travsc_t)
     
-            # get attracted travels sums on observed travels (cycling on transposes)
-            s_Ajh = []   # store the attracted sums
-
-            for item in travs_tt:
-                s_Ajh.append(sum(item))
-        
+                    
             # get attracted travels sums on computed travels (cycling on transposes)
             s_Ajc = []   # store the attracted sums
 
@@ -334,16 +336,16 @@ class Gravitmod:
                 for x in range(len(travsc_tt)):
                     travsc_tt[x] = [ccsj[x]*item for item in travsc_tt[x]]
             
-                i += 1
+                j += 1
 
-                print("travsc_tt after pass ", i, "is ", travsc_tt)
+                print("travsc_tt after pass ", j, "is ", travsc_tt)
                 
                 
 
             travsc_0 = list(zip(*travsc_tt))
             travsc = [list(sublist) for sublist in travsc_0]
 
-            print("travsc after pas ", i, "is ", travsc)
+            print("travsc,  ", travsc)
             
             # update the attracted sums
                 
