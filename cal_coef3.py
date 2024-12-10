@@ -211,14 +211,57 @@ class Gravitmod:
                     break
 
             return flag
+        
+        """
+        # get produced travels sums on observed travels
+        s_Pih = []
+        for item in travs:
+            s_Pih.append(sum(item))
 
+        # get produced travels sums on compputed travels
+        s_Pic = []
+        for item in travsc:
+            s_Pic.append(sum(item))
+
+        print("s_Pih, ", s_Pih)
+        print("s_Pic, ", s_Pic)
+            
+            
         # compare produced travels first
-        # print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
+        print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
 
+        # transpose de matrices
+        travs_tt = list(zip(*travs))
+        travsc_tt = list(zip(*travsc))
+
+        travs_t = [list(sublist) for sublist in travs_tt]
+        travsc_t = [list(sublist) for sublist in travsc_tt]
+        print("travs_t, ", travs_t)
+        print("travsc_t ", travsc_t)
+    
+        # get attracted travels sums on observed travels (cycling on transposes)
+        s_Ajh = []   # store the attracted sums
+
+        for item in travs_tt:
+            s_Ajh.append(sum(item))
+        
+        # get attracted travels sums on computed travels (cycling on transposes)
+        s_Ajc = []   # store the attracted sums
+
+        for item in travsc_tt:
+            s_Ajc.append(sum(item))
+
+        print("s_Ajh, ", s_Ajh)
+        print("s_Ajc, ", s_Ajc)
+
+        # compare attracted travels
+        print("Attracted travels comparison, ", comp(s_Ajh, s_Ajc, tlr))
+        """
+        
         cmp_flg = False  # comparison flag to govern the following cycle
         i = 0   # passes counter
 
-        while(cmp_flg == False):
+        while(i < 2):
             
             # get produced travels sums on observed travels
             s_Pih = []
@@ -233,8 +276,8 @@ class Gravitmod:
             print("s_Pih, ", s_Pih)
             print("s_Pic, ", s_Pic)
             
-            #cmp_flg = comp(s_Pih, s_Pic, tlr)
-            #print(cmp_flg)
+            cmp_flg = comp(s_Pih, s_Pic, tlr)
+            print(cmp_flg)
             if (comp(s_Pih, s_Pic, tlr) == False):
                 ccsi = []   # list to store produced travels coefficients
                 for ph, pc in zip(s_Pih, s_Pic):
@@ -250,7 +293,8 @@ class Gravitmod:
                 i += 1
 
                 print("travsc after pass ", i, "is ", travsc)
-
+            
+            
             # working on attracted travels
 
             # transpose de matrices
@@ -273,7 +317,11 @@ class Gravitmod:
 
             for item in travsc_tt:
                 s_Ajc.append(sum(item))
+            
+            # cmp_flg = comp(s_Ajh, s_Ajc, tlr)
+            # print(cmp_flg)
 
+            
             if (comp(s_Ajh, s_Ajc, tlr) == False):
                 ccsj = []   # list to store attracted travels coefficients
                 for ah, ac in zip(s_Ajh, s_Ajc):
@@ -290,26 +338,25 @@ class Gravitmod:
 
                 print("travsc_tt after pass ", i, "is ", travsc_tt)
                 
-                # update the attracted sums
                 
-                # get attracted travels sums on new computed travels (cycling on transposes)
-                s_Ajc.clear()   # clear the computed attracted sums
 
-                for item in travsc_tt:
-                    s_Ajc.append(sum(item))
+            travsc_0 = list(zip(*travsc_tt))
+            travsc = [list(sublist) for sublist in travsc_0]
 
+            print("travsc after pas ", i, "is ", travsc)
+            
+            # update the attracted sums
+                
+            # get attracted travels sums on new computed travels (cycling on transposes)
+            s_Ajc.clear()   # clear the computed attracted sums
 
-                travsc = list(zip(*travsc_tt))
+            for item in travsc_tt:
+                s_Ajc.append(sum(item))
 
-                print("travsc after pas ", i, "is ", travsc)
+            # cmp_flg = comp(s_Ajh, s_Ajc, tlr)
+            print(comp(s_Ajh, s_Ajc, tlr))
 
-            cmp_flg = comp(s_Ajh, s_Ajc, tlr)
-            print(cmp_flg)
-
-            # if(cmp_flg == True):
-            #    break
-
-
+            
         
         pass
 
@@ -440,10 +487,10 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 Gravitmod.iter_adj_in(travs, gvalsr_m)
-print("gvalsr_m, ", gvalsr_m)
-print("travs, ", travs)
+# print("gvalsr_m, ", gvalsr_m)
+# print("travs, ", travs)
 
-print(Gravitmod.iter_adj_in(travs, gvalsr_m))
+#print(Gravitmod.iter_adj_in(travs, gvalsr_m))
 
 # print(gvalsradj)
 # ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
