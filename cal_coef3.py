@@ -191,13 +191,7 @@ class Gravitmod:
         if(len(travs) != len(travsc)):
             print("The matrices doesn't match. Please fix it.")
             exit()
-    
         
-        # get produced travels sums on computed travels
-        s_Pic = []
-        for item in travsc:
-            s_Pic.append(sum(item))
-
         # function to compare the produced, respectively attracted travels
         # within a certain tolerance
         def comp(s_ih, s_ic, tlr):
@@ -280,7 +274,7 @@ class Gravitmod:
             for item in travsc_tt:
                 s_Ajc.append(sum(item))
 
-            if (cmp_flg == False):
+            if (comp(s_Ajh, s_Ajc, tlr) == False):
                 ccsj = []   # list to store attracted travels coefficients
                 for ah, ac in zip(s_Ajh, s_Ajc):
                     ccsj.append(round(ah/ac, 3))
@@ -295,6 +289,15 @@ class Gravitmod:
                 i += 1
 
                 print("travsc_tt after pass ", i, "is ", travsc_tt)
+                
+                # update the attracted sums
+                
+                # get attracted travels sums on new computed travels (cycling on transposes)
+                s_Ajc.clear()   # clear the computed attracted sums
+
+                for item in travsc_tt:
+                    s_Ajc.append(sum(item))
+
 
                 travsc = list(zip(*travsc_tt))
 
@@ -303,8 +306,8 @@ class Gravitmod:
             cmp_flg = comp(s_Ajh, s_Ajc, tlr)
             print(cmp_flg)
 
-            if(cmp_flg == True):
-                break
+            # if(cmp_flg == True):
+            #    break
 
 
         
