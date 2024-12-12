@@ -212,52 +212,6 @@ class Gravitmod:
 
             return flag
         
-        """
-        # get produced travels sums on observed travels
-        s_Pih = []
-        for item in travs:
-            s_Pih.append(sum(item))
-
-        # get produced travels sums on compputed travels
-        s_Pic = []
-        for item in travsc:
-            s_Pic.append(sum(item))
-
-        print("s_Pih, ", s_Pih)
-        print("s_Pic, ", s_Pic)
-            
-            
-        # compare produced travels first
-        print("Produced travels comparison, ", comp(s_Pih, s_Pic, tlr))
-
-        # transpose de matrices
-        travs_tt = list(zip(*travs))
-        travsc_tt = list(zip(*travsc))
-
-        travs_t = [list(sublist) for sublist in travs_tt]
-        travsc_t = [list(sublist) for sublist in travsc_tt]
-        print("travs_t, ", travs_t)
-        print("travsc_t ", travsc_t)
-    
-        # get attracted travels sums on observed travels (cycling on transposes)
-        s_Ajh = []   # store the attracted sums
-
-        for item in travs_tt:
-            s_Ajh.append(sum(item))
-        
-        # get attracted travels sums on computed travels (cycling on transposes)
-        s_Ajc = []   # store the attracted sums
-
-        for item in travsc_tt:
-            s_Ajc.append(sum(item))
-
-        print("s_Ajh, ", s_Ajh)
-        print("s_Ajc, ", s_Ajc)
-
-        # compare attracted travels
-        print("Attracted travels comparison, ", comp(s_Ajh, s_Ajc, tlr))
-        """
-        
         # get produced travels sums on observed travels
         s_Pih = []
         for item in travs:
@@ -367,13 +321,21 @@ class Gravitmod:
             cmp_flg = comp(s_Ajh, s_Ajc, tlr)
             print(comp(s_Ajh, s_Ajc, tlr))
 
-            travscr = []
+            travscr = []     # list to store rounded values, flatten form
             for item in travsc:
-                travscr.append(round(item))
+                for item in item:
+                    travscr.append(round(item))
 
+            print()
+
+            print("Final rounded and flatten, ", travscr)
+            travscrm = [travscr[i:i + 3] for i in range(0, len(travscr), 3)]
             
+            print()
+            print("Final rounded matrix, ", travscrm)
+            print("Historical travels matrix, ", travs)
         
-        return round(travsc)
+        return travscrm
 
     # method to compute gravitational model travels projected into the future
     def gravmod_fin(ffs, k_ijs, P_is, A_js):
