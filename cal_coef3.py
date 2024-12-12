@@ -261,6 +261,7 @@ class Gravitmod:
                 print("travsc after pass  i = ", i, "is ", travsc)
             
             
+            # *********
             # working on attracted travels
 
             # transpose de matrices
@@ -269,9 +270,9 @@ class Gravitmod:
             travs_t = [list(sublist) for sublist in travs_tt]
             travsc_t = [list(sublist) for sublist in travsc_tt]
 
-            print()
-            print("travs_t, ", travs_t)
-            print("travsc_t ", travsc_t)
+            # print()
+            # print("travs_t, ", travs_t)
+            # print("travsc_t ", travsc_t)
     
                     
             # get attracted travels sums on computed travels (cycling on transposes)
@@ -282,7 +283,10 @@ class Gravitmod:
             
             # cmp_flg = comp(s_Ajh, s_Ajc, tlr)
             # print(cmp_flg)
-
+            
+            print()
+            print("s_Ajh, ", s_Ajh)
+            print("s_Ajc, ", s_Ajc)
             
             if (comp(s_Ajh, s_Ajc, tlr) == False):
                 ccsj = []   # list to store attracted travels coefficients
@@ -318,22 +322,36 @@ class Gravitmod:
             for item in travsc_tt:
                 s_Ajc.append(sum(item))
 
+            print()
+            print("s_Ajc, ", s_Ajc)
+
+            # update the produced sums
+            s_Pic.clear()
+
+            for item  in travsc:
+                s_Pic.append(sum(item))
+
+            print()
+            print("s_Pic, ", s_Pic)
+
             cmp_flg = comp(s_Ajh, s_Ajc, tlr)
-            print(comp(s_Ajh, s_Ajc, tlr))
+            print("Flag on attracted, ", comp(s_Ajh, s_Ajc, tlr))
+            
+            cmp_flg = comp(s_Pih, s_Pic, tlr)
+            print("Flag on produced, ", cmp_flg)
 
             travscr = []     # list to store rounded values, flatten form
             for item in travsc:
                 for item in item:
                     travscr.append(round(item))
 
-            print()
-
-            print("Final rounded and flatten, ", travscr)
-            travscrm = [travscr[i:i + 3] for i in range(0, len(travscr), 3)]
+        print()
+        print("Final rounded and flatten, ", travscr)
+        travscrm = [travscr[i:i + 3] for i in range(0, len(travscr), 3)]
             
-            print()
-            print("Final rounded matrix, ", travscrm)
-            print("Historical travels matrix, ", travs)
+        print()
+        print("Final rounded matrix, ", travscrm)
+        print("Historical travels matrix, ", travs)
         
         return travscrm
 
