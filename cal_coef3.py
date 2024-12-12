@@ -453,9 +453,12 @@ class Gravitmod:
             cmp_flg = comp(s_Pih, s_Pic, tlr)
             print(cmp_flg)
             if (comp(s_Pih, s_Pic, tlr) == False):
-                ccsi = []   # list to store produced travels coefficients
-                for ph, pc in zip(s_Pih, s_Pic):
-                    ccsi.append(round(ph/pc, 3))
+                travsP = []   # list to store adjusted travels matrix, produced
+                for cP, trav in zip(c_Pi, travsc):
+                    for c, t in zip(cP, t):
+                        travsP.append(c*t)
+
+                travsc = [c_Aj0[j:j + 3] for j in range(0, len(c_Aj0), 3)]
 
                 print()
                 print("travs, ", travs)
