@@ -275,7 +275,7 @@ class Gravitmod:
         i = 0   # produced passes counter
         j = 0   # attracted passes counter
 
-        while(i < 3):
+        while(cmp_flg == False):
                        
             # get produced travels sums on compputed travels
             s_Pic = []
@@ -364,12 +364,16 @@ class Gravitmod:
             for item in travsc_tt:
                 s_Ajc.append(sum(item))
 
-            # cmp_flg = comp(s_Ajh, s_Ajc, tlr)
+            cmp_flg = comp(s_Ajh, s_Ajc, tlr)
             print(comp(s_Ajh, s_Ajc, tlr))
+
+            travscr = []
+            for item in travsc:
+                travscr.append(round(item))
 
             
         
-        pass
+        return round(travsc)
 
     # method to compute gravitational model travels projected into the future
     def gravmod_fin(ffs, k_ijs, P_is, A_js):
