@@ -178,7 +178,7 @@ class Gravitmod:
 
         return gvals_init_r
 
-    def iter_adj_in(travs, travsc, tlr=0.02):
+    def iter_adj_in(travs, travsc, tlr=0.01):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
@@ -187,6 +187,9 @@ class Gravitmod:
         adjustment.
         Returns a matrix with adjusted travels.
         """
+
+        print()
+        print("Enter iter_adj_in method.")
     
         # check if the matrices have the same shape
         if(len(travs) != len(travsc)):
@@ -237,30 +240,30 @@ class Gravitmod:
             for item in travsc:
                 s_Pic.append(sum(item))
             
-            print()
-            print("Enter iterative ajustment method.")
-            print("s_Pih, ", s_Pih)
-            print("s_Pic, ", s_Pic)
+            #print()
+            #print("Enter iter_adj_in method.")
+            #print("s_Pih, ", s_Pih)
+            #print("s_Pic, ", s_Pic)
             
             cmp_flg = comp(s_Pih, s_Pic, tlr)
-            print(cmp_flg)
+            #print(cmp_flg)
             if (comp(s_Pih, s_Pic, tlr) == False):
                 ccsi = []   # list to store produced travels coefficients
                 for ph, pc in zip(s_Pih, s_Pic):
                     ccsi.append(round(ph/pc, 3))
 
-                print()
-                print("travs, ", travs)
-                print("travsc, ", travsc)
-                print("coefficients on produced travels, ", ccsi)
+                #print()
+                #print("travs, ", travs)
+                #print("travsc, ", travsc)
+                #print("coefficients on produced travels, ", ccsi)
 
                 for x in range(len(travsc)):
                     travsc[x] = [ccsi[x]*item for item in travsc[x]]
             
                 i += 1
 
-                print()
-                print("travsc after pass  i = ", i, "is ", travsc)
+                #print()
+                #print("travsc after pass  i = ", i, "is ", travsc)
             
             
             # *********
@@ -286,35 +289,35 @@ class Gravitmod:
             # cmp_flg = comp(s_Ajh, s_Ajc, tlr)
             # print(cmp_flg)
             
-            print()
-            print("s_Ajh, ", s_Ajh)
-            print("s_Ajc, ", s_Ajc)
+            #print()
+            #print("s_Ajh, ", s_Ajh)
+            #print("s_Ajc, ", s_Ajc)
             
             if (comp(s_Ajh, s_Ajc, tlr) == False):
                 ccsj = []   # list to store attracted travels coefficients
                 for ah, ac in zip(s_Ajh, s_Ajc):
                     ccsj.append(round(ah/ac, 3))
 
-                print()
-                print("travs, ", travs)
-                print("travsc, ", travsc)
-                print("coefficients on attracted travels, ", ccsj)
+                #print()
+                #print("travs, ", travs)
+                #print("travsc, ", travsc)
+                #print("coefficients on attracted travels, ", ccsj)
 
                 for x in range(len(travsc_tt)):
                     travsc_tt[x] = [ccsj[x]*item for item in travsc_tt[x]]
             
                 j += 1
 
-                print()
-                print("travsc_tt after pass j = ", j, "is ", travsc_tt)
+               #print()
+               #print("travsc_tt after pass j = ", j, "is ", travsc_tt)
                 
                 
 
             travsc_0 = list(zip(*travsc_tt))
             travsc = [list(sublist) for sublist in travsc_0]
 
-            print()
-            print("travsc,  ", travsc)
+            #print()
+            #print("travsc,  ", travsc)
             
             # update the attracted sums
                 
@@ -324,8 +327,8 @@ class Gravitmod:
             for item in travsc_tt:
                 s_Ajc.append(sum(item))
 
-            print()
-            print("s_Ajc, ", s_Ajc)
+            #print()
+            #print("s_Ajc, ", s_Ajc)
 
             # update the produced sums
             s_Pic.clear()
@@ -333,28 +336,30 @@ class Gravitmod:
             for item  in travsc:
                 s_Pic.append(sum(item))
 
-            print()
-            print("s_Pic, ", s_Pic)
+            #print()
+            #print("s_Pic, ", s_Pic)
 
             cmp_flg = comp(s_Ajh, s_Ajc, tlr)
-            print("Flag on attracted, ", comp(s_Ajh, s_Ajc, tlr))
+            #print("Flag on attracted, ", comp(s_Ajh, s_Ajc, tlr))
             
             cmp_flg = comp(s_Pih, s_Pic, tlr)
-            print("Flag on produced, ", cmp_flg)
+            #print("Flag on produced, ", cmp_flg)
 
             travscr = []     # list to store rounded values, flatten form
             for item in travsc:
                 for item in item:
                     travscr.append(round(item))
 
-        print()
-        print("Final rounded and flatten, ", travscr)
+        #print()
+        #print("Final rounded and flatten, ", travscr)
         travscrm = [travscr[i:i + 3] for i in range(0, len(travscr), 3)]
             
-        print()
+        #print()
         print("Final rounded matrix, ", travscrm)
         print("Historical travels matrix, ", travs)
-        print("Exit iterative adjustment method.")
+        print("i is, ", i)
+        print("j is, ", j)
+        print("Exit iter_adj_in method.")
         
         return travscrm
 
@@ -369,7 +374,10 @@ class Gravitmod:
         adjustment.
         Returns a matrix with adjusted travels.
         """
-    
+
+        print()
+        print("Enter iter_adj_wgt method")
+
         # check if the matrices have the same shape
         if(len(travs) != len(travsc)):
             print("The matrices doesn't match. Please fix it.")
@@ -408,6 +416,25 @@ class Gravitmod:
         for item in travs_tt:
             s_Ajh.append(sum(item))
 
+        # generate the produced coefficients matrix (produced perspective)
+        c_Pi0 = []
+        for t, P in zip(travs, s_Pih):
+            for trav in t:
+                c_Pi0.append(trav/P)
+        
+        c_Pi = [c_Pi0[i:i + 3] for i in range(0, len(c_Pi0), 3)]
+
+        # generate the attracted coefficients matrix (attracted perspective)
+        c_Aj0= []
+        for t, A in zip(travs_tt, s_Ajh):
+            for trav in t:
+                c_Aj0.append(trav/A)
+
+        c_Aj = [c_Aj0[j:j + 3] for j in range(0, len(c_Aj0), 3)]
+
+        print("c_Pi matrix, ", c_Pi)
+        print("c_Aj matrix, ", c_Aj)
+
         cmp_flg = False  # comparison flag to govern the following cycle
         i = 0   # produced passes counter
         j = 0   # attracted passes counter
@@ -420,7 +447,6 @@ class Gravitmod:
                 s_Pic.append(sum(item))
             
             print()
-            print("Enter iterative ajustment method.")
             print("s_Pih, ", s_Pih)
             print("s_Pic, ", s_Pic)
             
@@ -434,7 +460,7 @@ class Gravitmod:
                 print()
                 print("travs, ", travs)
                 print("travsc, ", travsc)
-                print("coefficients on produced travels, ", ccsi)
+                #print("coefficients on produced travels, ", ccsi)
 
                 for x in range(len(travsc)):
                     travsc[x] = [ccsi[x]*item for item in travsc[x]]
@@ -536,7 +562,7 @@ class Gravitmod:
         print()
         print("Final rounded matrix, ", travscrm)
         print("Historical travels matrix, ", travs)
-        print("Exit iterative adjustment method.")
+        print("Exit iter_adj_wgt method.")
         
         return travscrm
 
@@ -667,6 +693,8 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 Gravitmod.iter_adj_in(travs, gvalsr_m)
+Gravitmod.iter_adj_wgt(travs, gvalsr_m)
+
 # print("gvalsr_m, ", gvalsr_m)
 # print("travs, ", travs)
 
