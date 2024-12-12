@@ -206,7 +206,7 @@ class Gravitmod:
             flag = True
 
             for ih, ic in zip(s_ih, s_ic):
-                if(abs(ih - ic) >= tlr): 
+                if(abs(ih - ic) / ih >= tlr): 
                     flag = False
                     break
 
