@@ -453,21 +453,26 @@ class Gravitmod:
             cmp_flg = comp(s_Pih, s_Pic, tlr)
             print(cmp_flg)
             if (comp(s_Pih, s_Pic, tlr) == False):
+                delta_P = []    #list to store the deltas of produced travels
+                for Pih, Pic in zip(s_Pih, s_Pic):
+                    delta_P.append(Pih - Pic)
+                remind_P = []    #matrix of additions to travels, produced
+                for cP, delta_i in zip(c_Pi, delta_P):
+                    for c, delta in zip(cP, delta_i):
+                        remind_P.append(c*delta)   #append weighted delta
                 travsP = []   # list to store adjusted travels matrix, produced
-                for cP, trav in zip(c_Pi, travsc):
-                    for c, t in zip(cP, t):
-                        travsP.append(c*t)
+                for remP, trav in zip(remind_P, travsc):
+                    for rem, t in zip(remP, trav):
+                        travsP.append(rem+t)
 
-                travsc = [c_Aj0[j:j + 3] for j in range(0, len(c_Aj0), 3)]
+                travsc.clear()
+
+                travsc = [travsP[i:i + 3] for i in range(0, len(travsP), 3)]
 
                 print()
                 print("travs, ", travs)
                 print("travsc, ", travsc)
-                #print("coefficients on produced travels, ", ccsi)
-
-                for x in range(len(travsc)):
-                    travsc[x] = [ccsi[x]*item for item in travsc[x]]
-            
+                
                 i += 1
 
                 print()
@@ -480,22 +485,14 @@ class Gravitmod:
             # transpose de matrices
             travsc_tt = list(zip(*travsc))
 
-            travs_t = [list(sublist) for sublist in travs_tt]
+            #travs_t = [list(sublist) for sublist in travs_tt]
             travsc_t = [list(sublist) for sublist in travsc_tt]
 
-            # print()
-            # print("travs_t, ", travs_t)
-            # print("travsc_t ", travsc_t)
-    
-                    
             # get attracted travels sums on computed travels (cycling on transposes)
             s_Ajc = []   # store the attracted sums
 
             for item in travsc_tt:
                 s_Ajc.append(sum(item))
-            
-            # cmp_flg = comp(s_Ajh, s_Ajc, tlr)
-            # print(cmp_flg)
             
             print()
             print("s_Ajh, ", s_Ajh)
