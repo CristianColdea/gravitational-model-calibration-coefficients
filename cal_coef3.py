@@ -363,7 +363,7 @@ class Gravitmod:
         
         return travscrm
 
-    def iter_adj_wgt(travs, travsc, tlr=0.02):
+    def iter_adj_wgt(travs, travsc, tlr=0.01):
 
         """
         Method to iteratively weight adjust travels computed with 
@@ -458,14 +458,16 @@ class Gravitmod:
                     delta_P.append(Pih - Pic)
                 remind_P = []    #matrix of additions to travels, produced
                 for cP, delta_i in zip(c_Pi, delta_P):
-                    for c, delta in zip(cP, delta_i):
-                        remind_P.append(c*delta)   #append weighted delta
+                    for c in cP:
+                        remind_P.append(c*delta_i)   #append weighted delta
+                remind_P = [remind_P[i:i + 3] for i in range(0, len(remind_P), 3)]
+                print("remind_P, ", remind_P)
                 travsP = []   # list to store adjusted travels matrix, produced
                 for remP, trav in zip(remind_P, travsc):
                     for rem, t in zip(remP, trav):
                         travsP.append(rem+t)
 
-                travsc.clear()
+                #travsc.clear()
 
                 travsc = [travsP[i:i + 3] for i in range(0, len(travsP), 3)]
 
@@ -504,41 +506,37 @@ class Gravitmod:
                     delta_A.append(Ajh - Ajc)
                 remind_A = []    #matrix of additions to travels, atrracted
                 for cA, delta_j in zip(c_Aj, delta_A):
-                    for c, delta in zip(cA, delta_j):
-                        remind_A.append(c*delta)   #append weighted delta
+                    for c in cA:
+                        remind_A.append(c*delta_j)   #append weighted delta
+                remind_A = [remind_A[j:j + 3] for j in range(0, len(remind_A), 3)]
+                print("remind_A, ", remind_A)
+                print("travsc_tt, ", travsc_tt)
                 travsA = []   # list to store adjusted travels matrix, produced
-                for remA, trav in zip(remind_A, travsc):
+                for remA, trav in zip(remind_A, travsc_tt):
+                    #print("remA, ", remA)
+                    #print("trav, ", trav)
                     for rem, t in zip(remA, trav):
                         travsA.append(rem+t)
 
-                travsc.clear()
+                #travsc.clear()
+                #travsc_t.clear()
 
-                travsc = [travsP[i:i + 3] for i in range(0, len(travsP), 3)]
-ccsj = []   # list to store attracted travels coefficients
-                for ah, ac in zip(s_Ajh, s_Ajc):
-                    ccsj.append(round(ah/ac, 3))
+                travsc_t = [travsA[i:i + 3] for i in range(0, len(travsA), 3)]
+                travsc_tt = list(zip(*travsc_t))
+                travsc = [list(sublist) for sublist in travsc_tt]
+                print("travsA, ", travsA)
+                print("travsc_t, ", travsc_t)
+                print("travsc_tt, ", travsc_tt)
 
                 print()
                 print("travs, ", travs)
                 print("travsc, ", travsc)
-                print("coefficients on attracted travels, ", ccsj)
-
-                for x in range(len(travsc_tt)):
-                    travsc_tt[x] = [ccsj[x]*item for item in travsc_tt[x]]
-            
+                
                 j += 1
 
                 print()
-                print("travsc_tt after pass j = ", j, "is ", travsc_tt)
+                print("travsc_tt after pass j = ", j, "is ", travsc_tt)             
                 
-                
-
-            travsc_0 = list(zip(*travsc_tt))
-            travsc = [list(sublist) for sublist in travsc_0]
-
-            print()
-            print("travsc,  ", travsc)
-            
             # update the attracted sums
                 
             # get attracted travels sums on new computed travels (cycling on transposes)
@@ -559,11 +557,16 @@ ccsj = []   # list to store attracted travels coefficients
             print()
             print("s_Pic, ", s_Pic)
 
-            cmp_flg = comp(s_Ajh, s_Ajc, tlr)
-            print("Flag on attracted, ", comp(s_Ajh, s_Ajc, tlr))
+            cmp_flgA = comp(s_Ajh, s_Ajc, tlr)
+            print("Flag on attracted, ", cmp_flgA)
             
-            cmp_flg = comp(s_Pih, s_Pic, tlr)
-            print("Flag on produced, ", cmp_flg)
+            cmp_flgP = comp(s_Pih, s_Pic, tlr)
+            print("Flag on produced, ", cmp_flgP)
+
+            if(cmp_flgA == True and cmp_flgP == True):
+                cmp_flg = True
+            else:
+                cmp_flg = False
 
             travscr = []     # list to store rounded values, flatten form
             for item in travsc:
