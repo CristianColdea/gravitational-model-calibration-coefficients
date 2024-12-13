@@ -499,7 +499,22 @@ class Gravitmod:
             print("s_Ajc, ", s_Ajc)
             
             if (comp(s_Ajh, s_Ajc, tlr) == False):
-                ccsj = []   # list to store attracted travels coefficients
+                delta_A = []    #list to store the deltas of attracted travels
+                for Ajh, Ajc in zip(s_Ajh, s_Ajc):
+                    delta_A.append(Ajh - Ajc)
+                remind_A = []    #matrix of additions to travels, atrracted
+                for cA, delta_j in zip(c_Aj, delta_A):
+                    for c, delta in zip(cA, delta_j):
+                        remind_A.append(c*delta)   #append weighted delta
+                travsA = []   # list to store adjusted travels matrix, produced
+                for remA, trav in zip(remind_A, travsc):
+                    for rem, t in zip(remA, trav):
+                        travsA.append(rem+t)
+
+                travsc.clear()
+
+                travsc = [travsP[i:i + 3] for i in range(0, len(travsP), 3)]
+ccsj = []   # list to store attracted travels coefficients
                 for ah, ac in zip(s_Ajh, s_Ajc):
                     ccsj.append(round(ah/ac, 3))
 
