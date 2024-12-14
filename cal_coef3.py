@@ -616,21 +616,10 @@ class Gravitmod:
     def ccoeffs(gvalsradj, travs):
         # compute calibration coefficients
         ccoeffs = []
-        # flatten the travels matrix
-        unpck_travs = [value for row in travs for value in row]
-        # print(unpck_travs)
-        for c_obs, c_comp in zip(unpck_travs, gvalsradj):
+        for row_h, row_c in zip(travs, gvalsradj):
             ccoeffs.append(round(c_obs / c_comp, 2))
 
-        # print(ccoeffs)
-
         return ccoeffs
-
-# introduce flatten computed travels after rounding and adjustment, own method
-gvalsradj = [82, 110, 108, 43, 19, 38, 75, 31, 44]
-
-# flatten computed travels, classical method (i.e., iterative balancing)
-gvalsradj_it = [81, 116, 103, 42, 20, 38, 77, 24, 49]
 
 # function for modal option
 def modopt(tca, tct, tda, tdt):
@@ -689,12 +678,7 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 gvalsadjA = Gravitmod.iter_adj_in(travs, gvalsr)
 gvalsadjB = Gravitmod.iter_adj_wgt(travs, gvalsr)
 
-# print("gvalsr_m, ", gvalsr_m)
-# print("travs, ", travs)
-
-#print(Gravitmod.iter_adj_in(travs, gvalsr_m))
-
-# print(gvalsradj)
+print(gvalsradj)
 # ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
 
 # print("ccoeffs, ", ccoeffs)
