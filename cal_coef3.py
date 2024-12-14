@@ -119,7 +119,7 @@ class Gravitmod:
 
         # check raw produced travels
         gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
-        print("gvals_init_m0 is,", gvals_init_m0)
+        print("Initial travels matrix is ,", gvals_init_m0)
 
     
         # for p1, p2 in zip(travs, gvals_init_m0):
@@ -152,31 +152,7 @@ class Gravitmod:
             # print(sum(a1))
             # print(sum(a2))
 
-        """
-        After rounding the values obtained with gravitational model, when
-        ckecking the produced and attracted travels (lines 104-114),
-        the travels sums on lines (i.e., produced travels) are equal to
-        the historical data, but not on columns (i.e., attracted travels).
-        Suggested approach: maintain the sums on lines and move from the exceeding
-        sums on columns to the column with less travels.
-        After rounding:
-        [[82, 140, 78],
-         [43, 26, 31],
-         [82, 31, 37]].
-        Sums on lines are okay, [300, 100, 150], but on columns are
-        [207, 197, 146] instead of [200, 160, 190]. There is clearly and excedent
-        on columns 1 and 2 and a lack of on column 3. Remove as much as possible
-        from the exceeding columns and maintain the sums on lines, i.e. move 7 from
-        column 1 to 3 on the line with the highest value (line 3), move 30 from
-        column 2 to 3, on line 1 (highest value), and move 7 from column 2 to 3,
-        on line 2.
-        The final travels matrix will be:
-        [[82, 110, 108],
-         [43, 19, 38],
-         [75, 31, 44]].
-        """
-
-        return gvals_init_r
+        return gvals_init_m
 
     def iter_adj_in(travs, travsc, tlr=0.01):
 
@@ -708,10 +684,10 @@ def logit(u_a, u_t):
 
 gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 
-gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+# gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-Gravitmod.iter_adj_in(travs, gvalsr_m)
-Gravitmod.iter_adj_wgt(travs, gvalsr_m)
+gvalsadjA = Gravitmod.iter_adj_in(travs, gvalsr)
+gvalsadjB = Gravitmod.iter_adj_wgt(travs, gvalsr)
 
 # print("gvalsr_m, ", gvalsr_m)
 # print("travs, ", travs)
