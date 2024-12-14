@@ -115,11 +115,11 @@ class Gravitmod:
                 gvals_init.append((s_Pi[i] * ffs[i][k1] * s_Aj[k1] * k_ijs[i][k1] /
                                    pdsum))
 
-        print("Initial travels obtained with gravitational model, ", gvals_init)
+        #print("Initial travels obtained with gravitational model, ", gvals_init)
 
         # check raw produced travels
         gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
-        print("Initial travels matrix is ,", gvals_init_m0)
+        #print("Initial travels matrix is ,", gvals_init_m0)
 
     
         # for p1, p2 in zip(travs, gvals_init_m0):
@@ -131,7 +131,7 @@ class Gravitmod:
         for item in gvals_init:
             gvals_init_r.append(round(item))
     
-        print("Rounded number of initial travels, ", gvals_init_r)
+        #print("Rounded number of initial travels, ", gvals_init_r)
 
         # group flatten list 'gvals_init_r' as a matrix
         gvals_init_m = [gvals_init_r[i:i + 3] for i in range(0,
@@ -457,7 +457,6 @@ class Gravitmod:
                 print("travsc after pass  i = ", i, "is ", travsc)
             
             
-            # *********
             # working on attracted travels
 
             # transpose de matrices
@@ -549,8 +548,8 @@ class Gravitmod:
                 for item in item:
                     travscr.append(round(item))
 
-        print()
-        print("Final rounded and flatten, ", travscr)
+        #print()
+        #print("Final rounded and flatten, ", travscr)
         travscrm = [travscr[i:i + 3] for i in range(0, len(travscr), 3)]
             
         print()
@@ -617,9 +616,11 @@ class Gravitmod:
         # compute calibration coefficients
         ccoeffs = []
         for row_h, row_c in zip(travs, gvalsradj):
-            ccoeffs.append(round(c_obs / c_comp, 2))
+            for t_h, t_c in zip(row_h, row_c):
+                ccoeffs.append(round(t_h / t_c, 2))
+        ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
-        return ccoeffs
+        return ccoeffs_m
 
 # function for modal option
 def modopt(tca, tct, tda, tdt):
@@ -678,8 +679,14 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 gvalsadjA = Gravitmod.iter_adj_in(travs, gvalsr)
 gvalsadjB = Gravitmod.iter_adj_wgt(travs, gvalsr)
 
-print(gvalsradj)
-# ccoeffs = Gravitmod.ccoeffs(gvalsradj, travs)
+ccoeffsA = Gravitmod.ccoeffs(gvalsadjA, travs)
+ccoeffsB = Gravitmod.ccoeffs(gvalsadjB, travs)
+
+print()
+print("Adjusted matrix A, ", gvalsadjA)
+print("Adjusted matrix B, ", gvalsadjB)
+print("Calibration coefficients matrix A, ", ccoeffsA)
+print("Calibration coefficients matrix B, ", ccoeffsB)
 
 # print("ccoeffs, ", ccoeffs)
 
@@ -687,7 +694,6 @@ print(gvalsradj)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
-# ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
 # print("Calibration coefficients, ", ccoeffs_m)
 
