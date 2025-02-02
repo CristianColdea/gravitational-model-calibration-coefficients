@@ -673,6 +673,7 @@ def logit(u_a, u_t):
     return (w_a, w_t)
 
 gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
+print("gvalsr is, ", gvalsr)
 
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
