@@ -575,10 +575,17 @@ class Gravitmod:
         print()
         print("Enter iter_wgt_dmd method")
 
-        # check if the matrices have the same shape
-        if(len(travs) != len(travsc)):
-            print("The matrices doesn't match. Please fix it.")
+        # check if the matrices have the correct shape
+        # check with the future produced
+        if(len(travs) != len(P_is)):
+            print("The travels matrix doesn't match with the future
+                  produced! Please fix it.")
             exit()
+
+        # check with the future attracted
+        if(len(travs[0]) != len(A_js)):
+            print("The travesl matrix doesn't match with the future
+                  attracted! Please fix it.")
         
         # function to compare the produced, respectively attracted travels
         # within a certain tolerance
