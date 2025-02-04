@@ -73,9 +73,9 @@ class Gravitmod:
         """
         Method to compute gravitational model values in order to determine the
         calibration factors.
-        Takes as input the travels, calibration coefficients and friction factors
-        matrices.
-        Returns a matrix with calibration factors.
+        Takes as input the travels, friction factors and calibration
+        coefficients matrices.
+        Returns a matrix with the computed travels.
         """
     
         # check if the matrices have the same shape
@@ -573,7 +573,7 @@ class Gravitmod:
         """
 
         print()
-        print("Enter iter_adj_wgt method")
+        print("Enter iter_wgt_dmd method")
 
         # check if the matrices have the same shape
         if(len(travs) != len(travsc)):
@@ -895,7 +895,7 @@ def logit(u_a, u_t):
     return (w_a, w_t)
 
 gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
-print("gvalsr is, ", gvalsr)
+# print("gvalsr is, ", gvalsr)
 
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
