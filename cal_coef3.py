@@ -578,13 +578,13 @@ class Gravitmod:
         # check if the matrices have the correct shape
         # check with the future produced
         if(len(travs) != len(P_is)):
-            print("The travels matrix doesn't match with the future
+            print("The travels matrix doesn't match with the future\
                   produced! Please fix it.")
             exit()
 
         # check with the future attracted
         if(len(travs[0]) != len(A_js)):
-            print("The travesl matrix doesn't match with the future
+            print("The travesl matrix doesn't match with the future\
                   attracted! Please fix it.")
         
         # function to compare the produced, respectively attracted travels
@@ -692,19 +692,16 @@ class Gravitmod:
             travsc_t = [list(sublist) for sublist in travsc_tt]
 
             # get attracted travels sums on computed travels (cycling on transposes)
-            s_Ajc = []   # store the attracted sums
+            s_Ajc = A_js
 
-            for item in travsc_tt:
-                s_Ajc.append(sum(item))
-            
             print()
             print("s_Ajh, ", s_Ajh)
             print("s_Ajc, ", s_Ajc)
             
             if (comp(s_Ajh, s_Ajc, tlr) == False):
                 delta_A = []    #list to store the deltas of attracted travels
-                for Ajh, Ajc in zip(s_Ajh, s_Ajc):
-                    delta_A.append(Ajh - Ajc)
+                for Ajc, Ajh in zip(s_Ajc, s_Ajh):
+                    delta_A.append(Ajc - Ajh)
                 remind_A = []    #matrix of additions to travels, atrracted
                 for cA, delta_j in zip(c_Aj, delta_A):
                     for c in cA:
@@ -904,17 +901,21 @@ gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-gvalsadjA = Gravitmod.iter_adj_in(travs, gvalsr)
-gvalsadjB = Gravitmod.iter_adj_wgt(travs, gvalsr)
+#gvalsadjA = Gravitmod.iter_adj_in(travs, gvalsr)
+#gvalsadjB = Gravitmod.iter_adj_wgt(travs, gvalsr)
 
-ccoeffsA = Gravitmod.ccoeffs(gvalsadjA, travs)
-ccoeffsB = Gravitmod.ccoeffs(gvalsadjB, travs)
+#ccoeffsA = Gravitmod.ccoeffs(gvalsadjA, travs)
+#ccoeffsB = Gravitmod.ccoeffs(gvalsadjB, travs)
 
+travsc_wgtd = Gravitmod.iter_wgt_dmd(travs, P_is, A_js)
 print()
-print("Adjusted matrix A, ", gvalsadjA)
-print("Adjusted matrix B, ", gvalsadjB)
-print("Calibration coefficients matrix A, ", ccoeffsA)
-print("Calibration coefficients matrix B, ", ccoeffsB)
+print("Matrix of travels obtained with weighted coefficients is, ",
+      travsc_wgtd)
+
+#print("Adjusted matrix A, ", gvalsadjA)
+#print("Adjusted matrix B, ", gvalsadjB)
+#print("Calibration coefficients matrix A, ", ccoeffsA)
+#print("Calibration coefficients matrix B, ", ccoeffsB)
 
 # print("ccoeffs, ", ccoeffs)
 
