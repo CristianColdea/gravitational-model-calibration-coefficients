@@ -559,7 +559,7 @@ class Gravitmod:
         
         return travscrm
 
-    def iter_wgt_dmd(travs, travsc, P_is, A_js, tlr=0.01):
+    def iter_wgt_dmd(travs, P_is, A_js, tlr=0.01):
 
         """
         Method to iteratively weight compute the future travels distribution.
@@ -645,10 +645,8 @@ class Gravitmod:
 
         while(cmp_flg == False):
                        
-            # get produced travels sums on compputed travels
-            s_Pic = []
-            for item in travsc:
-                s_Pic.append(sum(item))
+            # get produced travels sums on computed travels
+            s_Pic = P_is   #kept notation for code reuse from the last method
             
             print()
             print("s_Pih, ", s_Pih)
@@ -658,8 +656,8 @@ class Gravitmod:
             print(cmp_flg)
             if (comp(s_Pih, s_Pic, tlr) == False):
                 delta_P = []    #list to store the deltas of produced travels
-                for Pih, Pic in zip(s_Pih, s_Pic):
-                    delta_P.append(Pih - Pic)
+                for Pic, Pih in zip(s_Pih, s_Pic):
+                    delta_P.append(Pic - Pih)
                 remind_P = []    #matrix of additions to travels, produced
                 for cP, delta_i in zip(c_Pi, delta_P):
                     for c in cP:
@@ -667,12 +665,13 @@ class Gravitmod:
                 remind_P = [remind_P[i:i + 3] for i in range(0, len(remind_P), 3)]
                 print("remind_P, ", remind_P)
                 travsP = []   # list to store adjusted travels matrix, produced
-                for remP, trav in zip(remind_P, travsc):
+                for remP, trav in zip(remind_P, travs):
                     for rem, t in zip(remP, trav):
                         travsP.append(rem+t)
 
                 #travsc.clear()
 
+                travsc = []
                 travsc = [travsP[i:i + 3] for i in range(0, len(travsP), 3)]
 
                 print()
@@ -687,10 +686,9 @@ class Gravitmod:
             
             # working on attracted travels
 
-            # transpose de matrices
+            # transpose de matrix
             travsc_tt = list(zip(*travsc))
 
-            #travs_t = [list(sublist) for sublist in travs_tt]
             travsc_t = [list(sublist) for sublist in travsc_tt]
 
             # get attracted travels sums on computed travels (cycling on transposes)
