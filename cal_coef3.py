@@ -459,7 +459,7 @@ class Gravitmod:
             
             # working on attracted travels
 
-            # transpose de matrices
+            # transpose de matrix
             travsc_tt = list(zip(*travsc))
 
             #travs_t = [list(sublist) for sublist in travs_tt]
@@ -642,6 +642,9 @@ class Gravitmod:
         cmp_flg = False  # comparison flag to govern the following cycle
         i = 0   # produced passes counter
         j = 0   # attracted passes counter
+        
+        # allocate initial computed travels matrix
+        travsc = travs
 
         while(cmp_flg == False):
                        
@@ -654,12 +657,12 @@ class Gravitmod:
             print("s_Pih, ", s_Pih)
             print("s_Pic, ", s_Pic)
             
-            cmp_flg = comp(s_Pih, s_Pic, tlr)
+            cmp_flg = comp(s_Pic, P_is, tlr)
             print(cmp_flg)
-            if (comp(s_Pih, s_Pic, tlr) == False):
+            if (comp(s_Pic, P_is, tlr) == False):
                 delta_P = []    #list to store the deltas of produced travels
-                for Pic, Pih in zip(s_Pih, s_Pic):
-                    delta_P.append(Pic - Pih)
+                for Pis, Pic in zip(P_is, s_Pic):
+                    delta_P.append(Pis - Pic)
                 remind_P = []    #matrix of additions to travels, produced
                 for cP, delta_i in zip(c_Pi, delta_P):
                     for c in cP:
@@ -673,7 +676,6 @@ class Gravitmod:
 
                 #travsc.clear()
 
-                travsc = []
                 travsc = [travsP[i:i + 3] for i in range(0, len(travsP), 3)]
 
                 print()
@@ -687,20 +689,23 @@ class Gravitmod:
             
             
             # working on attracted travels
-
+            
             # transpose de matrix
             travsc_tt = list(zip(*travsc))
 
             travsc_t = [list(sublist) for sublist in travsc_tt]
 
             # get attracted travels sums on computed travels (cycling on transposes)
-            s_Ajc = A_js   #kept notation for code reuse 
+            s_Ajc = []   # store the attracted sums
 
+            for item in travsc_tt:
+                s_Ajc.append(sum(item))
+            
             print()
             print("s_Ajh, ", s_Ajh)
             print("s_Ajc, ", s_Ajc)
-            
-            if (comp(s_Ajh, s_Ajc, tlr) == False):
+
+            if (comp(s_Ajc, A_js, tlr) == False):
                 delta_A = []    #list to store the deltas of attracted travels
                 for Ajc, Ajh in zip(s_Ajc, s_Ajh):
                     delta_A.append(Ajc - Ajh)
