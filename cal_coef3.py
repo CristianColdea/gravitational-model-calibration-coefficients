@@ -654,7 +654,7 @@ class Gravitmod:
                 s_Pic.append(sum(item))
 
             print()
-            print("s_Pih, ", s_Pih)
+            print("P_is, ", P_is)
             print("s_Pic, ", s_Pic)
             
             cmp_flg = comp(s_Pic, P_is, tlr)
@@ -702,13 +702,13 @@ class Gravitmod:
                 s_Ajc.append(sum(item))
             
             print()
-            print("s_Ajh, ", s_Ajh)
+            print("A_js, ", A_js)
             print("s_Ajc, ", s_Ajc)
 
             if (comp(s_Ajc, A_js, tlr) == False):
                 delta_A = []    #list to store the deltas of attracted travels
-                for Ajc, Ajh in zip(s_Ajc, s_Ajh):
-                    delta_A.append(Ajc - Ajh)
+                for Ajs, Ajc in zip(A_js, s_Ajc):
+                    delta_A.append(Ajs - Ajc)
                 remind_A = []    #matrix of additions to travels, atrracted
                 for cA, delta_j in zip(c_Aj, delta_A):
                     for c in cA:
