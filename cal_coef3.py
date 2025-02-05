@@ -417,7 +417,7 @@ class Gravitmod:
 
         while(cmp_flg == False):
                        
-            # get produced travels sums on compputed travels
+            # get produced travels sums on computed travels
             s_Pic = []
             for item in travsc:
                 s_Pic.append(sum(item))
@@ -646,8 +646,10 @@ class Gravitmod:
         while(cmp_flg == False):
                        
             # get produced travels sums on computed travels
-            s_Pic = P_is   #kept notation for code reuse from the last method
-            
+            s_Pic = []
+            for item in travsc:
+                s_Pic.append(sum(item))
+
             print()
             print("s_Pih, ", s_Pih)
             print("s_Pic, ", s_Pic)
@@ -692,7 +694,7 @@ class Gravitmod:
             travsc_t = [list(sublist) for sublist in travsc_tt]
 
             # get attracted travels sums on computed travels (cycling on transposes)
-            s_Ajc = A_js
+            s_Ajc = A_js   #kept notation for code reuse 
 
             print()
             print("s_Ajh, ", s_Ajh)
