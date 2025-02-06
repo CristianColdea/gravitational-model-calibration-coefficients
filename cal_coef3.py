@@ -773,6 +773,9 @@ class Gravitmod:
             else:
                 cmp_flg = False
 
+            if(j == 3):
+                cmp_flg = True
+
             travscr = []     # list to store rounded values, flatten form
             for item in travsc:
                 for item in item:
