@@ -577,6 +577,7 @@ class Gravitmod:
 
         print()
         print("Historical travels matrix travs is, ", travs)
+        print()
 
         # check if the matrices have the correct shape
         # check with the future produced
@@ -673,7 +674,7 @@ class Gravitmod:
                 remind_P = [remind_P[i:i + 3] for i in range(0, len(remind_P), 3)]
                 print("remind_P, ", remind_P)
                 travsP = []   # list to store adjusted travels matrix, produced
-                for remP, trav in zip(remind_P, travs):
+                for remP, trav in zip(remind_P, travsc):
                     for rem, t in zip(remP, trav):
                         travsP.append(rem+t)
 
@@ -682,7 +683,7 @@ class Gravitmod:
                 travsc = [travsP[i:i + 3] for i in range(0, len(travsP), 3)]
 
                 print()
-                print("travs, ", travs)
+                # print("travs, ", travs)
                 print("travsc, ", travsc)
                 
                 i += 1
@@ -909,7 +910,7 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
+# gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
 # print("gvalsr is, ", gvalsr)
 
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
