@@ -575,6 +575,9 @@ class Gravitmod:
         print()
         print("Enter iter_wgt_dmd method")
 
+        print()
+        print("Historical travels matrix travs is, ", travs)
+
         # check if the matrices have the correct shape
         # check with the future produced
         if(len(travs) != len(P_is)):
@@ -773,8 +776,8 @@ class Gravitmod:
             else:
                 cmp_flg = False
 
-            #if(j == 3):   #block the loop at 3 iterations
-            #    cmp_flg = True
+            if(j == 3):   #block the loop at 3 iterations
+                cmp_flg = True
 
             travscr = []     # list to store rounded values, flatten form
             for item in travsc:
