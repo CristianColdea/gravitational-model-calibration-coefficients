@@ -762,10 +762,10 @@ class Gravitmod:
             print()
             print("s_Pic, ", s_Pic)
 
-            cmp_flgA = comp(s_Ajh, s_Ajc, tlr)
+            cmp_flgA = comp(s_Ajc, A_js, tlr)
             print("Flag on attracted, ", cmp_flgA)
             
-            cmp_flgP = comp(s_Pih, s_Pic, tlr)
+            cmp_flgP = comp(s_Pic, P_is, tlr)
             print("Flag on produced, ", cmp_flgP)
 
             if(cmp_flgA == True and cmp_flgP == True):
@@ -773,8 +773,8 @@ class Gravitmod:
             else:
                 cmp_flg = False
 
-            if(j == 3):
-                cmp_flg = True
+            #if(j == 3):   #block the loop at 3 iterations
+            #    cmp_flg = True
 
             travscr = []     # list to store rounded values, flatten form
             for item in travsc:
