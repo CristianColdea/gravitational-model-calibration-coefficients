@@ -684,16 +684,25 @@ class Gravitmod:
 
                 print()
                 # print("travs, ", travs)
-                print("travsc, ", travsc)
+                # print("travsc, ", travsc)
                 
                 i += 1
 
                 print()
                 print("travsc after pass  i = ", i, "is ", travsc)
             
+            s_Pic.clear()
+
+            for item in travsc:
+                s_Pic.append(sum(item))
+
+            print()
+            print("s_Pic, ", s_Pic)
             
-            # working on attracted travels
-            
+            """
+            working on attracted travels
+            """
+
             # transpose de matrix
             travsc_tt = list(zip(*travsc))
 
@@ -713,6 +722,10 @@ class Gravitmod:
                 delta_A = []    #list to store the deltas of attracted travels
                 for Ajs, Ajc in zip(A_js, s_Ajc):
                     delta_A.append(Ajs - Ajc)
+                print()
+                print("delta_A, ", delta_A)
+                print()
+
                 remind_A = []    #matrix of additions to travels, atrracted
                 for cA, delta_j in zip(c_Aj, delta_A):
                     for c in cA:
@@ -738,7 +751,7 @@ class Gravitmod:
                 print("travsc_tt, ", travsc_tt)
 
                 print()
-                print("travs, ", travs)
+                # print("travs, ", travs)
                 print("travsc, ", travsc)
                 
                 j += 1
@@ -751,7 +764,7 @@ class Gravitmod:
             # get attracted travels sums on new computed travels (cycling on transposes)
             s_Ajc.clear()   # clear the computed attracted sums
 
-            for item in travsc_tt:
+            for item in travsc_t:
                 s_Ajc.append(sum(item))
 
             print()
