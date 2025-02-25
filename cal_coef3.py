@@ -590,6 +590,8 @@ class Gravitmod:
         if(len(travs[0]) != len(A_js)):
             print("The travesl matrix doesn't match with the future\
                   attracted! Please fix it.")
+
+            exit()
         
         # function to compare the produced, respectively attracted travels
         # within a certain tolerance
@@ -790,8 +792,8 @@ class Gravitmod:
             else:
                 cmp_flg = False
 
-            if(j == 3):   #block the loop at 3 iterations
-                cmp_flg = True
+            #if(j == 3):   #block the loop at 3 iterations
+            #    cmp_flg = True
 
             travscr = []     # list to store rounded values, flatten form
             for item in travsc:
