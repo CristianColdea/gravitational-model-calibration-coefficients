@@ -61,7 +61,7 @@ P_is = [750, 580, 480]
 
 A_js = [722, 786, 302]
 
-class Gravitmod:
+class GravitMod:
     def __init__(self, travs, ffs, k_ijs, P_is, A_js):
         self.travs = travs
         self.ffs = ffs
@@ -925,18 +925,18 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-# gvalsr = Gravitmod.gravmod_init(travs, ffs, k_ij0)
+# gvalsr = GravitMod.gravmod_init(travs, ffs, k_ij0)
 # print("gvalsr is, ", gvalsr)
 
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-#gvalsadjA = Gravitmod.iter_adj_in(travs, gvalsr)
-#gvalsadjB = Gravitmod.iter_adj_wgt(travs, gvalsr)
+#gvalsadjA = GravitMod.iter_adj_in(travs, gvalsr)
+#gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
 
-#ccoeffsA = Gravitmod.ccoeffs(gvalsadjA, travs)
-#ccoeffsB = Gravitmod.ccoeffs(gvalsadjB, travs)
+#ccoeffsA = GravitMod.ccoeffs(gvalsadjA, travs)
+#ccoeffsB = GravitMod.ccoeffs(gvalsadjB, travs)
 
-travsc_wgtd = Gravitmod.iter_wgt_dmd(travs, P_is, A_js)
+travsc_wgtd = GravitMod.iter_wgt_dmd(travs, P_is, A_js)
 print()
 print("Matrix of travels obtained with weighted coefficients is, ",
       travsc_wgtd)
@@ -948,14 +948,14 @@ print("Matrix of travels obtained with weighted coefficients is, ",
 
 # print("ccoeffs, ", ccoeffs)
 
-# ccoeffs_it = Gravitmod.ccoeffs(gvalsradj_it, travs)
+# ccoeffs_it = GravitMod.ccoeffs(gvalsradj_it, travs)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
 
 # print("Calibration coefficients, ", ccoeffs_m)
 
-# gvalsr_fin = Gravitmod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+# gvalsr_fin = GravitMod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
 # print("Future number of rounded travels, ", gvalsr_fin)
 
