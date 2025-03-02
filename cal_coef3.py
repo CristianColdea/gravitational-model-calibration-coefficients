@@ -200,7 +200,7 @@ class GravitMod:
         # get attracted travels sums on observed travels (cycling on transposes)
         s_Ajh = []   # store the attracted sums
 
-        travs_tt = list(zip(*travs))
+        travs_tt = list(zip(*travs))    # transpose the matrix hist travs
 
         for item in travs_tt:
             s_Ajh.append(sum(item))
@@ -211,7 +211,7 @@ class GravitMod:
 
         while(cmp_flg == False):
                        
-            # get produced travels sums on compputed travels
+            # get produced travels sums on computed travels
             s_Pic = []
             for item in travsc:
                 s_Pic.append(sum(item))
@@ -248,8 +248,8 @@ class GravitMod:
             # transpose de matrices
             travsc_tt = list(zip(*travsc))
 
-            travs_t = [list(sublist) for sublist in travs_tt]
-            travsc_t = [list(sublist) for sublist in travsc_tt]
+            # travs_t = [list(sublist) for sublist in travs_tt]
+            # travsc_t = [list(sublist) for sublist in travsc_tt]
 
             # print()
             # print("travs_t, ", travs_t)
@@ -672,21 +672,21 @@ def logit(u_a, u_t):
 
     return (w_a, w_t)
 
-# gvalsr = GravitMod.gravmod_init(travs, ffs, k_ij0)
-# print("gvalsr is, ", gvalsr)
+gvalsr = GravitMod.gravmod_init(travs, ffs, k_ij0)
+print("gvalsr is, ", gvalsr)
 
-# gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-#gvalsadjA = GravitMod.iter_adj_in(travs, gvalsr)
-#gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
+gvalsadjA = GravitMod.iter_adj_in(travs, gvalsr)
+# gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
 
 #ccoeffsA = GravitMod.ccoeffs(gvalsadjA, travs)
 #ccoeffsB = GravitMod.ccoeffs(gvalsadjB, travs)
 
-travsc_wgtd = GravitMod.iter_wgt_dmd(travs, P_is, A_js)
-print()
-print("Matrix of travels obtained with weighted coefficients is, ",
-      travsc_wgtd)
+# travsc_wgtd = GravitMod.iter_wgt_dmd(travs, P_is, A_js)
+# print()
+# print("Matrix of travels obtained with weighted coefficients is, ",
+#       travsc_wgtd)
 
 #print("Adjusted matrix A, ", gvalsadjA)
 #print("Adjusted matrix B, ", gvalsadjB)
