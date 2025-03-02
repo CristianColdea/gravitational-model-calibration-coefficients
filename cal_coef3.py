@@ -496,8 +496,11 @@ class GravitMod:
                 #travsc.clear()
                 #travsc_t.clear()
 
+                # getting the flatten list into a matrix
                 travsc_t = [travsA[i:i + 3] for i in range(0, len(travsA), 3)]
+                # transposing 'the transposed'
                 travsc_tt = list(zip(*travsc_t))
+                # obtain the matrix after iteration
                 travsc = [list(sublist) for sublist in travsc_tt]
                 print("travsA, ", travsA)
                 print("travsc_t, ", travsc_t)
@@ -555,6 +558,8 @@ class GravitMod:
         print()
         print("Final rounded matrix, ", travscrm)
         print("Historical travels matrix, ", travs)
+        print("i is, ", i)
+        print("j is, ", j)
         print("Exit iter_adj_wgt method.")
         
         return travscrm
