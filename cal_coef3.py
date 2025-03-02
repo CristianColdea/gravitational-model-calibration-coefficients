@@ -387,7 +387,7 @@ class GravitMod:
         # get attracted travels sums on observed travels (cycling on transposes)
         s_Ajh = []   # store the attracted sums
 
-        travs_tt = list(zip(*travs))
+        travs_tt = list(zip(*travs))    # transpose hist travels matrix
 
         for item in travs_tt:
             s_Ajh.append(sum(item))
@@ -463,7 +463,7 @@ class GravitMod:
             travsc_tt = list(zip(*travsc))
 
             #travs_t = [list(sublist) for sublist in travs_tt]
-            travsc_t = [list(sublist) for sublist in travsc_tt]
+            # travsc_t = [list(sublist) for sublist in travsc_tt]
 
             # get attracted travels sums on computed travels (cycling on transposes)
             s_Ajc = []   # store the attracted sums
@@ -675,10 +675,10 @@ def logit(u_a, u_t):
 gvalsr = GravitMod.gravmod_init(travs, ffs, k_ij0)
 print("gvalsr is, ", gvalsr)
 
-gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
+# gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 gvalsadjA = GravitMod.iter_adj_in(travs, gvalsr)
-# gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
+gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
 
 #ccoeffsA = GravitMod.ccoeffs(gvalsadjA, travs)
 #ccoeffsB = GravitMod.ccoeffs(gvalsadjB, travs)
