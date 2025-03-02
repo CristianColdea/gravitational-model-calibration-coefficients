@@ -73,7 +73,7 @@ class GravitMod:
         """
         Method to compute gravitational model values in order to determine the
         calibration factors.
-        Takes as input the travels, friction factors and neutral calibration
+        Takes as input the travels, friction factors and calibration
         coefficients matrices.
         Returns a matrix with the computed travels.
         """
