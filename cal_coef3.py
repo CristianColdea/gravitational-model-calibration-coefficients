@@ -704,7 +704,7 @@ gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
-
+ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 # print("Calibration coefficients, ", ccoeffs_m)
 
 # gvalsr_fin = GravitMod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
