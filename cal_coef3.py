@@ -713,4 +713,4 @@ ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)
 
-# w_a, w_t = logit(u_a, u_t)
+w_a, w_t = logit(u_a, u_t)
