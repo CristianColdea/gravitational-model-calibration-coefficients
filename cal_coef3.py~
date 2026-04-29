@@ -119,7 +119,7 @@ class GravitMod:
 
         # check raw produced travels
         gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
-        #print("Initial travels matrix is ,", gvals_init_m0)
+        print("Initial travels matrix is ,", gvals_init_m0)
 
     
         # for p1, p2 in zip(travs, gvals_init_m0):
@@ -230,8 +230,8 @@ class GravitMod:
 
                 #print()
                 #print("travs, ", travs)
-                #print("travsc, ", travsc)
-                #print("coefficients on produced travels, ", ccsi)
+                print("travsc, ", travsc)
+                print("coefficients on produced travels, ", ccsi)
 
                 for x in range(len(travsc)):
                     travsc[x] = [ccsi[x]*item for item in travsc[x]]
@@ -276,8 +276,8 @@ class GravitMod:
 
                 #print()
                 #print("travs, ", travs)
-                #print("travsc, ", travsc)
-                #print("coefficients on attracted travels, ", ccsj)
+                print("travsc, ", travsc)
+                print("coefficients on attracted travels, ", ccsj)
 
                 for x in range(len(travsc_tt)):
                     travsc_tt[x] = [ccsj[x]*item for item in travsc_tt[x]]
@@ -678,33 +678,33 @@ def logit(u_a, u_t):
     return (w_a, w_t)
 
 gvalsr = GravitMod.gravmod_init(travs, ffs, k_ij0)
-print("gvalsr is, ", gvalsr)
+# print("gvalsr is, ", gvalsr)
 
 # gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 gvalsadjA = GravitMod.iter_adj_in(travs, gvalsr)
-gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
+# gvalsadjB = GravitMod.iter_adj_wgt(travs, gvalsr)
 
-ccoeffs = GravitMod.ccoeffs(gvalsadjA, travs)
-#ccoeffsB = GravitMod.ccoeffs(gvalsadjB, travs)
+ccoeffsA = GravitMod.ccoeffs(gvalsadjA, travs)
+# ccoeffsB = GravitMod.ccoeffs(gvalsadjB, travs)
 
 # travsc_wgtd = GravitMod.iter_wgt_dmd(travs, P_is, A_js)
 # print()
 # print("Matrix of travels obtained with weighted coefficients is, ",
 #       travsc_wgtd)
 
-#print("Adjusted matrix A, ", gvalsadjA)
+print("Adjusted matrix A, ", gvalsadjA)
 #print("Adjusted matrix B, ", gvalsadjB)
-#print("Calibration coefficients matrix A, ", ccoeffsA)
+print("Calibration coefficients matrix A, ", ccoeffsA)
 #print("Calibration coefficients matrix B, ", ccoeffsB)
 
-# print("ccoeffs, ", ccoeffs)
+# print("ccoeffsA, ", ccoeffsA)
 
 # ccoeffs_it = GravitMod.ccoeffs(gvalsradj_it, travs)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
-ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
+ccoeffs_m = [ccoeffsA[i:i + 3] for i in range(0, len(ccoeffsA), 3)]
 # print("Calibration coefficients, ", ccoeffs_m)
 
 # gvalsr_fin = GravitMod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
