@@ -119,7 +119,11 @@ class GravitMod:
 
         # check raw produced travels
         gvals_init_m0 = [gvals_init[i:i + 3] for i in range(0, len(gvals_init), 3)]
-        print("Initial travels matrix is ,", gvals_init_m0)
+        vals_r = []
+        for r in gvals_init_m0:
+            r_r = [round(el, 2) for el in r]
+            vals_r.append(r_r)
+        print("Initial travels matrix (trimed) is ,", vals_r)
 
     
         # for p1, p2 in zip(travs, gvals_init_m0):
@@ -131,7 +135,7 @@ class GravitMod:
         for item in gvals_init:
             gvals_init_r.append(round(item))
     
-        #print("Rounded number of initial travels, ", gvals_init_r)
+        # print("Rounded number of initial travels, ", gvals_init_r)
 
         # group flatten list 'gvals_init_r' as a matrix
         gvals_init_m = [gvals_init_r[i:i + 3] for i in range(0,
