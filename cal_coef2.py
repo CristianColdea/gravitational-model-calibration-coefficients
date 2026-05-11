@@ -319,7 +319,7 @@ class Iter_balance:
 
 
 
-    def adjt(travsc, travs, P_is=[], A_js=[], tlr=0.02):
+    def adjt(travsc, travs, P_is=[], A_js=[], tlr=0.01):
 
         """
         Method to iteratively adjust travels computed with gravitational model.
@@ -667,7 +667,7 @@ class Iter_balance:
 
 
 # flatten computed travels, classical method (i.e., iterative balancing)
-gvalsradj_it = [81, 116, 103, 42, 20, 38, 77, 24, 49]
+# gvalsradj_it = [81, 116, 103, 41, 20, 39, 78, 25, 47]
 
 # function for modal option
 def modopt(tca, tct, tda, tdt):
@@ -729,13 +729,20 @@ gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
 # print("gvalsr_m, ", gvalsr_m)
 
-#gvalsradj_it = Iter_balance.adjt(gvalsr_m, travs)
+gvalsradj_it = Iter_balance.adjt(gvalsr_m, travs)
 
 # print(gvalsr)
 
-# print("Adjusted numbers of travels, ", gvalsradj)
+print("Adjusted numbers of travels matrix, ", gvalsradj_it)
 
-ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
+g_it_flat = []
+for r in gvalsradj_it:
+    for v in r:
+        g_it_flat.append(v)
+
+print(f"Initial adjusted flatten: {g_it_flat}")
+
+#ccoeffs = Gravit_mod.ccoeffs(g_it_flat, travs)
 
 # ccoeffsa = Gravit_mod.ccoeffs(gvalsra, travsa)
 # print("Coeffs calibration AET exam, ", ccoeffsa)
@@ -747,18 +754,18 @@ ccoeffs = Gravit_mod.ccoeffs(gvalsradj, travs)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
-ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
+#ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
-# print("Calibration coefficients matrix, ", ccoeffs_m)
+#print("Calibration coefficients matrix, ", ccoeffs_m)
 
-gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+#gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
-gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
-# print("Future number of rounded travels, ", gvalsr_fin_m)
+#gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
+#print("Future number of rounded travels, ", gvalsr_fin_m)
 
-# gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
+#gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
 
-gvalsradj_fin_w = Iter_balance.adjt_w(gvalsr_m, travs, ffs, ffs_f, P_is, A_js)
+# gvalsradj_fin_w = Iter_balance.adjt_w(gvalsr_m, travs, ffs, ffs_f, P_is, A_js)
 
 
 # u_a, u_t = modopt(tca, tct, tda, tdt)

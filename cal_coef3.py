@@ -609,7 +609,7 @@ class GravitMod:
         for item in gvals_fin:
             gvals_fin_r.append(round(item))
     
-        print("Rounded number of furure travels, ", gvals_fin_r)
+        print("Rounded number of future travels, ", gvals_fin_r)
         print("Total travels sum, ", sum(gvals_fin_r))
 
         # group flatten list 'gvals_fin_r' as a matrix
@@ -709,9 +709,9 @@ print("Calibration coefficients matrix A, ", ccoeffsA)
 # print("ccoeffs_it, ", ccoeffs_it)
 
 ccoeffs_m = [ccoeffsA[i:i + 3] for i in range(0, len(ccoeffsA), 3)]
-# print("Calibration coefficients, ", ccoeffs_m)
+print("Calibration coefficients, ", ccoeffs_m)
 
-# gvalsr_fin = GravitMod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+gvalsr_fin = GravitMod.gravmod_fin(ffs_f, ccoeffsA, P_is, A_js)
 
 # print("Future number of rounded travels, ", gvalsr_fin)
 
