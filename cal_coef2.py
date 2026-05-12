@@ -336,9 +336,9 @@ class Iter_balance:
         # print("travs, ", travs)
 
         # check if the matrices have the same shape
-        #if(travs != 0 and len(travs) != len(travsc)):
-        #    print("The matrices don't match. Please fix it.")
-        #    exit()
+        if(travs != 0 and len(travs) != len(travsc)):
+            print("The matrices don't match. Please fix it.")
+            exit()
     
         # transpose de matrices
         # travsc_tt = list(zip(*travsc))
@@ -727,7 +727,7 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-# print("gvalsr_m, ", gvalsr_m)
+print("gvalsr_m, ", gvalsr_m)
 
 gvalsradj_it = Iter_balance.adjt(gvalsr_m, travs)
 
