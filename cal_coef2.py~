@@ -356,13 +356,13 @@ class Iter_balance:
             for item in travs_t:
                 A_js.append(sum(item))
         
-            print("A_js, ", A_js)
+            print("A_js provided, ", A_js)
 
             # get produced travels sums on observed travels
             for item in travs:
                 P_is.append(sum(item))
 
-            print("P_is, ", P_is, '\n')
+            print("P_is provided, ", P_is, '\n')
        
         # check the produced and attracted travels, respectively
         # get initial produced travels sums on computed travels
@@ -372,7 +372,7 @@ class Iter_balance:
 
         print("P_isc, ", P_isc)
 
-        bflg = False    #bool flag for 'while' loop
+        bflg = False    # bool flag for 'while' loop
         p = 1           # counting passes over travsc matrix
         # print("travsc init, ", travsc)
 
@@ -431,7 +431,7 @@ class Iter_balance:
                 # print("travsc_t after update is, ", travsc_t)
             
                 travsc = [list(sublist) for sublist in list(zip(*travsc_t))]
-                print("Adjusted matrix after pass_c ", p, "are",  travsc)
+                print("Adjusted matrix after pass_c ", p, "is",  travsc)
 
                 # print("travsc after pass ", p, "are",  travsc)
 

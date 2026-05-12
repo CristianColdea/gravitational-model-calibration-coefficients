@@ -372,7 +372,7 @@ class Iter_balance:
 
         print("P_isc, ", P_isc)
 
-        bflg = False    #bool flag for 'while' loop
+        bflg = False    # bool flag for 'while' loop
         p = 1           # counting passes over travsc matrix
         # print("travsc init, ", travsc)
 
@@ -398,7 +398,7 @@ class Iter_balance:
                         # print("current ratio is, ", rat_sto[indx])
                         travsc[indx][i] = val * rat_sto[indx]
                         # print("item after is, ", item)
-                print("Adjusted matrix after pass_r ", p, "are",  travsc)
+                print("Adjusted matrix after pass_r ", p, "is",  travsc)
                 P_isc.clear()
                 for item in travsc:
                     P_isc.append(sum(item))
@@ -431,7 +431,7 @@ class Iter_balance:
                 # print("travsc_t after update is, ", travsc_t)
             
                 travsc = [list(sublist) for sublist in list(zip(*travsc_t))]
-                print("Adjusted matrix after pass_c ", p, "are",  travsc)
+                print("Adjusted matrix after pass_c ", p, "is",  travsc)
 
                 # print("travsc after pass ", p, "are",  travsc)
 
