@@ -777,7 +777,8 @@ gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
 
 #print("Future travels adjusted, ", gvalsradj_fin_it)
 u_a, u_t = modopt(tca, tct, tda, tdt)
-print("utilities, ", u_a, u_t, '\n')
+print("Utilities auto, ", u_a)
+print("Utilities transit, ", u_t, '\n')
 
 
 # utilities auto and trasit AET exam
