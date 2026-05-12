@@ -333,6 +333,8 @@ class Iter_balance:
         data), and second when only the future travels are computed (with no
         prior data collection).
         """
+
+        print("Enter adjustment method.")
         # print("travs, ", travs)
 
         # check if the matrices have the same shape
@@ -468,6 +470,7 @@ class Iter_balance:
 
         print(f"travsc_m final is: {travsc_m}")
 
+        print("Exit adjustment method.")
 
         return travsc_m
        
@@ -742,13 +745,13 @@ for r in gvalsradj_it:
 
 print(f"Initial adjusted flatten: {g_it_flat}")
 
-#ccoeffs = Gravit_mod.ccoeffs(g_it_flat, travs)
+ccoeffs = Gravit_mod.ccoeffs(g_it_flat, travs)
 
 # ccoeffsa = Gravit_mod.ccoeffs(gvalsra, travsa)
 # print("Coeffs calibration AET exam, ", ccoeffsa)
 
 
-# print("ccoeffs, ", ccoeffs)
+print("ccoeffs, ", ccoeffs)
 
 # ccoeffs_it = Gravit_mod.ccoeffs(gvalsradj_it, travs)
 
