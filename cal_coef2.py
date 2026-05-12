@@ -466,10 +466,10 @@ class Iter_balance:
 
         travsc_m = [travsc_r[i:i + 3] for i in range(0, len(travsc_r), 3)]
 
-        print(travsc_m)
+        print(f"travsc_m final is: {travsc_m}")
 
 
-        pass
+        return travsc_m
        
     def adjt_w(travsc, travs, ffs, ffs_f, P_is=[], A_js=[], tlr=0.02):
 
