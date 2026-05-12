@@ -356,13 +356,13 @@ class Iter_balance:
             for item in travs_t:
                 A_js.append(sum(item))
         
-            print("A_js provided, ", A_js)
+            print("A_js, ", A_js)
 
             # get produced travels sums on observed travels
             for item in travs:
                 P_is.append(sum(item))
 
-            print("P_is provided, ", P_is, '\n')
+            print("P_is, ", P_is, '\n')
        
         # check the produced and attracted travels, respectively
         # get initial produced travels sums on computed travels
