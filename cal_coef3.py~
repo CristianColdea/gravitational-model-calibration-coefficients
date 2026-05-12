@@ -579,6 +579,8 @@ class GravitMod:
         model.
         """
         
+        print()
+        print("Enter the gravitmod final method.")
         # check if the matrices have the same shape
         if(len(k_ijs) != len(ffs) or (len(k_ijs) != len(P_is)) or \
            (len(k_ijs) != len(A_js))):
@@ -591,8 +593,8 @@ class GravitMod:
             pdsum = 0
             for j1, j2 in zip(A_js, ffs[i]):
                 pdsum = pdsum + j1 * j2
-                print("pdsum fin, ", pdsum)
-                print("ffs[i] fin, ", ffs[i])
+                #print("pdsum fin, ", pdsum)
+                #print("ffs[i] fin, ", ffs[i])
                 # print("A_j, ", j1)
             for k1 in range(len(ffs[i])):
                 gvals_fin.append((P_is[i] * ffs[i][k1] * A_js[k1] * k_ijs[i][k1] / pdsum))

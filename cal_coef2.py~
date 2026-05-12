@@ -283,7 +283,7 @@ class Iter_balance:
         self.tlr = tlr
 
 
-    def comp(s_ih, s_ic, tlr=0.02):
+    def comp(s_ih, s_ic, tlr=0.01):
             """
             Method to compare two lists of values, within tolerance.
             Takes as inputs the lists of to be compared values
@@ -338,17 +338,17 @@ class Iter_balance:
         # print("travs, ", travs)
 
         # check if the matrices have the same shape
-        if(travs != 0 and len(travs) != len(travsc)):
-            print("The matrices don't match. Please fix it.")
-            exit()
+        # if(travs != 0 and len(travs) != len(travsc)):
+        #    print("The matrices don't match. Please fix it.")
+        #    exit()
     
         # transpose de matrices
         # travsc_tt = list(zip(*travsc))
         # print("travsc_tt, ", travsc_tt)
         # print(travs[0] != 0)
         # print("travs, ", travs)
-        print("P_is, ", P_is)
-        print("A_js, ", A_js)
+        # print("P_is input, ", P_is)
+        # print("A_js input, ", A_js,'\n')
 
         if(travs[0] != 0): #the historical travels are provided
             # get the transpose matrix of known ones
@@ -358,13 +358,13 @@ class Iter_balance:
             for item in travs_t:
                 A_js.append(sum(item))
         
-            print("A_js provided, ", A_js)
+            # print("A_js of the matrix, ", A_js)
 
             # get produced travels sums on observed travels
             for item in travs:
                 P_is.append(sum(item))
 
-            print("P_is provided, ", P_is, '\n')
+            # print("P_is of the matrix, ", P_is, '\n')
        
         # check the produced and attracted travels, respectively
         # get initial produced travels sums on computed travels
@@ -372,22 +372,27 @@ class Iter_balance:
         for item in travsc:
             P_isc.append(sum(item))
 
-        print("P_isc, ", P_isc)
+        # print("P_isc before loop, ", P_isc, '\n')
 
         bflg = False    # bool flag for 'while' loop
-        p = 1           # counting passes over travsc matrix
+        p = 0           # counting passes over travsc matrix
         # print("travsc init, ", travsc)
 
         while(bflg == False):
-            # print("P_isc, ", P_isc)
-            # print("A_js, ", A_js)
+            #print("P_isc after ", p, "pass ", P_isc)
+            #print("P_is after ",p, "pass ", P_is)
+            #print("A_js after ",p, "pass ", A_js)
+            #print("travsc after ",p, "pass ", travsc, '\n')
             
             rat_sto = []    #store travels ratios
             rat_sto.clear()     #clear out the previous values stored
             for pih, pic in zip(P_is, P_isc):  #compute rows coeffs and store
+                #print("p_ih before adj, ", pih)
+                #print("p_ic before adj, ", pic)
+
                 rat_sto.append(round(pih / pic, 3))
             
-            print("rat_sto rows, ", rat_sto)
+            # print("rat_sto rows, ", rat_sto)
             travsc = [list(sublist) for sublist in travsc]
 
             print("travsc before adj, ", travsc)
@@ -404,7 +409,7 @@ class Iter_balance:
                 P_isc.clear()
                 for item in travsc:
                     P_isc.append(sum(item))
-                print("P_isc after pass ", p, "is ", P_isc, '\n')
+                # print("P_isc after pass ", p, "is ", P_isc, '\n')
             
             # transpose the new matrix
             travsc_t = [list(sublist) for sublist in list(zip(*travsc))]
@@ -415,14 +420,14 @@ class Iter_balance:
             for item in travsc_t:
                 A_jsc.append(sum(item))
         
-            print("A_jsc, ", A_jsc)
+            # print("A_jsc, ", A_jsc)
 
             rat_sto.clear()     # clear out the previous values stored
             for ajh, ajc in zip(A_js, A_jsc):  # compute cols coeffs and store
                 # print(ajh, ajc)
                 rat_sto.append(round(ajh / ajc, 3))
 
-            print("rat_sto cols, ", rat_sto)
+            #print("rat_sto cols, ", rat_sto)
                 
             if (Iter_balance.comp(A_js, A_jsc, tlr) == False):
                 print("Current cols coeffs are, ", rat_sto)
@@ -437,17 +442,17 @@ class Iter_balance:
 
                 # print("travsc after pass ", p, "are",  travsc)
 
-                A_js.clear()
+                A_jsc.clear()
                 for item in travsc_t:
-                    A_js.append(sum(item))
-                print("A_js after pass ", p, "is ", A_jsc, '\n')
+                    A_jsc.append(sum(item))
+                # print("A_jsc after pass ", p, "is ", A_jsc, '\n')
                 
                 # print("P_is before replacement, ", P_is)
 
-                P_is.clear()
+                P_isc.clear()
                 for item in travsc:
-                    P_is.append(sum(item))
-                print("P_is after pass ", p, "is ", P_is, '\n')
+                    P_isc.append(sum(item))
+                # print("P_isc after pass ", p, "is ", P_isc, '\n')
        
 
             p += 1
@@ -470,7 +475,7 @@ class Iter_balance:
 
         print(f"travsc_m final is: {travsc_m}")
 
-        print("Exit adjustment method.")
+        print("Exit adjustment method.\n")
 
         return travsc_m
        
@@ -730,20 +735,20 @@ gvalsr = Gravit_mod.gravmod_init(travs, ffs, k_ij0)
 
 gvalsr_m = [gvalsr[i:i + 3] for i in range(0, len(gvalsr), 3)]
 
-print("gvalsr_m, ", gvalsr_m)
+print("gvalsr_m, ", gvalsr_m, '\n')
 
 gvalsradj_it = Iter_balance.adjt(gvalsr_m, travs)
 
 # print(gvalsr)
 
-print("Adjusted numbers of travels matrix, ", gvalsradj_it)
+# print("Adjusted numbers of travels matrix, ", gvalsradj_it)
 
 g_it_flat = []
 for r in gvalsradj_it:
     for v in r:
         g_it_flat.append(v)
 
-print(f"Initial adjusted flatten: {g_it_flat}")
+# print(f"Initial adjusted flatten: {g_it_flat}")
 
 ccoeffs = Gravit_mod.ccoeffs(g_it_flat, travs)
 
@@ -751,28 +756,28 @@ ccoeffs = Gravit_mod.ccoeffs(g_it_flat, travs)
 # print("Coeffs calibration AET exam, ", ccoeffsa)
 
 
-print("ccoeffs, ", ccoeffs)
+# print("ccoeffs, ", ccoeffs, '\n')
 
 # ccoeffs_it = Gravit_mod.ccoeffs(gvalsradj_it, travs)
 
 # print("ccoeffs_it, ", ccoeffs_it)
 
-#ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
+ccoeffs_m = [ccoeffs[i:i + 3] for i in range(0, len(ccoeffs), 3)]
 
-#print("Calibration coefficients matrix, ", ccoeffs_m)
+print("Calibration coefficients matrix, ", ccoeffs_m, '\n')
 
-#gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
+gvalsr_fin = Gravit_mod.gravmod_fin(ffs_f, ccoeffs_m, P_is, A_js)
 
-#gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
-#print("Future number of rounded travels, ", gvalsr_fin_m)
+gvalsr_fin_m = [gvalsr_fin[i:i + 3] for i in range(0, len(gvalsr_fin), 3)]
+print("Future number of rounded travels, ", gvalsr_fin_m, '\n')
 
-#gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
+gvalsradj_fin_it = Iter_balance.adjt(gvalsr_fin_m, [0], P_is, A_js)
 
 # gvalsradj_fin_w = Iter_balance.adjt_w(gvalsr_m, travs, ffs, ffs_f, P_is, A_js)
 
-
-# u_a, u_t = modopt(tca, tct, tda, tdt)
-# print("utilities, ", u_a, u_t)
+#print("Future travels adjusted, ", gvalsradj_fin_it)
+u_a, u_t = modopt(tca, tct, tda, tdt)
+print("utilities, ", u_a, u_t, '\n')
 
 
 # utilities auto and trasit AET exam
@@ -780,9 +785,9 @@ print("ccoeffs, ", ccoeffs)
 # print("AET auto utilities, ", u_aa)
 # print("AET transit utilities, ", u_ta, '\n')
 
-# w_a, w_t = logit(u_a, u_t)
-# print("Weights of auto travels, ", w_a)
-# print("Weights of tranzit travels, ", w_t)
+w_a, w_t = logit(u_a, u_t)
+print("Weights of auto travels, ", w_a)
+print("Weights of tranzit travels, ", w_t, '\n')
 
 # w_aa, w_ta = logit(u_aa, u_ta)
 # print("Weights of AET auto travels, ", w_aa)
