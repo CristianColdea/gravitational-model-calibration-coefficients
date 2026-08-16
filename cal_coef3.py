@@ -648,9 +648,9 @@ def modopt(tca, tct, tda, tdt):
 
     for i in range(len(tca)):
         for ca, da in zip(tca[i], tda[i]):
-            u_a.append(2.5 - 0.5 * ca - 0.01 * da)
+            u_a.append(round(2.5 - 0.5 * ca - 0.01 * da, 2))
         for ct, dt in zip(tct[i], tdt[i]):
-            u_t.append(-0.4 * ct - 0.012 * dt)
+            u_t.append(round(-0.4 * ct - 0.012 * dt, 2))
 
     print("Auto utilities, ", u_a)
     print("Transit utilities, ", u_t)
@@ -675,7 +675,7 @@ def logit(u_a, u_t):
         # print(w_i)
         w_i = round(w_i, 2)
         # print(w_i)
-        # w_a.append(w_i)
+        w_a.append(w_i)
         w_t.append(round(1-w_i, 2))
 
     print("Auto travels weights, ", w_a)
