@@ -129,7 +129,7 @@ def gravmod(travs,ffs, k_ij):
 
     """
     After rounding the values obtained with gravitational model, when
-    ckecking the produced and attracted travels (lines 104-114),
+    checking the produced and attracted travels (lines 104-114),
     the travels sums on lines (i.e., produced travels) are equal to
     the historical data, but not on columns (i.e., attracted travels).
     Suggested approach: maintain the sums on lines and move from the exceeding
